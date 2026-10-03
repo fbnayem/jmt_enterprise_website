@@ -1,69 +1,127 @@
-import Image from "next/image";
+import { Check, Phone } from "lucide-react";
+import type { Metadata } from "next";
+import { Placeholder } from "@/components/Placeholder";
+import { CtaBand, FaqList, HowItWorks, SectionHeading, ServiceGrid, VehicleOptions, WhoWeHelp } from "@/components/sections";
+import { TrackedLink } from "@/components/TrackedLink";
+import { business, faqs, reasons } from "@/content/site";
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: { absolute: `Pickup and Delivery for Everyday and Oversized Items | ${business.shortName}` },
+  alternates: { canonical: "/" },
+};
+
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <>
+      <section className="relative overflow-hidden bg-brand-900 text-white">
+        <div className="container-page grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+          <div>
+            <p className="text-sm font-bold uppercase tracking-wide text-accent-400">For individuals and businesses</p>
+            <h1 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+              Pickup and Delivery for Everyday and Oversized Items
+            </h1>
+            <p className="mt-5 max-w-xl text-lg text-brand-100">
+              From Marketplace purchases and furniture to business deliveries, JMT Enterprise helps individuals and businesses move
+              items with vehicle options to suit the job. Tell us what you need moved and request a quote.
+            </p>
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+              <TrackedLink kind="quote" location="hero" href="/request-a-quote" className="btn-primary text-lg">
+                Request a Quote
+              </TrackedLink>
+              <TrackedLink kind="phone" location="hero" href={business.phoneHref} className="btn-on-dark text-lg">
+                <Phone className="size-5" aria-hidden="true" /> Call {business.phoneDisplay}
+              </TrackedLink>
+            </div>
+            <p className="mt-4 text-sm text-brand-200">JMT reviews every request and confirms the price and service with you before anything is booked.</p>
+          </div>
+          <div className="hidden lg:block">
+            <Placeholder title="Hero photo: authentic JMT vehicle or a typical delivery">
+              Use an approved photo of JMT&apos;s vehicles or the items it transports. Licensed stock can illustrate, without implying it
+              shows JMT&apos;s team or fleet.
+            </Placeholder>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
+      </section>
+
+      <section className="py-16" aria-labelledby="services-h">
+        <div className="container-page">
+          <SectionHeading id="services-h" title="What we pick up and deliver" intro="A sofa from a Marketplace seller, a new appliance, an antique or a store delivery. Tell us what it is and where it is going." />
+          <ServiceGrid />
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-16" aria-labelledby="who-h">
+        <div className="container-page">
+          <SectionHeading id="who-h" title="Who we help" intro="Households and businesses use the same simple request form." />
+          <WhoWeHelp />
+        </div>
+      </section>
+
+      <section className="py-16" aria-labelledby="how-h">
+        <div className="container-page">
+          <SectionHeading id="how-h" title="How it works" intro="Nothing is booked until you and JMT agree the details." />
+          <HowItWorks />
+        </div>
+      </section>
+
+      <section className="bg-slate-50 py-16" aria-labelledby="vehicles-h">
+        <div className="container-page">
+          <SectionHeading id="vehicles-h" title="Vehicle options" intro="Four vehicle types, so the job gets the space it needs." />
+          <VehicleOptions />
+        </div>
+      </section>
+
+      <section className="py-16" aria-labelledby="area-h">
+        <div className="container-page grid gap-10 lg:grid-cols-2">
+          <div>
+            <SectionHeading id="area-h" title="Where we work" />
+            <div className="mt-6">
+              {business.serviceArea ? (
+                <p className="text-lg text-muted">{business.serviceArea.summary}</p>
+              ) : (
+                <Placeholder title="Confirmed service area">
+                  Add the cities, ZIP codes and region JMT confirms. Until then, visitors are invited to ask about their location.
+                </Placeholder>
+              )}
+              <p className="mt-4 text-muted">
+                Not sure if we cover your location? Call{" "}
+                <TrackedLink kind="phone" location="area" href={business.phoneHref} className="font-semibold text-brand-700 underline">
+                  {business.phoneDisplay}
+                </TrackedLink>{" "}
+                or send a request and JMT will let you know.
+              </p>
+            </div>
+          </div>
+          <div>
+            <h2 className="text-2xl font-extrabold tracking-tight text-brand-900 sm:text-3xl">Why choose JMT</h2>
+            <ul className="mt-6 space-y-4">
+              {reasons.map((r) => (
+                <li key={r.title} className="flex gap-3">
+                  <Check className="mt-1 size-5 shrink-0 text-brand-600" aria-hidden="true" />
+                  <div>
+                    <p className="font-bold text-brand-900">{r.title}</p>
+                    <p className="text-muted">{r.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials are intentionally omitted until JMT supplies genuine customer reviews. */}
+
+      <section className="bg-slate-50 py-16" aria-labelledby="faq-h">
+        <div className="container-page max-w-3xl">
+          <SectionHeading id="faq-h" title="Common questions" />
+          <FaqList items={faqs.slice(0, 4)} />
+          <a href="/faqs" className="mt-6 inline-block font-semibold text-brand-700 underline underline-offset-4">
+            See all FAQs
           </a>
         </div>
-      </main>
-    </div>
+      </section>
+
+      <CtaBand location="home_bottom" />
+    </>
   );
 }
