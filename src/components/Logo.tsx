@@ -15,10 +15,10 @@ export function Logo({ onDark = false }: { onDark?: boolean }) {
       >
         <Truck className="size-6" />
       </span>
-      <span className={`text-lg font-extrabold leading-tight tracking-tight ${onDark ? "text-white" : "text-brand-900"}`}>
+      <span className={`text-lg whitespace-nowrap font-extrabold leading-tight tracking-tight ${onDark ? "text-white" : "text-brand-900"}`}>
         {business.shortName}
         {pendingContent.logo && !isProductionSite && (
-          <span className="ml-2 hidden rounded bg-amber-200 px-1.5 py-0.5 align-middle text-[10px] sm:inline font-bold uppercase tracking-wide text-amber-900">
+          <span className="ml-2 hidden whitespace-nowrap rounded bg-amber-200 px-1.5 py-0.5 align-middle text-[10px] sm:inline font-bold uppercase tracking-wide text-amber-900">
             Logo pending
           </span>
         )}

@@ -24,13 +24,13 @@ export function Header() {
           <Logo />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
-          <ul className="flex items-center gap-6">
+          <ul className="flex items-center gap-5 xl:gap-6">
             {nav.map((n) => (
               <li key={n.href}>
                 <Link
                   href={n.href}
                   aria-current={pathname === n.href ? "page" : undefined}
-                  className="font-medium text-slate-700 hover:text-brand-700 aria-[current=page]:text-brand-700 aria-[current=page]:underline aria-[current=page]:underline-offset-8"
+                  className="whitespace-nowrap font-medium text-slate-700 hover:text-brand-700 aria-[current=page]:text-brand-700 aria-[current=page]:underline aria-[current=page]:underline-offset-8"
                 >
                   {n.label}
                 </Link>
@@ -39,10 +39,10 @@ export function Header() {
           </ul>
         </nav>
         <div className="hidden items-center gap-3 lg:flex">
-          <TrackedLink kind="phone" location="header" href={business.phoneHref} className="inline-flex items-center gap-2 font-semibold text-brand-800 hover:underline">
+          <TrackedLink kind="phone" location="header" href={business.phoneHref} className="hidden items-center gap-2 whitespace-nowrap font-semibold text-brand-800 hover:underline xl:inline-flex">
             <Phone className="size-4" aria-hidden="true" /> {business.phoneDisplay}
           </TrackedLink>
-          <TrackedLink kind="quote" location="header" href="/request-a-quote" className="btn-primary">
+          <TrackedLink kind="quote" location="header" href="/request-a-quote" className="btn-primary whitespace-nowrap">
             Request a Quote
           </TrackedLink>
         </div>
