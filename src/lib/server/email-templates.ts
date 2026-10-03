@@ -10,7 +10,12 @@ import {
 } from "@/lib/quote/options";
 import type { Access, Address, Item } from "@/lib/quote/schema";
 import { formatIsoDate } from "@/lib/quote/time";
+import { serverConfig } from "./config";
 import type { StoredQuoteRequest } from "./types";
+
+/** Hosted logo for emails. Fixed width/height keep the layout when images are blocked. */
+const logoImg = () =>
+  `<img src="${serverConfig.siteUrl.replace(/\/$/, "")}/brand/jmt-logo-email.png" width="180" height="56" alt="${business.name}" style="display:block;border:0;margin:0 0 20px;height:56px;width:180px">`;
 
 const esc = (s: unknown) =>
   String(s ?? "")
@@ -77,6 +82,7 @@ export function internalEmail(req: StoredQuoteRequest, photoLinks: { name: strin
 
   const linkTtlDays = 7;
   const html = `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#0f172a">
+${logoImg()}
 <h2 style="margin:0 0 4px">New quote request ${esc(req.reference)}</h2>
 <p style="margin:0 0 16px;color:#475569">Awaiting JMT review. Reply to this email to contact the customer directly.</p>
 <table cellpadding="6" style="border-collapse:collapse;font-size:14px">
@@ -118,6 +124,7 @@ export function customerReceiptEmail(req: StoredQuoteRequest) {
   ];
 
   const html = `<!doctype html><html><body style="font-family:Arial,sans-serif;color:#0f172a;line-height:1.5">
+${logoImg()}
 <h2 style="margin:0 0 12px">Your request has been received</h2>
 <p>Hi ${esc(r.name)},</p>
 <p>${esc(intro)}</p>

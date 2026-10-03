@@ -12,7 +12,7 @@ Updated 3 October 2026.
 - **Operator access** is the Supabase dashboard plus `npm run ops`. No custom admin dashboard (later phase).
 - **Testimonials** section is omitted until genuine reviews are supplied.
 - **FAQ answers** are drafted from the brief and need JMT's approval.
-- **Provisional colours** (navy and amber) until the logo arrives.
+- **Brand:** the client's royal-blue logo (supplied 3 October 2026) is used in the header, footer, favicon, share image and emails; the palette is built around its blue (#165DD6) with amber kept for call-to-action buttons. Regenerate the assets with `node scripts/brand-assets.mjs`.
 
 ## Acceptance checks (brief §9)
 
@@ -40,7 +40,7 @@ Updated 3 October 2026.
 
 ## Client inputs still needed
 
-1. Original logo, brand colours, and approved vehicle/item photos.
+1. Approved vehicle/item photos (logo and colours received).
 2. Confirmed cities, ZIP codes and region; service timezone; hours; any same-day cutoff.
 3. Domain/DNS access, the current site's hosting or CMS, and the hosting choice for the new site.
 4. Confirmation that support@jmtenterprise.net receives leads, an optional backup recipient, and who follows up.

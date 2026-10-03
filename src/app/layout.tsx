@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { themeColor: "#0c1738", width: "device-width", initialScale: 1, viewportFit: "cover" };
+export const viewport: Viewport = { themeColor: "#165dd6", width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -30,6 +30,7 @@ const jsonLd = {
   url: business.url,
   telephone: business.phoneE164,
   email: business.email,
+  logo: `${business.url}/brand/jmt-logo.png`,
   description: "Pickup and delivery of everyday and oversized items for individuals and businesses.",
 };
 

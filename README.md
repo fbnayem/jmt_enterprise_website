@@ -4,7 +4,7 @@ Pickup-and-delivery website for **JMT Enterprise LLC** (jmtenterprise.net) that 
 
 Built with Next.js 16 (App Router) + TypeScript + Tailwind CSS 4. Leads go to Supabase Postgres, photos to a private Supabase Storage bucket, email through Resend.
 
-> **Status: staging build.** Client content (logo, colours, service area, hours, timezone, About story, policies) is still pending and is shown as yellow placeholders. See [docs/STATUS.md](docs/STATUS.md).
+> **Status: staging build.** Client content (photos, service area, hours, timezone, About story, policies) is still pending and is shown as yellow placeholders. See [docs/STATUS.md](docs/STATUS.md).
 
 ## Quick start (no accounts needed)
 

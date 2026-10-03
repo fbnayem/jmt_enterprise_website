@@ -31,8 +31,8 @@ export const business = {
 
 /** Content the client still has to supply or approve before public launch. */
 export const pendingContent = {
-  logo: true,
-  brandColors: true,
+  logo: false,
+  brandColors: false,
   photos: true,
   serviceArea: true,
   hours: true,

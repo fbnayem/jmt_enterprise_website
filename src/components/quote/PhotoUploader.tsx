@@ -61,7 +61,7 @@ export function PhotoUploader({
         type="button"
         disabled={remaining <= 0}
         onClick={() => input.current?.click()}
-        className="group flex w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-brand-200 bg-gradient-to-b from-brand-50 to-white px-4 py-10 text-brand-800 transition-all duration-300 hover:border-brand-500 hover:shadow-[0_16px_40px_-20px_rgb(58_102_223/0.5)] disabled:cursor-not-allowed disabled:opacity-60"
+        className="group flex w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-brand-200 bg-gradient-to-b from-brand-50 to-white px-4 py-10 text-brand-800 transition-all duration-300 hover:border-brand-500 hover:shadow-[0_16px_40px_-20px_rgb(22_93_214/0.5)] disabled:cursor-not-allowed disabled:opacity-60"
         aria-describedby="photos-hint"
       >
         <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-700 text-white shadow-lg shadow-brand-500/30 transition-transform duration-500 ease-out-expo group-hover:-translate-y-1 group-hover:rotate-6" aria-hidden="true">
