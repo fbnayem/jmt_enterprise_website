@@ -34,6 +34,9 @@ const STATUS_BY_EVENT: Record<string, { status: NotificationJob["status"]; atten
   "email.complained": { status: "delivered", attention: true },
 };
 
+/** Webhooks can arrive out of order; a status only ever moves forward. */
+const RANK: Partial<Record<NotificationJob["status"], number>> = { sent: 1, delayed: 2, delivered: 3, bounced: 4, failed: 4 };
+
 export async function handleResendEvent(event: { type?: string; data?: { email_id?: string; bounce?: unknown } }) {
   const type = event.type ?? "unknown";
   const providerId = event.data?.email_id ?? null;
@@ -48,8 +51,9 @@ export async function handleResendEvent(event: { type?: string; data?: { email_i
   });
   const mapped = STATUS_BY_EVENT[type];
   if (job && mapped) {
+    const forward = (RANK[mapped.status] ?? 0) >= (RANK[job.status] ?? 0);
     await store.updateJob(job.id, {
-      status: mapped.status,
+      ...(forward ? { status: mapped.status } : {}),
       needsAttention: job.needsAttention || mapped.attention,
       ...(mapped.attention ? { lastError: `Provider reported ${type}` } : {}),
     });

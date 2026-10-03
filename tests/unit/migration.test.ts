@@ -16,6 +16,7 @@ beforeAll(async () => {
   await db.exec(`create role anon; create role authenticated; create role service_role;`);
   const sql = fs.readFileSync(path.join(__dirname, "../../supabase/migrations/20261003000100_quote_requests.sql"), "utf8");
   await db.exec(sql);
+  await db.exec(fs.readFileSync(path.join(__dirname, "../../supabase/migrations/20261003000300_spam_status.sql"), "utf8"));
 });
 
 const request = () => ({
@@ -125,5 +126,14 @@ describe("Supabase migration", () => {
     expect(rls.every((r) => r.relrowsecurity)).toBe(true);
     const grants = (await db.query(`select * from information_schema.role_table_grants where grantee in ('anon','authenticated') and table_schema = 'public'`)).rows;
     expect(grants).toHaveLength(0);
+  });
+});
+
+describe("spam status migration", () => {
+  it("allows suspected_spam and still rejects unknown statuses", async () => {
+    const i = input();
+    await db.query("select public.submit_quote_request($1::jsonb, $2::uuid[])", [JSON.stringify(i), []]);
+    await db.query("update quote_requests set status = 'suspected_spam' where id = $1", [i.id]);
+    await expect(db.query("update quote_requests set status = 'bogus' where id = $1", [i.id])).rejects.toThrow();
   });
 });

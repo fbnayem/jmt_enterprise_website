@@ -75,12 +75,54 @@ describe("submission persistence", () => {
     expect(out.ok).toBe(false);
   });
 
-  it("silently discards honeypot submissions without saving", async () => {
+  it("saves honeypot hits as suspected spam without sending any email", async () => {
     const p = validPayload();
     p.meta.website = "http://spam.example";
     const out = await submitQuoteRequest(p);
     expect(out.ok).toBe(true);
-    expect(await getStore().listQuoteRequests(10)).toHaveLength(0);
+    const list = await getStore().listQuoteRequests(10);
+    expect(list).toHaveLength(1);
+    expect(list[0].status).toBe("suspected_spam");
+    const saved = await getStore().getQuoteRequest(list[0].id);
+    expect(saved?.notifications).toHaveLength(0);
+  });
+
+  it("marks an expired form session so the browser can start a new one", async () => {
+    const stale = issueDraftToken(Date.now() - 25 * 3600 * 1000);
+    const out = await submitQuoteRequest(validPayload({}, stale));
+    expect(out.ok).toBe(false);
+    if (!out.ok) expect(out.code).toBe("session_expired");
+    const sign = await signUpload({ draftToken: stale.token, name: "a.jpg", type: "image/jpeg", size: 1000 });
+    expect(sign.ok).toBe(false);
+    if (!sign.ok) expect("code" in sign && sign.code).toBe("session_expired");
+  });
+
+  it("caps customer receipts per email address but still saves every lead", async () => {
+    for (let i = 0; i < serverConfig.maxReceiptsPerRecipientPerDay + 1; i++) {
+      expect((await submitQuoteRequest(validPayload())).ok).toBe(true);
+    }
+    const list = await getStore().listQuoteRequests(10);
+    expect(list).toHaveLength(serverConfig.maxReceiptsPerRecipientPerDay + 1);
+    let receipts = 0;
+    for (const r of list) receipts += (await getStore().getQuoteRequest(r.id))!.notifications.filter((n) => n.kind === "customer_receipt").length;
+    expect(receipts).toBe(serverConfig.maxReceiptsPerRecipientPerDay);
+  });
+
+  it("rejects links in the name, junk phone numbers and dates too far ahead", async () => {
+    const far = `${new Date().getFullYear() + 3}-01-15`;
+    const out = await submitQuoteRequest(validPayload({ name: "Win $$$ at www.spam.example", phone: "111-111-1111", dateMode: "date", requestedDate: far }));
+    expect(out.ok).toBe(false);
+    if (!out.ok) expect(Object.keys(out.fieldErrors ?? {}).sort()).toEqual(["name", "phone", "requestedDate"]);
+  });
+
+  it("only asks about elevators when stairs or an upper floor are involved", async () => {
+    const out = await submitQuoteRequest(validPayload({ dropoffAccess: { stairs: "none", floor: "", elevator: "", parkingNotes: "" } }));
+    expect(out.ok).toBe(true);
+    const r = (await getStore().listQuoteRequests(1))[0];
+    expect(r.request.dropoffAccess.elevator).toBe("na");
+    const missing = await submitQuoteRequest(validPayload({ dropoffAccess: { stairs: "some", floor: "", elevator: "", parkingNotes: "" } }));
+    expect(missing.ok).toBe(false);
+    if (!missing.ok) expect(missing.fieldErrors?.["dropoffAccess.elevator"]).toBeDefined();
   });
 
   it("returns field errors and saves nothing for invalid input", async () => {

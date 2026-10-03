@@ -2,7 +2,7 @@
 
 import { ArrowLeft, ArrowRight, Check, Loader2, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { business } from "@/content/site";
 import { track } from "@/lib/analytics";
@@ -22,13 +22,16 @@ import {
   vehicleLabel,
   VEHICLE_PREFS,
 } from "@/lib/quote/options";
-import { issuesToErrors, stepSchemas } from "@/lib/quote/schema";
-import { formatIsoDate, todayInTimezone } from "@/lib/quote/time";
+import { elevatorQuestionNeeded, issuesToErrors, stepSchemas } from "@/lib/quote/schema";
+import { formatIsoDate, latestRequestDate, todayInTimezone } from "@/lib/quote/time";
 import { AddressFields, ChoiceGroup, Field, fieldId, type AddressState } from "./fields";
 import { clientCheck, PhotoUploader, type Photo } from "./PhotoUploader";
+import { Turnstile, turnstileSiteKey } from "./Turnstile";
 
 type AccessState = { stairs: string; floor: string; elevator: string; parkingNotes: string };
 type ItemState = {
+  /** Client-only key so removing an item never shifts another item's state. */
+  uid?: string;
   description: string;
   quantity: string;
   sizeKnown: "yes" | "not-sure";
@@ -41,7 +44,7 @@ type ItemState = {
   fragile: boolean;
   oversized: boolean;
 };
-type StopState = { kind: "pickup" | "dropoff"; address: AddressState; notes: string };
+type StopState = { uid?: string; kind: "pickup" | "dropoff"; address: AddressState; notes: string };
 
 type FormState = {
   serviceType: string;
@@ -58,6 +61,8 @@ type FormState = {
   loadingHelp: string;
   pickupAccess: AccessState;
   dropoffAccess: AccessState;
+  /** Drop-off has the same stairs and elevator access as pickup. Client-only. */
+  dropoffSameAccess: boolean;
   specialInstructions: string;
   photoNotes: string;
   name: string;
@@ -69,7 +74,9 @@ type FormState = {
 
 const emptyAddress = (): AddressState => ({ street: "", unit: "", city: "", state: "", zip: "" });
 const emptyAccess = (): AccessState => ({ stairs: "", floor: "", elevator: "", parkingNotes: "" });
+const uid = () => crypto.randomUUID();
 const emptyItem = (): ItemState => ({
+  uid: uid(),
   description: "",
   quantity: "1",
   sizeKnown: "not-sure",
@@ -97,6 +104,7 @@ const initialState = (): FormState => ({
   loadingHelp: "",
   pickupAccess: emptyAccess(),
   dropoffAccess: emptyAccess(),
+  dropoffSameAccess: false,
   specialInstructions: "",
   photoNotes: "",
   name: "",
@@ -141,6 +149,50 @@ const storage = {
   },
 };
 
+/** Draft tokens are "{draftId}.{issuedAtMs}.{signature}" and the server accepts them for 24 hours. */
+const TOKEN_REFRESH_MS = 20 * 3600 * 1000;
+const tokenIsFresh = (token: string) => {
+  const issued = Number(token.split(".")[1]);
+  return Number.isFinite(issued) && Date.now() - issued < TOKEN_REFRESH_MS;
+};
+
+/** What is actually sent: hidden questions are blanked and shared drop-off access is copied. */
+function effectiveForm(f: FormState): FormState {
+  const clean = (a: AccessState): AccessState => ({ ...a, elevator: elevatorQuestionNeeded(a) ? a.elevator : "" });
+  const pickupAccess = clean(f.pickupAccess);
+  const dropoffAccess = f.dropoffSameAccess ? { ...pickupAccess, parkingNotes: f.dropoffAccess.parkingNotes } : clean(f.dropoffAccess);
+  return { ...f, pickupAccess, dropoffAccess };
+}
+
+/**
+ * Phone cameras often produce photos over the 10 MB limit. Resize large
+ * JPEG/PNG/WebP photos to the size the server keeps anyway (2400px) before
+ * uploading. Falls back to the original file on any problem.
+ */
+async function shrinkImage(file: File): Promise<File> {
+  if (!/^image\/(jpeg|png|webp)$/.test(file.type) || file.size < 1.5 * 1024 * 1024 || typeof createImageBitmap !== "function") return file;
+  try {
+    const bmp = await createImageBitmap(file, { imageOrientation: "from-image" });
+    const scale = Math.min(1, 2400 / Math.max(bmp.width, bmp.height));
+    const canvas = document.createElement("canvas");
+    canvas.width = Math.round(bmp.width * scale);
+    canvas.height = Math.round(bmp.height * scale);
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return file;
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    bmp.close();
+    const blob = await new Promise<Blob | null>((r) => canvas.toBlob(r, "image/jpeg", 0.85));
+    if (!blob || blob.size >= file.size) return file;
+    return new File([blob], file.name.replace(/\.\w+$/, "") + ".jpg", { type: "image/jpeg", lastModified: file.lastModified });
+  } catch {
+    return file;
+  }
+}
+
+class SessionExpiredError extends Error {}
+
 async function postJson(url: string, body: unknown, signal?: AbortSignal) {
   const res = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal });
   const data = await res.json().catch(() => ({}));
@@ -157,7 +209,6 @@ function stepOfError(path: string): number {
 
 export function QuoteForm() {
   const router = useRouter();
-  const params = useSearchParams();
   const [form, setForm] = useState<FormState>(initialState);
   const [step, setStep] = useState(0);
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -169,9 +220,14 @@ export function QuoteForm() {
   const [banner, setBanner] = useState<string | null>(null);
   const [failedPhotoPrompt, setFailedPhotoPrompt] = useState(false);
   const [honeypot, setHoneypot] = useState("");
+  const [returnToReview, setReturnToReview] = useState(false);
+  const [challengeToken, setChallengeToken] = useState("");
+  const [challengeReset, setChallengeReset] = useState(0);
+  const tokenRef = useRef("");
   const started = useRef(false);
   const headingRef = useRef<HTMLHeadingElement>(null);
   const today = todayInTimezone(business.timezone);
+  const latest = latestRequestDate(business.timezone);
 
   // Restore an in-progress request (survives reloads and recoverable errors).
   // sessionStorage only exists in the browser, so this must run after hydration.
@@ -179,34 +235,68 @@ export function QuoteForm() {
   useEffect(() => {
     const saved = storage.read();
     if (saved) {
-      setForm({ ...initialState(), ...saved.form });
+      const f = { ...initialState(), ...saved.form };
+      f.items = f.items.map((it) => ({ ...it, uid: it.uid ?? uid() }));
+      f.extraStops = f.extraStops.map((st) => ({ ...st, uid: st.uid ?? uid() }));
+      setForm(f);
       setStep(saved.step ?? 0);
-      setDraftToken(saved.token ?? "");
       setIdempotencyKey(saved.idem || crypto.randomUUID());
       // Files are not persisted; keep only photos that finished uploading.
-      setPhotos((saved.photos ?? []).filter((p) => p.status === "ready").map((p) => ({ ...p, previewUrl: undefined, file: undefined })));
+      const ready = (saved.photos ?? []).filter((p) => p.status === "ready").map((p) => ({ ...p, previewUrl: undefined, file: undefined }));
+      if (saved.token && tokenIsFresh(saved.token)) {
+        setDraftToken(saved.token);
+        tokenRef.current = saved.token;
+        setPhotos(ready);
+      } else if (ready.length) {
+        // The old session is about to expire, so its photos can't be sent. Ask for them again.
+        setPhotos(ready.map((p) => ({ ...p, status: "error", attachmentId: undefined, error: "Your session timed out. Please remove this photo and add it again." })));
+      }
     } else {
       setIdempotencyKey(crypto.randomUUID());
-      const service = params.get("service");
+      const service = new URLSearchParams(window.location.search).get("service");
       if (service && (SERVICE_TYPES as readonly string[]).includes(service)) {
         setForm((f) => ({ ...f, serviceType: service, ...(service === "small-business" ? { customerType: "business" } : {}) }));
       }
     }
     setHydrated(true);
-  }, [params]);
+  }, []);
 
   const ensureToken = useCallback(async () => {
-    if (draftToken) return draftToken;
+    if (tokenRef.current && tokenIsFresh(tokenRef.current)) return tokenRef.current;
     const { res, data } = await postJson("/api/drafts", {});
     if (!res.ok) throw new Error(data.error ?? "Could not start the form.");
+    tokenRef.current = data.token;
     setDraftToken(data.token);
     return data.token as string;
-  }, [draftToken]);
+  }, []);
+
+  /**
+   * The server said the form session expired: start a new one. Photos saved
+   * under the old session can't be attached to the new one, so they are
+   * flagged for the customer to add again. Returns how many were flagged.
+   */
+  const renewSession = async (): Promise<number> => {
+    tokenRef.current = "";
+    setDraftToken("");
+    const lost = photos.filter((p) => p.status === "ready").length;
+    setPhotos((ps) =>
+      ps.map((p) => {
+        if (p.status !== "ready") return p;
+        return { ...p, status: "error", attachmentId: undefined, error: "Your session timed out. Please remove this photo and add it again." };
+      }),
+    );
+    await ensureToken();
+    return lost;
+  };
 
   useEffect(() => {
     if (hydrated && !draftToken) ensureToken().catch(() => setBanner("We could not connect. Check your connection and refresh the page."));
   }, [hydrated, draftToken, ensureToken]);
   /* eslint-enable react-hooks/set-state-in-effect */
+
+  useEffect(() => {
+    if (hydrated) track("quote_step_view", { step: step + 1 });
+  }, [hydrated, step]);
 
   useEffect(() => {
     if (!hydrated) return;
@@ -248,7 +338,8 @@ export function QuoteForm() {
   };
 
   const validateStep = (n: number): boolean => {
-    const data = n === 2 ? { ...form, attachmentIds: photos.filter((p) => p.status === "ready").map((p) => p.attachmentId) } : form;
+    const eff = effectiveForm(form);
+    const data = n === 2 ? { ...eff, attachmentIds: photos.filter((p) => p.status === "ready").map((p) => p.attachmentId) } : eff;
     const result = stepSchemas[n].safeParse(data);
     if (result.success) return true;
     const errs = issuesToErrors(result.error.issues);
@@ -257,6 +348,7 @@ export function QuoteForm() {
     return false;
   };
 
+  /** Validates the current step, then moves on (or back to the review when editing from it). */
   const next = () => {
     if (!validateStep(step)) return;
     if (step === 2) {
@@ -271,26 +363,44 @@ export function QuoteForm() {
     }
     setErrors({});
     track("quote_step_complete", { step: step + 1, service_type: form.serviceType || undefined, customer_type: form.customerType || undefined });
-    goTo(step + 1);
+    if (returnToReview) setReturnToReview(false);
+    goTo(returnToReview ? 3 : step + 1);
+  };
+
+  const editFromReview = (n: number) => {
+    setReturnToReview(true);
+    goTo(n);
+  };
+
+  /** Removes a repeated item or stop and drops any errors shown for it, which are keyed by position. */
+  const removeAt = (list: "items" | "extraStops", i: number) => {
+    setForm((f) => ({ ...f, [list]: (f[list] as unknown[]).filter((_, j) => j !== i) }));
+    setErrors((errs) => Object.fromEntries(Object.entries(errs).filter(([k]) => !k.startsWith(`${list}.`))));
   };
 
   // ---- Photos -------------------------------------------------------------
   const patchPhoto = (localId: string, patch: Partial<Photo>) =>
     setPhotos((ps) => ps.map((p) => (p.localId === localId ? { ...p, ...patch } : p)));
 
-  const upload = async (photo: Photo) => {
+  const upload = async (photo: Photo, retried = false): Promise<void> => {
     const file = photo.file!;
     patchPhoto(photo.localId, { status: "uploading", error: undefined });
     try {
       const token = await ensureToken();
       const signed = await postJson("/api/uploads/sign", { draftToken: token, name: file.name, type: file.type, size: file.size });
+      if (signed.data.code === "session_expired") throw new SessionExpiredError();
       if (!signed.res.ok) throw new Error(signed.data.error ?? "Upload could not start.");
       const put = await fetch(signed.data.uploadUrl, { method: "PUT", headers: signed.data.headers, body: file });
       if (!put.ok) throw new Error("The upload was interrupted. Please retry.");
       const done = await postJson("/api/uploads/complete", { draftToken: token, attachmentId: signed.data.attachmentId });
+      if (done.data.code === "session_expired") throw new SessionExpiredError();
       if (!done.res.ok) throw new Error(done.data.error ?? "The photo could not be saved. Please retry.");
       patchPhoto(photo.localId, { status: "ready", attachmentId: signed.data.attachmentId });
     } catch (e) {
+      if (e instanceof SessionExpiredError && !retried) {
+        await renewSession().catch(() => {});
+        return upload(photo, true);
+      }
       patchPhoto(photo.localId, {
         status: "error",
         error: e instanceof TypeError ? "Connection lost during upload. Please retry." : (e as Error).message,
@@ -298,11 +408,12 @@ export function QuoteForm() {
     }
   };
 
-  const addPhotos = (files: File[]) => {
+  const addPhotos = async (picked: File[]) => {
     setFailedPhotoPrompt(false);
     const room = 5 - photos.length;
+    const files = await Promise.all(picked.slice(0, room).map(shrinkImage));
     const accepted: Photo[] = [];
-    for (const file of files.slice(0, room)) {
+    for (const file of files) {
       const problem = clientCheck(file, [...photos, ...accepted]);
       const photo: Photo = {
         localId: crypto.randomUUID(),
@@ -315,20 +426,20 @@ export function QuoteForm() {
       };
       accepted.push(photo);
     }
-    if (files.length > room) setBanner(`Only ${room} more photo${room === 1 ? "" : "s"} can be added.`);
+    if (picked.length > room) setBanner(`Only ${room} more photo${room === 1 ? "" : "s"} can be added.`);
     setPhotos((ps) => [...ps, ...accepted]);
-    accepted.filter((p) => p.status === "uploading").forEach(upload);
+    accepted.filter((p) => p.status === "uploading").forEach((p) => void upload(p));
   };
 
   const removePhoto = async (p: Photo) => {
     setPhotos((ps) => ps.filter((x) => x.localId !== p.localId));
     if (p.previewUrl) URL.revokeObjectURL(p.previewUrl);
-    if (p.attachmentId && draftToken) postJson("/api/uploads/remove", { draftToken, attachmentId: p.attachmentId }).catch(() => {});
+    if (p.attachmentId && tokenRef.current) postJson("/api/uploads/remove", { draftToken: tokenRef.current, attachmentId: p.attachmentId }).catch(() => {});
   };
 
   // ---- Submit -------------------------------------------------------------
-  const submit = async () => {
-    if (submitting) return;
+  const submit = async (retried = false): Promise<void> => {
+    if (submitting && !retried) return;
     if (!validateStep(3)) return;
     setSubmitting(true);
     setBanner(null);
@@ -337,13 +448,17 @@ export function QuoteForm() {
     try {
       const token = await ensureToken();
       const url = new URL(window.location.href);
+      const { dropoffSameAccess: _same, ...sendable } = effectiveForm(form);
       const payload = {
-        ...form,
+        ...sendable,
+        items: sendable.items.map(({ uid: _u, ...it }) => it),
+        extraStops: sendable.extraStops.map(({ uid: _u, ...st }) => st),
         attachmentIds: photos.filter((p) => p.status === "ready").map((p) => p.attachmentId),
         meta: {
           idempotencyKey,
           draftToken: token,
           website: honeypot,
+          turnstileToken: challengeToken || undefined,
           acknowledgementVersion: ACKNOWLEDGEMENT_VERSION,
           source: {
             landingPath: url.pathname,
@@ -360,6 +475,18 @@ export function QuoteForm() {
         storage.clear();
         router.push(`/request-received?ref=${encodeURIComponent(data.reference)}`);
         return;
+      }
+      if (data.code === "session_expired" && !retried) {
+        const lost = await renewSession();
+        if (lost === 0) return submit(true);
+        setFailedPhotoPrompt(false);
+        goTo(2);
+        setBanner(`Your form session timed out, so ${lost === 1 ? "one photo needs" : `${lost} photos need`} to be added again. Your other answers are kept.`);
+        return;
+      }
+      if (data.code === "challenge_failed") {
+        setChallengeToken("");
+        setChallengeReset((n) => n + 1);
       }
       if (res.status === 422 && data.fieldErrors) {
         setErrors(data.fieldErrors);
@@ -378,23 +505,41 @@ export function QuoteForm() {
   };
 
   // ---- Render helpers -----------------------------------------------------
-  const accessFields = (prefix: "pickupAccess" | "dropoffAccess", title: string) => (
-    <fieldset className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
-      <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">{title}</legend>
-      <div className="space-y-5">
-        <ChoiceGroup path={`${prefix}.stairs`} legend="Are there stairs?" options={STAIRS} value={form[prefix].stairs} onChange={(v) => update(`${prefix}.stairs`, v)} errors={errors} columns={3} />
-        <div className="grid gap-4 sm:grid-cols-2">
-          <Field path={`${prefix}.floor`} label="Floor number" errors={errors} hint="Leave blank if not sure.">
-            {(p) => <input {...p} className="field-input" inputMode="numeric" value={form[prefix].floor} onChange={(e) => update(`${prefix}.floor`, e.target.value)} />}
+  const accessFields = (prefix: "pickupAccess" | "dropoffAccess", title: string) => {
+    const shared = prefix === "dropoffAccess" && form.dropoffSameAccess;
+    const a = form[prefix];
+    return (
+      <fieldset className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+        <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">{title}</legend>
+        <div className="space-y-5">
+          {prefix === "dropoffAccess" && (
+            <label className="flex min-h-12 cursor-pointer items-center gap-3 rounded-xl border border-slate-300 bg-white p-3.5 transition-colors has-[:checked]:border-brand-500 has-[:checked]:bg-brand-50">
+              <input type="checkbox" className="size-5 shrink-0 accent-brand-600" checked={form.dropoffSameAccess} onChange={(e) => update("dropoffSameAccess", e.target.checked)} />
+              <span className="font-medium">Same stairs and elevator access as pickup</span>
+            </label>
+          )}
+          {!shared && (
+            <>
+              <ChoiceGroup path={`${prefix}.stairs`} legend="Are there stairs?" options={STAIRS} value={a.stairs} onChange={(v) => update(`${prefix}.stairs`, v)} errors={errors} columns={3} />
+              <div className="grid gap-4 sm:grid-cols-2">
+                <Field path={`${prefix}.floor`} label="Floor number" errors={errors} hint="Leave blank if not sure.">
+                  {(p) => <input {...p} className="field-input" inputMode="numeric" value={a.floor} onChange={(e) => update(`${prefix}.floor`, e.target.value)} />}
+                </Field>
+              </div>
+              {elevatorQuestionNeeded(a) && (
+                <div className="animate-fade-up">
+                  <ChoiceGroup path={`${prefix}.elevator`} legend="Elevator access" options={ELEVATOR} value={a.elevator} onChange={(v) => update(`${prefix}.elevator`, v)} errors={errors} columns={2} />
+                </div>
+              )}
+            </>
+          )}
+          <Field path={`${prefix}.parkingNotes`} label="Parking or access restrictions" errors={errors} hint="For example: narrow driveway, gate code needed, loading dock hours.">
+            {(p) => <textarea {...p} rows={2} className="field-input" value={a.parkingNotes} onChange={(e) => update(`${prefix}.parkingNotes`, e.target.value)} />}
           </Field>
         </div>
-        <ChoiceGroup path={`${prefix}.elevator`} legend="Elevator access" options={ELEVATOR} value={form[prefix].elevator} onChange={(v) => update(`${prefix}.elevator`, v)} errors={errors} columns={2} />
-        <Field path={`${prefix}.parkingNotes`} label="Parking or access restrictions" errors={errors} hint="For example: narrow driveway, gate code needed, loading dock hours.">
-          {(p) => <textarea {...p} rows={2} className="field-input" value={form[prefix].parkingNotes} onChange={(e) => update(`${prefix}.parkingNotes`, e.target.value)} />}
-        </Field>
-      </div>
-    </fieldset>
-  );
+      </fieldset>
+    );
+  };
 
   const errorCount = Object.keys(errors).length;
 
@@ -430,7 +575,7 @@ export function QuoteForm() {
       </nav>
 
       <h2 key={`h${step}`} ref={headingRef} tabIndex={-1} className="animate-step-in scroll-mt-28 text-2xl font-extrabold tracking-tight text-brand-900 outline-none sm:text-3xl">
-        <span className="block text-xs font-bold uppercase tracking-[0.14em] text-accent-600">Step {step + 1} of 4</span>
+        <span className="block text-xs font-bold uppercase tracking-[0.14em] text-accent-700">Step {step + 1} of 4</span>
         {STEPS[step]}
       </h2>
 
@@ -446,14 +591,14 @@ export function QuoteForm() {
         onSubmit={(e) => {
           e.preventDefault();
           if (step < 3) next();
-          else submit();
+          else void submit();
         }}
       >
         {/* Honeypot: hidden from people and assistive tech. */}
         <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
           <label>
-            Website
-            <input tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} name="website" />
+            Leave this field empty
+            <input tabIndex={-1} autoComplete="off" value={honeypot} onChange={(e) => setHoneypot(e.target.value)} name="jmt_hp_x" />
           </label>
         </div>
 
@@ -496,7 +641,7 @@ export function QuoteForm() {
             </fieldset>
 
             {form.extraStops.map((s, i) => (
-              <fieldset key={i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+              <fieldset key={s.uid ?? i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
                 <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">Extra stop {i + 1}</legend>
                 <div className="space-y-4">
                   <ChoiceGroup
@@ -517,7 +662,7 @@ export function QuoteForm() {
                   <button
                     type="button"
                     className="inline-flex min-h-11 items-center gap-2 font-semibold text-red-700"
-                    onClick={() => setForm((f) => ({ ...f, extraStops: f.extraStops.filter((_, j) => j !== i) }))}
+                    onClick={() => removeAt("extraStops", i)}
                   >
                     <Trash2 className="size-4" aria-hidden="true" /> Remove stop {i + 1}
                   </button>
@@ -528,7 +673,7 @@ export function QuoteForm() {
               <button
                 type="button"
                 className="btn-secondary"
-                onClick={() => setForm((f) => ({ ...f, extraStops: [...f.extraStops, { kind: "pickup", address: emptyAddress(), notes: "" }] }))}
+                onClick={() => setForm((f) => ({ ...f, extraStops: [...f.extraStops, { uid: uid(), kind: "pickup", address: emptyAddress(), notes: "" }] }))}
               >
                 <Plus className="size-5" aria-hidden="true" /> Add another stop
               </button>
@@ -559,7 +704,7 @@ export function QuoteForm() {
                 />
                 {form.dateMode === "date" && (
                   <Field path="requestedDate" label="Requested date" errors={errors} required>
-                    {(p) => <input {...p} type="date" min={today} className="field-input sm:max-w-xs" value={form.requestedDate} onChange={(e) => update("requestedDate", e.target.value)} />}
+                    {(p) => <input {...p} type="date" min={today} max={latest} className="field-input sm:max-w-xs" value={form.requestedDate} onChange={(e) => update("requestedDate", e.target.value)} />}
                   </Field>
                 )}
                 <ChoiceGroup path="timeWindow" legend="Requested time of day" options={TIME_WINDOWS} value={form.timeWindow} onChange={(v) => update("timeWindow", v)} errors={errors} columns={4} />
@@ -572,7 +717,7 @@ export function QuoteForm() {
           <>
             <div className="space-y-4">
               {form.items.map((item, i) => (
-                <fieldset key={i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+                <fieldset key={item.uid ?? i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
                   <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">Item {i + 1}</legend>
                   <div className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-[1fr_8rem]">
@@ -642,7 +787,7 @@ export function QuoteForm() {
                       <button
                         type="button"
                         className="inline-flex min-h-11 items-center gap-2 font-semibold text-red-700"
-                        onClick={() => setForm((f) => ({ ...f, items: f.items.filter((_, j) => j !== i) }))}
+                        onClick={() => removeAt("items", i)}
                       >
                         <Trash2 className="size-4" aria-hidden="true" /> Remove item {i + 1}
                       </button>
@@ -742,7 +887,7 @@ export function QuoteForm() {
               columns={3}
             />
 
-            <Review form={form} photos={photos} onEdit={goTo} />
+            <Review form={effectiveForm(form)} photos={photos} onEdit={editFromReview} />
 
             <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
               <label className="flex items-start gap-3">
@@ -762,9 +907,14 @@ export function QuoteForm() {
                   {errors.acknowledged}
                 </p>
               )}
+              {turnstileSiteKey && (
+                <div className="mt-4">
+                  <Turnstile onToken={setChallengeToken} resetKey={challengeReset} />
+                </div>
+              )}
               <p className="mt-4 text-sm text-muted">
                 We use your details only to review and respond to this request. See our{" "}
-                <Link href="/privacy-policy" className="font-semibold text-brand-700 underline" target="_blank">
+                <Link href="/privacy-policy" className="font-semibold text-brand-700 underline underline-offset-4" target="_blank">
                   Privacy Policy
                 </Link>
                 .
@@ -777,7 +927,7 @@ export function QuoteForm() {
 
         <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-between">
           {step > 0 ? (
-            <button type="button" className="btn-secondary" onClick={() => goTo(step - 1)}>
+            <button type="button" className="btn-secondary" onClick={() => { setReturnToReview(false); goTo(step - 1); }}>
               <ArrowLeft className="size-5" aria-hidden="true" /> Back
             </button>
           ) : (
@@ -785,10 +935,11 @@ export function QuoteForm() {
           )}
           {step < 3 ? (
             <button type="submit" className="btn-primary group">
-              Continue <ArrowRight className="size-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+              {returnToReview ? "Save and return to review" : "Continue"}{" "}
+              <ArrowRight className="size-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </button>
           ) : (
-            <button type="submit" className="btn-primary" disabled={submitting || !draftToken} aria-disabled={submitting}>
+            <button type="submit" className="btn-primary" disabled={submitting || !draftToken || Boolean(turnstileSiteKey && !challengeToken)} aria-disabled={submitting}>
               {submitting ? (
                 <>
                   <Loader2 className="size-5 animate-spin" aria-hidden="true" /> Sending…

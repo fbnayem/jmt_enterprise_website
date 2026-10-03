@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { Analytics } from "@/components/Analytics";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MobileActionBar } from "@/components/MobileActionBar";
@@ -21,9 +21,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { themeColor: "#0c1738", width: "device-width", initialScale: 1 };
-
-const ga4 = process.env.NEXT_PUBLIC_GA4_ID;
+export const viewport: Viewport = { themeColor: "#0c1738", width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -52,14 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <MobileActionBar />
         <RevealObserver />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        {ga4 && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${ga4}`} strategy="afterInteractive" />
-            <Script id="ga4" strategy="afterInteractive">
-              {`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${ga4}',{anonymize_ip:true});`}
-            </Script>
-          </>
-        )}
+        <Analytics />
       </body>
     </html>
   );

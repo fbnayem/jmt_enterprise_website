@@ -32,6 +32,10 @@ export const serverConfig = {
   /** Development only: make the dev store throw on submit to test the failure path. */
   devStoreFailure: env.DEV_STORE_FAILURE === "true",
   minFormSeconds: Number(env.MIN_FORM_SECONDS ?? 4),
+  /** Cloudflare Turnstile. Off until both keys are set (the site key is read by the browser). */
+  turnstileSecretKey: env.TURNSTILE_SECRET_KEY ?? "",
+  /** At most this many customer receipts go to one email address per 24 hours. */
+  maxReceiptsPerRecipientPerDay: Number(env.MAX_RECEIPTS_PER_RECIPIENT_PER_DAY ?? 3),
 };
 
 export const usingSupabase = () => Boolean(serverConfig.supabaseUrl && serverConfig.supabaseServiceRoleKey);

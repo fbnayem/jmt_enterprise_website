@@ -134,7 +134,7 @@ export class SupabaseLeadStore implements LeadStore {
       acknowledgementVersion: r.acknowledgement_version as string,
       request: r.payload as StoredQuoteRequest["request"],
       source: r.source as StoredQuoteRequest["source"],
-      status: "awaiting_review",
+      status: r.status as StoredQuoteRequest["status"],
       jobs: [],
       attachments: (check(atts) ?? []).map(toAttachment),
       notifications: (check(jobs) ?? []).map(toJob),
@@ -143,14 +143,30 @@ export class SupabaseLeadStore implements LeadStore {
 
   async listQuoteRequests(limit: number) {
     const rows = check(
-      await this.db.from("quote_requests").select("id, reference, created_at, payload").order("created_at", { ascending: false }).limit(limit),
+      await this.db.from("quote_requests").select("id, reference, created_at, status, payload").order("created_at", { ascending: false }).limit(limit),
     ) as Row[];
     return rows.map((r) => ({
       id: r.id as string,
       reference: r.reference as string,
       createdAt: r.created_at as string,
       request: r.payload as StoredQuoteRequest["request"],
+      status: r.status as StoredQuoteRequest["status"],
     }));
+  }
+
+  async setRequestStatus(id: string, status: StoredQuoteRequest["status"]) {
+    check(await this.db.from("quote_requests").update({ status }).eq("id", id));
+  }
+
+  async countRecentJobs(kind: NotificationJob["kind"], recipient: string, since: Date) {
+    const { count, error } = await this.db
+      .from("notification_jobs")
+      .select("id", { count: "exact", head: true })
+      .eq("kind", kind)
+      .eq("recipient", recipient)
+      .gte("created_at", since.toISOString());
+    if (error) throw new Error(`Supabase: ${error.message}`);
+    return count ?? 0;
   }
 
   async claimDueJobs(limit: number, lockSeconds: number, onlyRequestId?: string) {

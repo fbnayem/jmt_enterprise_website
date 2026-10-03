@@ -7,6 +7,7 @@
  */
 type EventName =
   | "quote_form_start"
+  | "quote_step_view"
   | "quote_step_complete"
   | "quote_submit_success"
   | "phone_click"

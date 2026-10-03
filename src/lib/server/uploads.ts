@@ -4,11 +4,13 @@ import { getStorage, getStore } from "./adapters";
 import { verifyDraftToken } from "./draft-token";
 import { ImageRejectedError, processImage } from "./images";
 
-type Fail = { ok: false; status: number; error: string };
+type Fail = { ok: false; status: number; error: string; code?: "session_expired" };
+
+const expired = { ok: false, status: 400, code: "session_expired", error: "Your form session expired. Please try again." } as const satisfies Fail;
 
 export async function signUpload(body: { draftToken?: string; name?: string; type?: string; size?: number }) {
   const draft = body.draftToken ? verifyDraftToken(body.draftToken) : null;
-  if (!draft) return { ok: false, status: 400, error: "Your form session expired. Please refresh the page." } satisfies Fail;
+  if (!draft) return expired;
 
   const type = String(body.type ?? "");
   const size = Number(body.size);
@@ -46,6 +48,13 @@ export async function signUpload(body: { draftToken?: string; name?: string; typ
     height: null,
     createdAt: new Date().toISOString(),
   });
+  // Parallel requests can all pass the count check above; re-count after the
+  // insert and undo this one if the draft went over the limit.
+  const after = (await store.listDraftAttachments(draft.draftId)).filter((a) => a.status !== "rejected");
+  if (after.length > PHOTO_LIMITS.maxFiles && after.sort((a, b) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id)).findIndex((a) => a.id === id) >= PHOTO_LIMITS.maxFiles) {
+    await store.deleteAttachment(id);
+    return { ok: false, status: 409, error: `You can add up to ${PHOTO_LIMITS.maxFiles} photos.` } satisfies Fail;
+  }
   const upload = await getStorage().createUploadUrl(uploadKey, type);
   return { ok: true as const, attachmentId: id, uploadUrl: upload.url, headers: upload.headers };
 }
@@ -53,7 +62,7 @@ export async function signUpload(body: { draftToken?: string; name?: string; typ
 /** Validates the uploaded bytes, re-encodes them and marks the attachment ready. */
 export async function completeUpload(body: { draftToken?: string; attachmentId?: string }) {
   const draft = body.draftToken ? verifyDraftToken(body.draftToken) : null;
-  if (!draft) return { ok: false, status: 400, error: "Your form session expired. Please refresh the page." } satisfies Fail;
+  if (!draft) return expired;
   const store = getStore();
   const storage = getStorage();
   const att = body.attachmentId ? await store.getAttachment(body.attachmentId) : null;
@@ -88,7 +97,7 @@ export async function completeUpload(body: { draftToken?: string; attachmentId?:
 
 export async function removeUpload(body: { draftToken?: string; attachmentId?: string }) {
   const draft = body.draftToken ? verifyDraftToken(body.draftToken) : null;
-  if (!draft) return { ok: false, status: 400, error: "Your form session expired." } satisfies Fail;
+  if (!draft) return expired;
   const store = getStore();
   const att = body.attachmentId ? await store.getAttachment(body.attachmentId) : null;
   if (!att || att.draftId !== draft.draftId || att.quoteRequestId) return { ok: true as const };

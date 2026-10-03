@@ -16,7 +16,7 @@ export function Logo({ onDark = false }: { onDark?: boolean }) {
         <Truck className="size-5" />
       </span>
       <span className={`whitespace-nowrap text-lg font-extrabold leading-tight tracking-tight ${onDark ? "text-white" : "text-brand-900"}`}>
-        JMT<span className={onDark ? "text-accent-400" : "text-brand-500"}> Enterprise</span>
+        JMT<span className={onDark ? "text-accent-400" : "text-brand-700"}> Enterprise</span>
         {pendingContent.logo && !isProductionSite && (
           <span className="ml-2 hidden whitespace-nowrap rounded-full bg-amber-200 px-2 py-0.5 align-middle text-[10px] font-bold uppercase tracking-wide text-amber-900 sm:inline">
             Logo pending

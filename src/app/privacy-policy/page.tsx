@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AnalyticsOptOut } from "@/components/AnalyticsOptOut";
 import { Placeholder } from "@/components/Placeholder";
 import { PageHero } from "@/components/sections";
 import { business, pendingContent } from "@/content/site";
@@ -24,11 +25,17 @@ export default function PrivacyPolicyPage() {
                 <li>Stores requests in a private database and photos in private storage; staff access photos through expiring links.</li>
                 <li>Emails the request to {business.email} and sends the customer a receipt through an email provider.</li>
                 <li>Removes location metadata from photos.</li>
-                <li>Uses analytics (if enabled) for page visits and form steps only, without personal details.</li>
+                <li>Uses analytics (if enabled) for page visits and form steps only, without personal details. Advertising features are off, and visitors can turn analytics off with the control below.</li>
                 <li>Retention periods and deletion requests: to be decided by JMT.</li>
               </ul>
             </Placeholder>
           ) : null}
+          {process.env.NEXT_PUBLIC_GA4_ID && (
+            <section aria-labelledby="analytics-h" className="mt-10">
+              <h2 id="analytics-h" className="text-xl font-extrabold text-brand-900">Analytics on this device</h2>
+              <AnalyticsOptOut />
+            </section>
+          )}
         </div>
       </section>
     </>

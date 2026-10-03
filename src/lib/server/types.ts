@@ -61,8 +61,10 @@ export type NewQuoteRequest = {
   jobs: Pick<NotificationJob, "id" | "kind" | "recipient">[];
 };
 
+export type QuoteRequestStatus = "awaiting_review" | "suspected_spam";
+
 export type StoredQuoteRequest = NewQuoteRequest & {
-  status: "awaiting_review";
+  status: QuoteRequestStatus;
   attachments: AttachmentRecord[];
   notifications: NotificationJob[];
 };
@@ -85,7 +87,11 @@ export interface LeadStore {
    */
   submitQuoteRequest(input: NewQuoteRequest, attachmentIds: string[]): Promise<SubmitResult>;
   getQuoteRequest(idOrReference: string): Promise<StoredQuoteRequest | null>;
-  listQuoteRequests(limit: number): Promise<Pick<StoredQuoteRequest, "id" | "reference" | "createdAt" | "request">[]>;
+  listQuoteRequests(limit: number): Promise<Pick<StoredQuoteRequest, "id" | "reference" | "createdAt" | "request" | "status">[]>;
+  /** Flags a saved request, for example as suspected spam. */
+  setRequestStatus(id: string, status: QuoteRequestStatus): Promise<void>;
+  /** Counts notification jobs of one kind sent to `recipient` since `since`. */
+  countRecentJobs(kind: NotificationKind, recipient: string, since: Date): Promise<number>;
   /** Claims due jobs for sending (locks them for `lockSeconds`). */
   claimDueJobs(limit: number, lockSeconds: number, onlyRequestId?: string): Promise<NotificationJob[]>;
   updateJob(id: string, patch: Partial<NotificationJob>): Promise<void>;

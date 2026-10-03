@@ -68,7 +68,7 @@ export default function ServicesPage() {
 
       <section className="bg-dots bg-slate-50 py-20" aria-labelledby="how-h">
         <div className="container-page">
-          <SectionHeading eyebrow="Process" id="how-h" title="How it works" intro="Every request is reviewed by JMT. Your service is confirmed only after you agree the quote." />
+          <SectionHeading eyebrow="Process" id="how-h" title="How it works" intro="Every request is reviewed by JMT before you hear back with a quote." />
           <HowItWorks />
         </div>
       </section>

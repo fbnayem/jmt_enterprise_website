@@ -3,7 +3,7 @@
 import { ArrowRight, Menu, Phone, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { business, nav } from "@/content/site";
 import { Logo } from "./Logo";
 import { TrackedLink } from "./TrackedLink";
@@ -14,6 +14,32 @@ export function Header() {
   const [openOn, setOpenOn] = useState<string | null>(null);
   const open = openOn === pathname;
   const [scrolled, setScrolled] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLElement>(null);
+
+  const close = (returnFocus = true) => {
+    setOpenOn(null);
+    if (returnFocus) toggleRef.current?.focus();
+  };
+
+  // Menu open: move focus into it, close on Escape, and lock page scroll.
+  useEffect(() => {
+    if (!open) return;
+    menuRef.current?.querySelector<HTMLElement>("a")?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setOpenOn(null);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflow;
+    };
+  }, [open]);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -31,7 +57,7 @@ export function Header() {
         Skip to content
       </a>
       <div className="container-page flex h-16 items-center justify-between gap-4 lg:h-[72px]">
-        <Link href="/" aria-label={`${business.name} home`} className="transition-opacity hover:opacity-80">
+        <Link href="/" aria-label={`${business.shortName} home`} className="transition-opacity hover:opacity-80">
           <Logo />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
@@ -67,6 +93,7 @@ export function Header() {
             <Phone className="size-5" aria-hidden="true" />
           </TrackedLink>
           <button
+            ref={toggleRef}
             type="button"
             className="grid size-11 place-items-center rounded-full text-brand-900 transition-colors hover:bg-slate-100"
             aria-expanded={open}
@@ -79,7 +106,9 @@ export function Header() {
         </div>
       </div>
       {open && (
-        <nav id="mobile-nav" aria-label="Mobile" className="animate-fade-up border-t border-slate-200/70 lg:hidden">
+        <>
+          <div aria-hidden="true" className="absolute inset-x-0 top-full h-[100dvh] bg-brand-950/40 lg:hidden" onClick={() => close(false)} />
+        <nav ref={menuRef} id="mobile-nav" aria-label="Mobile" className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] animate-fade-up overflow-y-auto overscroll-contain border-t border-slate-200/70 bg-white shadow-[0_24px_48px_-16px_rgb(7_14_36/0.35)] lg:hidden">
           <ul className="container-page flex flex-col gap-1 py-3">
             {nav.map((n, i) => (
               <li key={n.href} className="animate-fade-up" style={{ animationDelay: `${i * 40}ms` }}>
@@ -100,6 +129,7 @@ export function Header() {
             </li>
           </ul>
         </nav>
+        </>
       )}
     </header>
   );

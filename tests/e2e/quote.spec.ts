@@ -122,3 +122,68 @@ for (const p of ["/", "/services", "/service-areas", "/about", "/faqs", "/reques
     await page.screenshot({ path: testInfo.outputPath(`${name}.png`), fullPage: true });
   });
 }
+
+test("an expired form session recovers on submit, and Edit returns to the review", async ({ page }) => {
+  const address = (city: string) => ({ street: "1 Test St", unit: "", city, state: "CO", zip: "80202" });
+  const access = { stairs: "none", floor: "", elevator: "", parkingNotes: "" };
+  const saved = {
+    step: 3,
+    // Looks fresh to the browser but the server rejects it, as an expired session would be.
+    token: `00000000-0000-4000-8000-000000000000.${Date.now()}.not-a-valid-signature`,
+    idem: crypto.randomUUID(),
+    photos: [],
+    form: {
+      serviceType: "furniture-appliance", customerType: "individual", companyName: "",
+      pickup: address("Denver"), dropoff: address("Aurora"), extraStops: [],
+      dateMode: "asap", requestedDate: "", timeWindow: "flexible",
+      items: [{ uid: "a", description: "Dresser", quantity: "1", sizeKnown: "not-sure", length: "", width: "", height: "", dimensionUnit: "in", weight: "", weightUnit: "lb", fragile: false, oversized: false }],
+      vehicle: "not-sure", loadingHelp: "no", pickupAccess: access, dropoffAccess: access, dropoffSameAccess: true,
+      specialInstructions: "", photoNotes: "", name: "Sam Rivera", phone: "303-555-0142", email: "sam@example.com",
+      preferredContact: "either", acknowledged: false,
+    },
+  };
+  await page.addInitScript((v) => {
+    if (!sessionStorage.getItem("seeded")) {
+      sessionStorage.setItem("jmt-quote-draft-v1", v);
+      sessionStorage.setItem("seeded", "1");
+    }
+  }, JSON.stringify(saved));
+  await page.goto("/request-a-quote");
+  await expect(page.getByRole("heading", { name: /Contact and review/ })).toBeVisible();
+
+  // Edit a section from the review and come straight back.
+  await page.getByRole("button", { name: "Edit items and access" }).click();
+  await expect(page.getByRole("heading", { name: /Items and access/ })).toBeVisible();
+  // No stairs at ground level: the elevator question is not asked.
+  await expect(page.getByRole("group", { name: "Elevator access" })).toHaveCount(0);
+  await page.getByRole("button", { name: /Save and return to review/ }).click();
+  await expect(page.getByRole("heading", { name: /Contact and review/ })).toBeVisible();
+
+  await page.getByRole("checkbox", { name: /I understand this is a quote request/ }).check();
+  await page.getByRole("button", { name: "Send quote request" }).click();
+  await expect(page).toHaveURL(/\/request-received\?ref=JMT-/);
+});
+
+test("the mobile menu closes with Escape and returns focus to its button", async ({ page }) => {
+  await page.goto("/");
+  const toggle = page.getByRole("button", { name: "Open menu" });
+  await toggle.click();
+  await expect(page.locator("#mobile-nav")).toBeVisible();
+  await expect(page.locator("#mobile-nav a").first()).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(page.locator("#mobile-nav")).toHaveCount(0);
+  await expect(page.getByRole("button", { name: "Open menu" })).toBeFocused();
+});
+
+test("pages send security headers and the quote form is in the server HTML", async ({ request }) => {
+  const res = await request.get("/request-a-quote");
+  const h = res.headers();
+  expect(h["content-security-policy"]).toContain("frame-ancestors 'none'");
+  expect(h["x-content-type-options"]).toBe("nosniff");
+  expect(h["referrer-policy"]).toBe("strict-origin-when-cross-origin");
+  expect(h["strict-transport-security"]).toContain("max-age=");
+  expect(h["x-powered-by"]).toBeUndefined();
+  const html = await res.text();
+  expect(html).toContain("What do you need?");
+  expect(html).not.toContain("Loading the form");
+});

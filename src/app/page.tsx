@@ -5,7 +5,7 @@ import { Placeholder } from "@/components/Placeholder";
 import { RouteIllustration } from "@/components/RouteIllustration";
 import { CtaBand, FaqList, GlowBackdrop, HowItWorks, ItemMarquee, SectionHeading, ServiceGrid, VehicleOptions, WhoWeHelp } from "@/components/sections";
 import { TrackedLink } from "@/components/TrackedLink";
-import { business, faqs, reasons, services, vehicles } from "@/content/site";
+import { business, faqs, reasons } from "@/content/site";
 
 export const metadata: Metadata = {
   title: { absolute: `Pickup and Delivery for Everyday and Oversized Items | ${business.shortName}` },
@@ -13,14 +13,6 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  // Only facts that come straight from the site content; no invented metrics.
-  const facts = [
-    { value: String(vehicles.length), label: "vehicle types" },
-    { value: String(services.length), label: "kinds of pickup and delivery" },
-    { value: "2", label: "customer groups: homes and businesses" },
-    { value: "0", label: "accounts needed to request a quote" },
-  ];
-
   return (
     <>
       <section className="relative isolate overflow-hidden bg-brand-950 text-white">
@@ -63,37 +55,23 @@ export default function HomePage() {
 
       <ItemMarquee />
 
-      <section className="py-20 sm:py-24" aria-labelledby="services-h">
+      <section className="py-14 sm:py-24" aria-labelledby="services-h">
         <div className="container-page">
           <SectionHeading eyebrow="Services" id="services-h" title="What we pick up and deliver" intro="A sofa from a Marketplace seller, a new appliance, an antique or a store delivery. Tell us what it is and where it is going." />
           <ServiceGrid />
         </div>
       </section>
 
-      <section className="border-y border-slate-200/70 bg-white" aria-label="At a glance">
-        <dl className="container-page grid grid-cols-2 divide-slate-200/70 py-10 lg:grid-cols-4 lg:divide-x">
-          {facts.map((f, i) => (
-            <div key={f.label} data-reveal style={{ "--d": i } as React.CSSProperties} className="px-4 py-4 text-center lg:py-2">
-              <dt className="sr-only">{f.label}</dt>
-              <dd>
-                <span className="block bg-gradient-to-br from-brand-500 to-brand-800 bg-clip-text text-5xl font-extrabold tracking-tight text-transparent">{f.value}</span>
-                <span className="mt-2 block text-sm font-medium text-muted">{f.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      <section className="bg-dots bg-slate-50 py-20 sm:py-24" aria-labelledby="who-h">
+      <section className="bg-dots bg-slate-50 py-14 sm:py-24" aria-labelledby="who-h">
         <div className="container-page">
           <SectionHeading eyebrow="Who we help" id="who-h" title="Built for households and businesses" intro="Households and businesses use the same simple request form." />
           <WhoWeHelp />
         </div>
       </section>
 
-      <section className="py-20 sm:py-24" aria-labelledby="how-h">
+      <section className="py-14 sm:py-24" aria-labelledby="how-h">
         <div className="container-page">
-          <SectionHeading eyebrow="How it works" id="how-h" title="Four steps, nothing booked until you agree" intro="Nothing is booked until you and JMT agree the details." />
+          <SectionHeading eyebrow="How it works" id="how-h" title="From request to pickup in four steps" intro="Send the details once and JMT comes back to you with a quote." />
           <HowItWorks />
         </div>
       </section>
@@ -112,7 +90,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20 sm:py-24" aria-labelledby="area-h">
+      <section className="py-14 sm:py-24" aria-labelledby="area-h">
         <div className="container-page grid gap-12 lg:grid-cols-2">
           <div>
             <SectionHeading eyebrow="Service area" id="area-h" title="Where we work" />
@@ -156,7 +134,7 @@ export default function HomePage() {
 
       {/* Testimonials are intentionally omitted until JMT supplies genuine customer reviews. */}
 
-      <section className="bg-slate-50 py-20 sm:py-24" aria-labelledby="faq-h">
+      <section className="bg-slate-50 py-14 sm:py-24" aria-labelledby="faq-h">
         <div className="container-page max-w-3xl">
           <SectionHeading eyebrow="FAQ" id="faq-h" title="Common questions" center />
           <FaqList items={faqs.slice(0, 4)} />

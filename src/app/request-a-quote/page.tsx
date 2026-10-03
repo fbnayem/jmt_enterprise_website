@@ -1,6 +1,5 @@
 import { Phone } from "lucide-react";
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { QuoteForm } from "@/components/quote/QuoteForm";
 import { GlowBackdrop } from "@/components/sections";
 import { TrackedLink } from "@/components/TrackedLink";
@@ -22,8 +21,7 @@ export default function RequestQuotePage() {
             Request a <span className="text-gradient">quote</span>
           </h1>
           <p className="mt-4 text-lg text-brand-100/90">
-            Four short steps. No account needed. JMT reviews your request and contacts you with a price and availability. Nothing is
-            booked until you agree the service.
+            Four short steps, no account needed. JMT reviews your request and contacts you with a price and availability.
           </p>
           <p className="mt-4 text-brand-200">
             Prefer to talk?{" "}
@@ -35,9 +33,13 @@ export default function RequestQuotePage() {
       </section>
       <section className="relative -mt-20 pb-16">
         <div className="container-page">
-          <Suspense fallback={<p className="text-center text-muted">Loading the form…</p>}>
-            <QuoteForm />
-          </Suspense>
+          <noscript>
+            <p className="card mx-auto mb-6 max-w-3xl p-5 text-center font-medium">
+              This form needs JavaScript. You can also call <a className="font-bold text-brand-700 underline" href={business.phoneHref}>{business.phoneDisplay}</a> or email{" "}
+              <a className="font-bold text-brand-700 underline" href={business.emailHref}>{business.email}</a>.
+            </p>
+          </noscript>
+          <QuoteForm />
         </div>
       </section>
     </>

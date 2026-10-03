@@ -14,12 +14,14 @@ import {
   type NewQuoteRequest,
   type NotificationEvent,
   type NotificationJob,
+  type NotificationKind,
+  type QuoteRequestStatus,
   type StoredQuoteRequest,
   type SubmitResult,
 } from "../types";
 
 type Db = {
-  requests: (NewQuoteRequest & { status: "awaiting_review" })[];
+  requests: (NewQuoteRequest & { status: QuoteRequestStatus })[];
   attachments: AttachmentRecord[];
   jobs: NotificationJob[];
   events: NotificationEvent[];
@@ -136,7 +138,21 @@ export class DevLeadStore implements LeadStore {
         [...db.requests]
           .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
           .slice(0, limit)
-          .map(({ id, reference, createdAt, request }) => ({ id, reference, createdAt, request })),
+          .map(({ id, reference, createdAt, request, status }) => ({ id, reference, createdAt, request, status })),
+      false,
+    );
+  }
+
+  setRequestStatus(id: string, status: QuoteRequestStatus) {
+    return this.tx((db) => {
+      const r = db.requests.find((x) => x.id === id);
+      if (r) r.status = status;
+    });
+  }
+
+  countRecentJobs(kind: NotificationKind, recipient: string, since: Date) {
+    return this.tx(
+      (db) => db.jobs.filter((j) => j.kind === kind && j.recipient === recipient && new Date(j.createdAt) >= since).length,
       false,
     );
   }

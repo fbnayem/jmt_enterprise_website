@@ -32,3 +32,9 @@ export function formatIsoDate(date: string): string {
     year: "numeric",
   });
 }
+
+/** Furthest date a customer can request: one year from today in `timezone`. */
+export function latestRequestDate(timezone: string, now: Date = new Date()): string {
+  const [y, m, d] = todayInTimezone(timezone, now).split("-");
+  return `${Number(y) + 1}-${m}-${m === "02" && d === "29" ? "28" : d}`;
+}

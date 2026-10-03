@@ -18,10 +18,21 @@ import {
   VEHICLE_PREFS,
   YES_NO_UNSURE,
 } from "./options";
-import { isPastDate, isValidIsoDate } from "./time";
+import { isPastDate, isValidIsoDate, latestRequestDate } from "./time";
 
 const keys = <T extends readonly { key: string }[]>(list: T) =>
   list.map((o) => o.key) as unknown as [T[number]["key"], ...T[number]["key"][]];
+
+/** Links in a name are a spam signal; the name is echoed in the customer receipt. */
+const LINK_PATTERN = /(https?:|www\.|:\/\/|\b[a-z0-9-]+\.(com|net|org|io|ru|xyz|top|info|biz|co|me|link|click)\b)/i;
+
+/** A real NANP number: 10 digits, area code and exchange not starting with 0 or 1, not all one digit. */
+export function isPlausibleUsPhone(v: string): boolean {
+  const digits = v.replace(/[\s().+-]/g, "");
+  if (!/^1?\d{10}$/.test(digits)) return false;
+  const ten = digits.length === 11 ? digits.slice(1) : digits;
+  return /^[2-9]\d{2}[2-9]\d{6}$/.test(ten) && !/^(\d)\1{9}$/.test(ten);
+}
 
 const text = (max: number) => z.string().trim().max(max, `Please keep this under ${max} characters.`);
 const required = (max: number, message: string) => text(max).min(1, message);
@@ -38,12 +49,25 @@ export const addressSchema = z.object({
   zip: z.string().trim().regex(/^\d{5}(-\d{4})?$/, "Enter a 5-digit ZIP code."),
 });
 
-export const accessSchema = z.object({
-  stairs: z.enum(keys(STAIRS), { error: "Tell us about stairs, or choose Not sure." }),
-  floor: optionalNumber,
-  elevator: z.enum(keys(ELEVATOR), { error: "Tell us about elevator access, or choose Not sure." }),
-  parkingNotes: text(500),
-});
+/** Elevator access only matters when there are (or may be) stairs, or the floor is above ground. */
+export function elevatorQuestionNeeded(a: { stairs: string; floor: string }): boolean {
+  return a.stairs === "some" || a.stairs === "not-sure" || Number(a.floor) > 1;
+}
+
+export const accessSchema = z
+  .object({
+    stairs: z.enum(keys(STAIRS), { error: "Tell us about stairs, or choose Not sure." }),
+    floor: optionalNumber,
+    elevator: z.union([z.enum(keys(ELEVATOR)), z.literal("")], { error: "Tell us about elevator access, or choose Not sure." }),
+    parkingNotes: text(500),
+  })
+  .superRefine((a, ctx) => {
+    if (a.elevator === "" && elevatorQuestionNeeded(a)) {
+      ctx.addIssue({ code: "custom", path: ["elevator"], message: "Tell us about elevator access, or choose Not sure." });
+    }
+  })
+  // Ground level with no stairs: record the elevator as not needed.
+  .transform((a) => ({ ...a, elevator: a.elevator === "" ? ("na" as const) : a.elevator }));
 
 export const extraStopSchema = z.object({
   kind: z.enum(["pickup", "dropoff"]),
@@ -86,6 +110,8 @@ export const step1Schema = z
       ctx.addIssue({ code: "custom", path: ["requestedDate"], message: "Choose a preferred date." });
     } else if (isPastDate(v.requestedDate, business.timezone)) {
       ctx.addIssue({ code: "custom", path: ["requestedDate"], message: "Choose today or a future date." });
+    } else if (v.requestedDate > latestRequestDate(business.timezone)) {
+      ctx.addIssue({ code: "custom", path: ["requestedDate"], message: "Choose a date within the next 12 months." });
     }
   });
 
@@ -104,11 +130,8 @@ export const step3Schema = z.object({
 });
 
 export const step4Schema = z.object({
-  name: required(120, "Enter your name."),
-  phone: z
-    .string()
-    .trim()
-    .refine((v) => /^(\+?1)?\d{10}$/.test(v.replace(/[\s().-]/g, "")), "Enter a 10-digit US phone number."),
+  name: required(80, "Enter your name.").refine((v) => !LINK_PATTERN.test(v), "Enter just your name, without links."),
+  phone: z.string().trim().refine(isPlausibleUsPhone, "Enter a 10-digit US phone number."),
   email: z.email("Enter a valid email address.").max(254),
   preferredContact: z.enum(["phone", "email", "either"]),
   acknowledged: z.literal(true, { error: "Please confirm you understand this is a request, not a booking." }),
@@ -119,6 +142,8 @@ export const metaSchema = z.object({
   draftToken: z.string().min(10).max(500),
   /** Honeypot. Real visitors never see or fill this field. */
   website: z.string().max(500).optional().default(""),
+  /** Cloudflare Turnstile response, when the challenge is switched on. */
+  turnstileToken: z.string().max(4096).optional(),
   acknowledgementVersion: z.literal(ACKNOWLEDGEMENT_VERSION),
   source: z
     .object({

@@ -21,6 +21,7 @@
   --color-accent-400: #ffb340;
   --color-accent-500: #ff9a1a;
   --color-accent-600: #ea7a00;
+  --color-accent-700: #a85200;
   --color-ink: #0b1226;
   --color-muted: #4a5571;
   --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -71,6 +72,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anchor jumps land below the sticky header. */
+  scroll-padding-top: 5.5rem;
   -webkit-font-smoothing: antialiased;
   interpolate-size: allow-keywords;
 }
@@ -83,6 +86,14 @@ body {
 ::selection {
   background: var(--color-accent-300);
   color: var(--color-brand-950);
+}
+
+a,
+button,
+label,
+summary {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :focus-visible {

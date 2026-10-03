@@ -49,3 +49,16 @@ Updated 3 October 2026.
 7. Privacy policy and service terms wording, cancellation rules, retention periods.
 8. Analytics/Search Console access and consent approach; the agreed order scope, revisions and deadline.
 9. Approval of the drafted FAQ answers.
+
+## Audit follow-up (3 October 2026)
+
+Done from `docs/AUDIT-AND-IMPROVEMENT-PLAN.md`:
+
+- **P0:** expired form sessions renew themselves (photos from the old session are flagged to add again); honeypot hits are saved as `suspected_spam` with no emails instead of being discarded; the quote form is in the server HTML (no layout shift, `<noscript>` fallback); security headers and CSP; per-address receipt cap, link-free names, plausible phone numbers; GA4 only after the privacy policy is approved, with Consent Mode v2 and an opt-out on the privacy page.
+- **Switched off until keys exist:** Cloudflare Turnstile (`NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY`) and shared rate limiting (`UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`). Set them before `next build`.
+- **P1 form:** elevator asked only with stairs or an upper floor; "same access as pickup" for drop-off; Edit on the review returns to the review; large photos resized on the device; errors cleared when items or stops are removed; dates capped at 12 months; step-view analytics.
+- **P1 design:** compact services and vehicles on phones, "at a glance" band removed, repeated "nothing is booked" copy trimmed, contrast fixes, mobile menu focus/Escape/overlay, landmarks, 404 title, page fade removed, lighter background effects on phones, share image.
+- **P2:** webhook statuses only move forward; upload-count race closed and upload routes rate limited; screenshots and preview now in git.
+- New migration: `20261003000300_spam_status.sql`.
+
+Still open: real photos and other client content (P3), structured data details and per-city pages (need the service area), Search Console and redirect map, cron schedule for the chosen host.

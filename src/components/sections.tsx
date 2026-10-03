@@ -38,9 +38,9 @@ export function GlowBackdrop() {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10">
       <div className="bg-grid absolute inset-0" />
-      <div className="absolute -left-24 -top-24 size-[28rem] animate-blob rounded-full bg-brand-500/35 blur-3xl" />
-      <div className="absolute -right-20 top-10 size-[24rem] animate-blob rounded-full bg-accent-500/20 blur-3xl [animation-delay:-6s]" />
-      <div className="absolute bottom-[-12rem] left-1/3 size-[26rem] animate-blob rounded-full bg-indigo-500/25 blur-3xl [animation-delay:-12s]" />
+      <div className="absolute -left-24 -top-24 size-[28rem] rounded-full bg-brand-500/35 blur-2xl md:animate-blob md:blur-3xl" />
+      <div className="absolute -right-20 top-10 size-[24rem] rounded-full bg-accent-500/20 blur-2xl [animation-delay:-6s] md:animate-blob md:blur-3xl" />
+      <div className="absolute bottom-[-12rem] left-1/3 hidden size-[26rem] rounded-full bg-indigo-500/25 blur-3xl [animation-delay:-12s] md:block md:animate-blob" />
     </div>
   );
 }
@@ -60,19 +60,19 @@ export function SectionHeading({ eyebrow, title, intro, id, center = false }: { 
 function IconChip({ icon: Icon, tone = "brand" }: { icon: typeof Truck; tone?: "brand" | "accent" }) {
   return (
     <span
-      className={`grid size-12 place-items-center rounded-2xl text-white shadow-lg transition-transform duration-500 ease-out-expo group-hover:-rotate-6 group-hover:scale-110 ${
+      className={`grid size-10 place-items-center rounded-xl text-white shadow-lg sm:size-12 sm:rounded-2xl transition-transform duration-500 ease-out-expo group-hover:-rotate-6 group-hover:scale-110 ${
         tone === "brand" ? "bg-gradient-to-br from-brand-400 to-brand-700 shadow-brand-500/30" : "bg-gradient-to-br from-accent-400 to-accent-600 shadow-accent-500/30"
       }`}
       aria-hidden="true"
     >
-      <Icon className="size-6" />
+      <Icon className="size-5 sm:size-6" />
     </span>
   );
 }
 
 export function ServiceGrid() {
   return (
-    <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 lg:grid-cols-3">
       {services.map((s, i) => {
         const Icon = serviceIcons[s.key];
         const featured = i === 0;
@@ -81,23 +81,23 @@ export function ServiceGrid() {
             key={s.key}
             data-reveal
             style={{ "--d": i % 3 } as React.CSSProperties}
-            className={`group card card-hover relative flex flex-col overflow-hidden p-7 ${featured ? "sm:col-span-2" : ""} ${i === services.length - 1 ? "lg:col-span-2" : ""}`}
+            className={`group card card-hover relative flex flex-col overflow-hidden p-4 sm:p-7 ${featured ? "col-span-2" : ""} ${i === services.length - 1 ? "lg:col-span-2" : ""}`}
           >
             <div aria-hidden="true" className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-gradient-to-br from-brand-100 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
             <div className="relative flex-1">
               <IconChip icon={Icon} tone={featured ? "accent" : "brand"} />
-              <h3 className={`mt-5 font-extrabold tracking-tight text-brand-900 ${featured ? "text-2xl sm:text-3xl" : "text-xl"}`}>{s.title}</h3>
-              <p className="mt-2 text-muted">{s.short}</p>
+              <h3 className={`mt-3 font-extrabold leading-snug tracking-tight text-brand-900 sm:mt-5 ${featured ? "text-xl sm:text-3xl" : "text-[15px] sm:text-xl"}`}>{s.title}</h3>
+              <p className={`mt-2 text-muted ${featured ? "text-sm sm:text-base" : "hidden sm:block"}`}>{s.short}</p>
             </div>
-            <div className="relative mt-5">
-              <ul className="flex flex-wrap gap-2">
+            <div className="relative mt-auto pt-3 sm:pt-5">
+              <ul className="hidden flex-wrap gap-2 sm:flex">
                 {s.examples.slice(0, featured ? 3 : 2).map((e) => (
-                  <li key={e} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600">
+                  <li key={e} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
                     {e}
                   </li>
                 ))}
               </ul>
-              <Link href={`/services#${s.key}`} className="mt-5 inline-flex items-center gap-1.5 font-bold text-brand-600">
+              <Link href={`/services#${s.key}`} className="inline-flex items-center gap-1.5 text-sm font-bold text-brand-700 after:absolute after:inset-0 sm:mt-5 sm:text-base">
                 Learn more<span className="sr-only"> about {s.title.toLowerCase()}</span>
                 <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </Link>
@@ -117,7 +117,7 @@ export function ItemMarquee() {
     <div aria-hidden="true" className="relative overflow-hidden border-y border-slate-200/80 bg-white py-5 [mask-image:linear-gradient(to_right,transparent,#000_10%,#000_90%,transparent)]">
       <div className="flex w-max animate-marquee gap-3 hover:[animation-play-state:paused]">
         {row.map((t, i) => (
-          <span key={i} className="inline-flex items-center gap-3 whitespace-nowrap text-lg font-bold text-slate-400">
+          <span key={i} className="inline-flex items-center gap-3 whitespace-nowrap text-base font-bold text-slate-600 sm:text-lg">
             {t}
             <span className="size-1.5 rounded-full bg-accent-400" />
           </span>
@@ -167,7 +167,7 @@ export function WhoWeHelp() {
 
 export function HowItWorks() {
   return (
-    <ol className="relative mt-14 grid gap-8 md:grid-cols-4 md:gap-6">
+    <ol className="relative mt-10 grid gap-6 sm:mt-14 md:grid-cols-4 md:gap-6">
       <div aria-hidden="true" className="absolute left-6 top-6 hidden h-0.5 w-[calc(100%-3rem)] bg-gradient-to-r from-brand-200 via-accent-300 to-brand-200 md:block" />
       <div aria-hidden="true" className="absolute bottom-6 left-6 top-6 w-0.5 bg-gradient-to-b from-brand-200 via-accent-300 to-brand-200 md:hidden" />
       {howItWorks.map((s, i) => (
@@ -196,15 +196,15 @@ export function HowItWorks() {
 export function VehicleOptions() {
   return (
     <>
-      <ul className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="mt-8 grid grid-cols-2 gap-3 sm:mt-12 sm:gap-5 lg:grid-cols-4">
         {vehicles.map((v, i) => {
           const Icon = vehicleIcons[v.key];
           return (
-            <li key={v.key} data-reveal style={{ "--d": i } as React.CSSProperties} className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-accent-400/40 hover:bg-white/[0.08]">
+            <li key={v.key} data-reveal style={{ "--d": i } as React.CSSProperties} className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:rounded-3xl sm:p-7 transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-accent-400/40 hover:bg-white/[0.08]">
               <span className="text-xs font-bold uppercase tracking-[0.14em] text-brand-300">0{i + 1}</span>
-              <Icon className="mt-4 size-12 text-accent-400 transition-transform duration-500 ease-out-expo group-hover:translate-x-2" strokeWidth={1.5} aria-hidden="true" />
-              <h3 className="mt-5 text-xl font-extrabold text-white">{v.title}</h3>
-              <p className="mt-2 text-brand-100/80">{v.goodFor}</p>
+              <Icon className="mt-3 size-9 text-accent-400 sm:mt-4 sm:size-12 transition-transform duration-500 ease-out-expo group-hover:translate-x-2" strokeWidth={1.5} aria-hidden="true" />
+              <h3 className="mt-3 text-base font-extrabold text-white sm:mt-5 sm:text-xl">{v.title}</h3>
+              <p className="mt-1 text-sm text-brand-100/80 sm:mt-2 sm:text-base">{v.goodFor}</p>
             </li>
           );
         })}
