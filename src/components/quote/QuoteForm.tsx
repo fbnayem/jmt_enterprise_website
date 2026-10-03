@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowLeft, ArrowRight, Loader2, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Loader2, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -379,8 +379,8 @@ export function QuoteForm() {
 
   // ---- Render helpers -----------------------------------------------------
   const accessFields = (prefix: "pickupAccess" | "dropoffAccess", title: string) => (
-    <fieldset className="rounded-xl border border-slate-200 p-4 sm:p-5">
-      <legend className="px-1 text-lg font-bold text-brand-900">{title}</legend>
+    <fieldset className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+      <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">{title}</legend>
       <div className="space-y-5">
         <ChoiceGroup path={`${prefix}.stairs`} legend="Are there stairs?" options={STAIRS} value={form[prefix].stairs} onChange={(v) => update(`${prefix}.stairs`, v)} errors={errors} columns={3} />
         <div className="grid gap-4 sm:grid-cols-2">
@@ -399,31 +399,43 @@ export function QuoteForm() {
   const errorCount = Object.keys(errors).length;
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="card mx-auto max-w-3xl p-5 shadow-[0_30px_80px_-30px_rgb(7_14_36/0.45)] sm:p-10">
       {/* Progress */}
       <nav aria-label="Request progress" className="mb-8">
-        <ol className="grid grid-cols-4 gap-2">
-          {STEPS.map((s, i) => (
-            <li key={s} aria-current={i === step ? "step" : undefined}>
-              <span className={`block h-2 rounded-full ${i <= step ? "bg-brand-700" : "bg-slate-200"}`} aria-hidden="true" />
-              <span className={`mt-2 hidden text-sm sm:block ${i === step ? "font-bold text-brand-900" : "text-slate-500"}`}>
-                {i + 1}. {s}
-              </span>
-              <span className="sr-only">
-                {`Step ${i + 1}: ${s}${i < step ? " (completed)" : i === step ? " (current)" : ""}`}
-              </span>
-            </li>
-          ))}
-        </ol>
+        <div className="relative">
+          <div aria-hidden="true" className="absolute left-5 right-5 top-5 h-1 rounded-full bg-slate-200">
+            <div className="h-full rounded-full bg-gradient-to-r from-brand-500 to-accent-400 transition-[width] duration-700 ease-out-expo" style={{ width: `${(step / (STEPS.length - 1)) * 100}%` }} />
+          </div>
+          <ol className="relative grid grid-cols-4">
+            {STEPS.map((s, i) => (
+              <li key={s} aria-current={i === step ? "step" : undefined} className="flex flex-col items-center text-center first:items-start first:text-left last:items-end last:text-right">
+                <span
+                  aria-hidden="true"
+                  className={`grid size-11 place-items-center rounded-full text-sm font-extrabold ring-4 ring-white transition-all duration-500 ease-out-expo ${
+                    i < step
+                      ? "bg-brand-600 text-white"
+                      : i === step
+                        ? "scale-110 bg-gradient-to-br from-accent-300 to-accent-500 text-brand-950 shadow-lg shadow-accent-500/40"
+                        : "bg-slate-100 text-slate-400"
+                  }`}
+                >
+                  {i < step ? <Check className="size-5" strokeWidth={3} /> : i + 1}
+                </span>
+                <span className={`mt-2 hidden text-sm transition-colors sm:block ${i === step ? "font-bold text-brand-900" : "text-slate-500"}`}>{s}</span>
+                <span className="sr-only">{`Step ${i + 1}: ${s}${i < step ? " (completed)" : i === step ? " (current)" : ""}`}</span>
+              </li>
+            ))}
+          </ol>
+        </div>
       </nav>
 
-      <h2 ref={headingRef} tabIndex={-1} className="scroll-mt-28 text-2xl font-extrabold text-brand-900 outline-none">
-        <span className="block text-sm font-semibold uppercase tracking-wide text-brand-600">Step {step + 1} of 4</span>
+      <h2 key={`h${step}`} ref={headingRef} tabIndex={-1} className="animate-step-in scroll-mt-28 text-2xl font-extrabold tracking-tight text-brand-900 outline-none sm:text-3xl">
+        <span className="block text-xs font-bold uppercase tracking-[0.14em] text-accent-600">Step {step + 1} of 4</span>
         {STEPS[step]}
       </h2>
 
       {(banner || errorCount > 0) && (
-        <div role="alert" className="mt-4 rounded-lg border border-red-300 bg-red-50 p-4 text-red-900">
+        <div role="alert" className="mt-4 animate-fade-up rounded-2xl border border-red-200 bg-red-50 p-4 font-medium text-red-900">
           {banner ?? `Please check ${errorCount === 1 ? "the highlighted field" : `the ${errorCount} highlighted fields`}.`}
         </div>
       )}
@@ -445,6 +457,7 @@ export function QuoteForm() {
           </label>
         </div>
 
+        <div key={step} className="animate-step-in space-y-8">
         {step === 0 && (
           <>
             <Field path="serviceType" label="What do you need?" errors={errors} required>
@@ -477,14 +490,14 @@ export function QuoteForm() {
               </Field>
             )}
 
-            <fieldset className="rounded-xl border border-slate-200 p-4 sm:p-5">
-              <legend className="px-1 text-lg font-bold text-brand-900">Pickup address</legend>
+            <fieldset className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+              <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">Pickup address</legend>
               <AddressFields path="pickup" value={form.pickup} onChange={(k, v) => update(`pickup.${k}`, v)} errors={errors} />
             </fieldset>
 
             {form.extraStops.map((s, i) => (
-              <fieldset key={i} className="rounded-xl border border-slate-200 p-4 sm:p-5">
-                <legend className="px-1 text-lg font-bold text-brand-900">Extra stop {i + 1}</legend>
+              <fieldset key={i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+                <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">Extra stop {i + 1}</legend>
                 <div className="space-y-4">
                   <ChoiceGroup
                     path={`extraStops.${i}.kind`}
@@ -521,13 +534,13 @@ export function QuoteForm() {
               </button>
             )}
 
-            <fieldset className="rounded-xl border border-slate-200 p-4 sm:p-5">
-              <legend className="px-1 text-lg font-bold text-brand-900">Drop-off address</legend>
+            <fieldset className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+              <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">Drop-off address</legend>
               <AddressFields path="dropoff" value={form.dropoff} onChange={(k, v) => update(`dropoff.${k}`, v)} errors={errors} />
             </fieldset>
 
-            <fieldset className="rounded-xl border border-slate-200 p-4 sm:p-5">
-              <legend className="px-1 text-lg font-bold text-brand-900">Requested timing</legend>
+            <fieldset className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+              <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">Requested timing</legend>
               <p className="mb-4 text-sm text-muted">
                 This is your preference, not a reserved time slot. Times are in {business.timezoneLabel} ({business.timezone}). JMT
                 confirms availability with your quote.
@@ -559,8 +572,8 @@ export function QuoteForm() {
           <>
             <div className="space-y-4">
               {form.items.map((item, i) => (
-                <fieldset key={i} className="rounded-xl border border-slate-200 p-4 sm:p-5">
-                  <legend className="px-1 text-lg font-bold text-brand-900">Item {i + 1}</legend>
+                <fieldset key={i} className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
+                  <legend className="rounded-full bg-white px-3 text-lg font-bold text-brand-900">Item {i + 1}</legend>
                   <div className="space-y-4">
                     <div className="grid gap-4 sm:grid-cols-[1fr_8rem]">
                       <Field path={`items.${i}.description`} label="What is it?" errors={errors} required hint="For example: 3-seat sofa, washing machine, antique mirror.">
@@ -582,7 +595,7 @@ export function QuoteForm() {
                       errors={errors}
                     />
                     {item.sizeKnown === "yes" && (
-                      <div className="grid gap-4 rounded-lg bg-slate-50 p-4 sm:grid-cols-4">
+                      <div className="grid gap-4 rounded-xl bg-white p-4 ring-1 ring-slate-200 sm:grid-cols-4">
                         {(["length", "width", "height"] as const).map((d) => (
                           <Field key={d} path={`items.${i}.${d}`} label={d[0].toUpperCase() + d.slice(1)} errors={errors}>
                             {(p) => <input {...p} className="field-input" inputMode="decimal" value={item[d]} onChange={(e) => update(`items.${i}.${d}`, e.target.value)} />}
@@ -731,7 +744,7 @@ export function QuoteForm() {
 
             <Review form={form} photos={photos} onEdit={goTo} />
 
-            <div className="rounded-xl border border-slate-200 p-4 sm:p-5">
+            <div className="rounded-2xl border border-slate-200 bg-slate-50/50 p-4 transition-colors focus-within:border-brand-300 focus-within:bg-white sm:p-6">
               <label className="flex items-start gap-3">
                 <input
                   id={fieldId("acknowledged")}
@@ -760,6 +773,8 @@ export function QuoteForm() {
           </>
         )}
 
+        </div>
+
         <div className="flex flex-col-reverse gap-3 border-t border-slate-200 pt-6 sm:flex-row sm:justify-between">
           {step > 0 ? (
             <button type="button" className="btn-secondary" onClick={() => goTo(step - 1)}>
@@ -769,8 +784,8 @@ export function QuoteForm() {
             <span />
           )}
           {step < 3 ? (
-            <button type="submit" className="btn-primary">
-              Continue <ArrowRight className="size-5" aria-hidden="true" />
+            <button type="submit" className="btn-primary group">
+              Continue <ArrowRight className="size-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
             </button>
           ) : (
             <button type="submit" className="btn-primary" disabled={submitting || !draftToken} aria-disabled={submitting}>
@@ -840,7 +855,7 @@ function Review({ form, photos, onEdit }: { form: FormState; photos: Photo[]; on
   ];
 
   return (
-    <section aria-labelledby="review-h" className="rounded-xl bg-slate-50 p-4 sm:p-5">
+    <section aria-labelledby="review-h" className="rounded-2xl border border-brand-100 bg-brand-50/50 p-4 sm:p-6">
       <h3 id="review-h" className="text-lg font-bold text-brand-900">
         Review your request
       </h3>

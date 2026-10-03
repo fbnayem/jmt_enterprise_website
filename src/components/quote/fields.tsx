@@ -84,8 +84,12 @@ export function ChoiceGroup({
         {options.map((o) => (
           <label
             key={o.key}
-            className={`flex min-h-12 cursor-pointer items-start gap-3 rounded-lg border p-3 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-accent-500 ${
-              value === o.key ? "border-brand-600 bg-brand-50 ring-1 ring-brand-600" : err ? "border-red-600" : "border-slate-300"
+            className={`flex min-h-12 cursor-pointer items-start gap-3 rounded-xl border bg-white p-3.5 transition-all duration-300 ease-out-expo has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-accent-500 ${
+              value === o.key
+                ? "-translate-y-0.5 border-brand-500 bg-brand-50 shadow-[0_10px_24px_-12px_rgb(58_102_223/0.55)] ring-1 ring-brand-500"
+                : err
+                  ? "border-red-600"
+                  : "border-slate-300 hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md"
             }`}
           >
             <input
@@ -94,7 +98,7 @@ export function ChoiceGroup({
               value={o.key}
               checked={value === o.key}
               onChange={() => onChange(o.key)}
-              className="mt-1 size-4 accent-brand-700"
+              className="mt-1 size-4 accent-brand-600"
             />
             <span>
               <span className="font-medium text-ink">{o.label}</span>

@@ -1,37 +1,78 @@
 @import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
 
 /*
- * PROVISIONAL palette. Final colors come from the client's original logo
+ * PROVISIONAL palette. Final colours come from the client's original logo
  * (pendingContent.brandColors). Change the tokens here and the whole site follows.
  */
 @theme {
-  --color-brand-50: #eef4fb;
-  --color-brand-100: #d6e4f4;
-  --color-brand-200: #adc8e8;
-  --color-brand-600: #1d4f86;
-  --color-brand-700: #163f6c;
-  --color-brand-800: #102f52;
-  --color-brand-900: #0b2139;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
-  --color-ink: #0f172a;
-  --color-muted: #475569;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-brand-50: #eef4ff;
+  --color-brand-100: #dbe7ff;
+  --color-brand-200: #b7cdfb;
+  --color-brand-300: #8aaef5;
+  --color-brand-400: #5b87ec;
+  --color-brand-500: #3a66df;
+  --color-brand-600: #2a4fc4;
+  --color-brand-700: #213f9c;
+  --color-brand-800: #16285f;
+  --color-brand-900: #0c1738;
+  --color-brand-950: #070e24;
+  --color-accent-300: #ffcf7a;
+  --color-accent-400: #ffb340;
+  --color-accent-500: #ff9a1a;
+  --color-accent-600: #ea7a00;
+  --color-ink: #0b1226;
+  --color-muted: #4a5571;
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-blob: blob 18s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-dash: dash 1.6s linear infinite;
+  --animate-drive: drive 6s var(--ease-out-expo) infinite;
+  --animate-fade-up: fade-up 0.6s var(--ease-out-expo) both;
+  --animate-step-in: step-in 0.45s var(--ease-out-expo) both;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  @keyframes blob {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(40px, -30px) scale(1.1); }
+    66% { transform: translate(-30px, 20px) scale(0.95); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes dash {
+    to { stroke-dashoffset: -24; }
+  }
+  @keyframes drive {
+    0% { offset-distance: 0%; }
+    70%, 100% { offset-distance: 100%; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes step-in {
+    from { opacity: 0; transform: translateX(24px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 rgb(255 154 26 / 0.55); }
+    70%, 100% { box-shadow: 0 0 0 14px rgb(255 154 26 / 0); }
+  }
 }
 
 html {
   scroll-behavior: smooth;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  *, *::before, *::after {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-  }
+  -webkit-font-smoothing: antialiased;
+  interpolate-size: allow-keywords;
 }
 
 body {
@@ -39,43 +80,121 @@ body {
   color: var(--color-ink);
 }
 
-:focus-visible {
-  outline: 3px solid var(--color-accent-500);
-  outline-offset: 2px;
+::selection {
+  background: var(--color-accent-300);
+  color: var(--color-brand-950);
 }
 
+:focus-visible {
+  outline: 3px solid var(--color-accent-500);
+  outline-offset: 3px;
+}
+
+/* ---------- Scroll reveal (only hides content once JS has marked the page) ---------- */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s var(--ease-out-expo),
+    transform 0.7s var(--ease-out-expo);
+  transition-delay: calc(var(--d, 0) * 80ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ---------- Smooth accordion where supported ---------- */
+details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 0.35s var(--ease-out-expo),
+    content-visibility 0.35s allow-discrete;
+}
+details[open]::details-content {
+  block-size: auto;
+}
+
+/* ---------- Components ---------- */
 @utility btn {
-  @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-lg px-5 py-3 text-base font-semibold transition-colors;
+  @apply relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-base font-bold transition-all duration-300 ease-out-expo;
 }
 @utility btn-primary {
-  @apply btn bg-accent-500 text-brand-900 hover:bg-accent-400;
+  @apply btn bg-gradient-to-r from-accent-400 to-accent-500 text-brand-950 shadow-[0_8px_24px_-8px_rgb(255_154_26/0.7)] hover:-translate-y-0.5 hover:shadow-[0_14px_32px_-10px_rgb(255_154_26/0.85)] active:translate-y-0;
 }
 @utility btn-secondary {
-  @apply btn border-2 border-brand-700 bg-white text-brand-800 hover:bg-brand-50;
+  @apply btn border border-brand-200 bg-white text-brand-800 shadow-sm hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md active:translate-y-0;
 }
 @utility btn-on-dark {
-  @apply btn border-2 border-white/80 text-white hover:bg-white/10;
+  @apply btn border border-white/25 bg-white/10 text-white backdrop-blur hover:-translate-y-0.5 hover:bg-white/20 active:translate-y-0;
 }
 @utility container-page {
-  @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
 }
-.prose-page p {
-  margin-bottom: 1rem;
-  line-height: 1.7;
-  color: var(--color-muted);
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-brand-600;
+}
+@utility card {
+  @apply rounded-3xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04),0_8px_24px_-12px_rgb(15_23_42/0.12)];
+}
+@utility card-hover {
+  @apply transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-[0_24px_48px_-20px_rgb(33_63_156/0.35)];
+}
+@utility text-gradient {
+  @apply bg-gradient-to-r from-accent-300 via-accent-400 to-accent-500 bg-clip-text text-transparent;
 }
 @utility field-label {
-  @apply mb-1 block text-sm font-semibold text-ink;
+  @apply mb-1.5 block text-sm font-semibold text-ink;
 }
 @utility field-input {
-  @apply block min-h-12 w-full rounded-lg border border-slate-400 bg-white px-3 py-2 text-base text-ink placeholder:text-slate-500 focus:border-brand-600;
+  @apply block min-h-12 w-full rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-base text-ink shadow-sm transition-all duration-200 placeholder:text-slate-400 hover:border-slate-400 focus:border-brand-500 focus:shadow-[0_0_0_4px_rgb(58_102_223/0.15)] focus:outline-none;
 }
+@utility field-error {
+  @apply mt-1.5 animate-fade-up text-sm font-medium text-red-700;
+}
+@utility field-hint {
+  @apply mt-1.5 text-sm text-muted;
+}
+
 [aria-invalid="true"] {
   border-color: #dc2626;
 }
-@utility field-error {
-  @apply mt-1 text-sm font-medium text-red-700;
+
+.prose-page p {
+  margin-bottom: 1rem;
+  line-height: 1.75;
+  color: var(--color-muted);
 }
-@utility field-hint {
-  @apply mt-1 text-sm text-muted;
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.06) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 30%, transparent 75%);
+}
+
+.bg-dots {
+  background-image: radial-gradient(rgb(33 63 156 / 0.12) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+/* ---------- Respect reduced motion: content stays visible, motion stops ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }

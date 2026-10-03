@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MobileActionBar } from "@/components/MobileActionBar";
+import { RevealObserver } from "@/components/RevealObserver";
 import { StagingBanner } from "@/components/StagingBanner";
 import { business } from "@/content/site";
 import { isProductionSite, siteUrl } from "@/lib/site-env";
@@ -20,7 +21,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { themeColor: "#102f52", width: "device-width", initialScale: 1 };
+export const viewport: Viewport = { themeColor: "#0c1738", width: "device-width", initialScale: 1 };
 
 const ga4 = process.env.NEXT_PUBLIC_GA4_ID;
 
@@ -36,7 +37,11 @@ const jsonLd = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className="h-full antialiased" suppressHydrationWarning>
+      <head>
+        {/* Marks JS as available so scroll-reveal styles apply; without JS everything stays visible. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+      </head>
       <body className="flex min-h-full flex-col">
         <StagingBanner />
         <Header />
@@ -45,6 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <MobileActionBar />
+        <RevealObserver />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         {ga4 && (
           <>

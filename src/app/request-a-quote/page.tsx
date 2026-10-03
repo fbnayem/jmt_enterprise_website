@@ -2,6 +2,7 @@ import { Phone } from "lucide-react";
 import type { Metadata } from "next";
 import { Suspense } from "react";
 import { QuoteForm } from "@/components/quote/QuoteForm";
+import { GlowBackdrop } from "@/components/sections";
 import { TrackedLink } from "@/components/TrackedLink";
 import { business } from "@/content/site";
 
@@ -14,22 +15,25 @@ export const metadata: Metadata = {
 export default function RequestQuotePage() {
   return (
     <>
-      <section className="bg-brand-50 py-10">
-        <div className="container-page max-w-3xl">
-          <h1 className="text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl">Request a quote</h1>
-          <p className="mt-3 text-lg text-muted">
+      <section className="relative isolate overflow-hidden bg-brand-950 pb-28 pt-12 text-white sm:pt-16">
+        <GlowBackdrop />
+        <div className="container-page relative max-w-3xl">
+          <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
+            Request a <span className="text-gradient">quote</span>
+          </h1>
+          <p className="mt-4 text-lg text-brand-100/90">
             Four short steps. No account needed. JMT reviews your request and contacts you with a price and availability. Nothing is
             booked until you agree the service.
           </p>
-          <p className="mt-3 text-muted">
+          <p className="mt-4 text-brand-200">
             Prefer to talk?{" "}
-            <TrackedLink kind="phone" location="quote_page" href={business.phoneHref} className="inline-flex items-center gap-1 font-semibold text-brand-700 underline">
+            <TrackedLink kind="phone" location="quote_page" href={business.phoneHref} className="inline-flex items-center gap-1 font-semibold text-accent-300 underline underline-offset-4 hover:text-accent-400">
               <Phone className="size-4" aria-hidden="true" /> Call {business.phoneDisplay}
             </TrackedLink>
           </p>
         </div>
       </section>
-      <section className="py-10">
+      <section className="relative -mt-20 pb-16">
         <div className="container-page">
           <Suspense fallback={<p className="text-center text-muted">Loading the form…</p>}>
             <QuoteForm />

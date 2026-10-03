@@ -10,11 +10,11 @@ export function MobileActionBar() {
   const pathname = usePathname();
   if (pathname === "/request-a-quote" || pathname === "/request-received") return null;
   return (
-    <div className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-2 gap-2 border-t border-slate-200 bg-white p-2 shadow-[0_-4px_12px_rgba(0,0,0,0.06)] lg:hidden">
-      <TrackedLink kind="phone" location="mobile_bar" href={business.phoneHref} className="btn-secondary text-sm">
+    <div className="fixed inset-x-3 bottom-3 z-30 grid grid-cols-[auto_1fr] gap-2 rounded-full border border-white/60 bg-white/85 p-1.5 shadow-[0_12px_40px_-12px_rgb(12_23_56/0.45)] backdrop-blur-xl lg:hidden">
+      <TrackedLink kind="phone" location="mobile_bar" href={business.phoneHref} className="btn min-h-11 border border-brand-200 bg-white px-4 text-sm text-brand-800" aria-label={`Call ${business.phoneDisplay}`}>
         <Phone className="size-4" aria-hidden="true" /> Call
       </TrackedLink>
-      <TrackedLink kind="quote" location="mobile_bar" href="/request-a-quote" className="btn-primary text-sm">
+      <TrackedLink kind="quote" location="mobile_bar" href="/request-a-quote" className="btn-primary min-h-11 text-sm">
         Request a Quote
       </TrackedLink>
     </div>

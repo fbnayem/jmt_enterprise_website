@@ -1,9 +1,11 @@
-import { Check, Phone } from "lucide-react";
+import { ArrowRight, Check, Phone, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Placeholder } from "@/components/Placeholder";
-import { CtaBand, FaqList, HowItWorks, SectionHeading, ServiceGrid, VehicleOptions, WhoWeHelp } from "@/components/sections";
+import { RouteIllustration } from "@/components/RouteIllustration";
+import { CtaBand, FaqList, GlowBackdrop, HowItWorks, ItemMarquee, SectionHeading, ServiceGrid, VehicleOptions, WhoWeHelp } from "@/components/sections";
 import { TrackedLink } from "@/components/TrackedLink";
-import { business, faqs, reasons } from "@/content/site";
+import { business, faqs, reasons, services, vehicles } from "@/content/site";
 
 export const metadata: Metadata = {
   title: { absolute: `Pickup and Delivery for Everyday and Oversized Items | ${business.shortName}` },
@@ -11,71 +13,110 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
+  // Only facts that come straight from the site content; no invented metrics.
+  const facts = [
+    { value: String(vehicles.length), label: "vehicle types" },
+    { value: String(services.length), label: "kinds of pickup and delivery" },
+    { value: "2", label: "customer groups: homes and businesses" },
+    { value: "0", label: "accounts needed to request a quote" },
+  ];
+
   return (
     <>
-      <section className="relative overflow-hidden bg-brand-900 text-white">
-        <div className="container-page grid gap-10 py-14 sm:py-20 lg:grid-cols-[1.2fr_1fr] lg:items-center">
+      <section className="relative isolate overflow-hidden bg-brand-950 text-white">
+        <GlowBackdrop />
+        <div className="container-page grid gap-12 pb-20 pt-14 sm:pt-20 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:pb-28 lg:pt-24">
           <div>
-            <p className="text-sm font-bold uppercase tracking-wide text-accent-400">For individuals and businesses</p>
-            <h1 className="mt-3 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
-              Pickup and Delivery for Everyday and Oversized Items
-            </h1>
-            <p className="mt-5 max-w-xl text-lg text-brand-100">
-              From Marketplace purchases and furniture to business deliveries, JMT Enterprise helps individuals and businesses move
-              items with vehicle options to suit the job. Tell us what you need moved and request a quote.
+            <p className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-accent-300 backdrop-blur">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent-400 opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-accent-400" />
+              </span>
+              For individuals and businesses
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <TrackedLink kind="quote" location="hero" href="/request-a-quote" className="btn-primary text-lg">
+            <h1 className="mt-6 animate-fade-up text-4xl font-extrabold leading-[1.05] tracking-tight text-balance [animation-delay:80ms] sm:text-6xl">
+              Pickup and Delivery for <span className="text-gradient">Everyday and Oversized</span> Items
+            </h1>
+            <p className="mt-6 max-w-xl animate-fade-up text-lg text-brand-100/90 [animation-delay:160ms]">
+              From Marketplace purchases and furniture to business deliveries, JMT Enterprise helps individuals and businesses move items
+              with vehicle options to suit the job. Tell us what you need moved and request a quote.
+            </p>
+            <div className="mt-9 flex animate-fade-up flex-col gap-3 [animation-delay:240ms] sm:flex-row">
+              <TrackedLink kind="quote" location="hero" href="/request-a-quote" className="btn-primary group text-lg">
                 Request a Quote
+                <ArrowRight className="size-5 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
               </TrackedLink>
               <TrackedLink kind="phone" location="hero" href={business.phoneHref} className="btn-on-dark text-lg">
                 <Phone className="size-5" aria-hidden="true" /> Call {business.phoneDisplay}
               </TrackedLink>
             </div>
-            <p className="mt-4 text-sm text-brand-200">JMT reviews every request and confirms the price and service with you before anything is booked.</p>
+            <p className="mt-6 flex animate-fade-up items-start gap-2 text-sm text-brand-200 [animation-delay:320ms]">
+              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-accent-300" aria-hidden="true" />
+              JMT reviews every request and confirms the price and service with you before anything is booked.
+            </p>
           </div>
-          <div className="hidden lg:block">
-            <Placeholder title="Hero photo: authentic JMT vehicle or a typical delivery">
-              Use an approved photo of JMT&apos;s vehicles or the items it transports. Licensed stock can illustrate, without implying it
-              shows JMT&apos;s team or fleet.
-            </Placeholder>
+          <div className="animate-fade-up [animation-delay:200ms]">
+            <RouteIllustration />
           </div>
         </div>
       </section>
 
-      <section className="py-16" aria-labelledby="services-h">
+      <ItemMarquee />
+
+      <section className="py-20 sm:py-24" aria-labelledby="services-h">
         <div className="container-page">
-          <SectionHeading id="services-h" title="What we pick up and deliver" intro="A sofa from a Marketplace seller, a new appliance, an antique or a store delivery. Tell us what it is and where it is going." />
+          <SectionHeading eyebrow="Services" id="services-h" title="What we pick up and deliver" intro="A sofa from a Marketplace seller, a new appliance, an antique or a store delivery. Tell us what it is and where it is going." />
           <ServiceGrid />
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16" aria-labelledby="who-h">
+      <section className="border-y border-slate-200/70 bg-white" aria-label="At a glance">
+        <dl className="container-page grid grid-cols-2 divide-slate-200/70 py-10 lg:grid-cols-4 lg:divide-x">
+          {facts.map((f, i) => (
+            <div key={f.label} data-reveal style={{ "--d": i } as React.CSSProperties} className="px-4 py-4 text-center lg:py-2">
+              <dt className="sr-only">{f.label}</dt>
+              <dd>
+                <span className="block bg-gradient-to-br from-brand-500 to-brand-800 bg-clip-text text-5xl font-extrabold tracking-tight text-transparent">{f.value}</span>
+                <span className="mt-2 block text-sm font-medium text-muted">{f.label}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <section className="bg-dots bg-slate-50 py-20 sm:py-24" aria-labelledby="who-h">
         <div className="container-page">
-          <SectionHeading id="who-h" title="Who we help" intro="Households and businesses use the same simple request form." />
+          <SectionHeading eyebrow="Who we help" id="who-h" title="Built for households and businesses" intro="Households and businesses use the same simple request form." />
           <WhoWeHelp />
         </div>
       </section>
 
-      <section className="py-16" aria-labelledby="how-h">
+      <section className="py-20 sm:py-24" aria-labelledby="how-h">
         <div className="container-page">
-          <SectionHeading id="how-h" title="How it works" intro="Nothing is booked until you and JMT agree the details." />
+          <SectionHeading eyebrow="How it works" id="how-h" title="Four steps, nothing booked until you agree" intro="Nothing is booked until you and JMT agree the details." />
           <HowItWorks />
         </div>
       </section>
 
-      <section className="bg-slate-50 py-16" aria-labelledby="vehicles-h">
-        <div className="container-page">
-          <SectionHeading id="vehicles-h" title="Vehicle options" intro="Four vehicle types, so the job gets the space it needs." />
+      <section className="relative isolate overflow-hidden bg-brand-950 py-20 text-white sm:py-24" aria-labelledby="vehicles-h">
+        <GlowBackdrop />
+        <div className="container-page relative">
+          <div className="max-w-2xl" data-reveal>
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-accent-300">Vehicle options</p>
+            <h2 id="vehicles-h" className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
+              The right space for <span className="text-gradient">every job</span>
+            </h2>
+            <p className="mt-4 text-lg text-brand-100/90">Four vehicle types, so the job gets the space it needs.</p>
+          </div>
           <VehicleOptions />
         </div>
       </section>
 
-      <section className="py-16" aria-labelledby="area-h">
-        <div className="container-page grid gap-10 lg:grid-cols-2">
+      <section className="py-20 sm:py-24" aria-labelledby="area-h">
+        <div className="container-page grid gap-12 lg:grid-cols-2">
           <div>
-            <SectionHeading id="area-h" title="Where we work" />
-            <div className="mt-6">
+            <SectionHeading eyebrow="Service area" id="area-h" title="Where we work" />
+            <div className="mt-6" data-reveal>
               {business.serviceArea ? (
                 <p className="text-lg text-muted">{business.serviceArea.summary}</p>
               ) : (
@@ -83,9 +124,9 @@ export default function HomePage() {
                   Add the cities, ZIP codes and region JMT confirms. Until then, visitors are invited to ask about their location.
                 </Placeholder>
               )}
-              <p className="mt-4 text-muted">
+              <p className="mt-5 text-muted">
                 Not sure if we cover your location? Call{" "}
-                <TrackedLink kind="phone" location="area" href={business.phoneHref} className="font-semibold text-brand-700 underline">
+                <TrackedLink kind="phone" location="area" href={business.phoneHref} className="font-semibold text-brand-600 underline decoration-brand-200 underline-offset-4 transition-colors hover:decoration-brand-600">
                   {business.phoneDisplay}
                 </TrackedLink>{" "}
                 or send a request and JMT will let you know.
@@ -93,11 +134,15 @@ export default function HomePage() {
             </div>
           </div>
           <div>
-            <h2 className="text-2xl font-extrabold tracking-tight text-brand-900 sm:text-3xl">Why choose JMT</h2>
-            <ul className="mt-6 space-y-4">
-              {reasons.map((r) => (
-                <li key={r.title} className="flex gap-3">
-                  <Check className="mt-1 size-5 shrink-0 text-brand-600" aria-hidden="true" />
+            <h2 className="text-3xl font-extrabold tracking-tight text-brand-900 sm:text-4xl" data-reveal>
+              Why choose JMT
+            </h2>
+            <ul className="mt-8 space-y-4">
+              {reasons.map((r, i) => (
+                <li key={r.title} data-reveal style={{ "--d": i } as React.CSSProperties} className="group card card-hover flex gap-4 p-5">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-brand-400 to-brand-700 text-white transition-transform duration-500 group-hover:scale-110" aria-hidden="true">
+                    <Check className="size-5" strokeWidth={3} />
+                  </span>
                   <div>
                     <p className="font-bold text-brand-900">{r.title}</p>
                     <p className="text-muted">{r.body}</p>
@@ -111,13 +156,15 @@ export default function HomePage() {
 
       {/* Testimonials are intentionally omitted until JMT supplies genuine customer reviews. */}
 
-      <section className="bg-slate-50 py-16" aria-labelledby="faq-h">
+      <section className="bg-slate-50 py-20 sm:py-24" aria-labelledby="faq-h">
         <div className="container-page max-w-3xl">
-          <SectionHeading id="faq-h" title="Common questions" />
+          <SectionHeading eyebrow="FAQ" id="faq-h" title="Common questions" center />
           <FaqList items={faqs.slice(0, 4)} />
-          <a href="/faqs" className="mt-6 inline-block font-semibold text-brand-700 underline underline-offset-4">
-            See all FAQs
-          </a>
+          <div className="mt-8 text-center">
+            <Link href="/faqs" className="btn-secondary group">
+              See all FAQs <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </section>
 

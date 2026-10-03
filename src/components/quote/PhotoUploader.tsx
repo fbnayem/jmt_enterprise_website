@@ -61,11 +61,13 @@ export function PhotoUploader({
         type="button"
         disabled={remaining <= 0}
         onClick={() => input.current?.click()}
-        className="flex w-full flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-brand-200 bg-brand-50 px-4 py-8 text-brand-800 hover:border-brand-600 disabled:cursor-not-allowed disabled:opacity-60"
+        className="group flex w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-brand-200 bg-gradient-to-b from-brand-50 to-white px-4 py-10 text-brand-800 transition-all duration-300 hover:border-brand-500 hover:shadow-[0_16px_40px_-20px_rgb(58_102_223/0.5)] disabled:cursor-not-allowed disabled:opacity-60"
         aria-describedby="photos-hint"
       >
-        <ImagePlus className="size-8" aria-hidden="true" />
-        <span className="font-semibold">{remaining > 0 ? "Add photos" : "Photo limit reached"}</span>
+        <span className="grid size-14 place-items-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-700 text-white shadow-lg shadow-brand-500/30 transition-transform duration-500 ease-out-expo group-hover:-translate-y-1 group-hover:rotate-6" aria-hidden="true">
+          <ImagePlus className="size-7" />
+        </span>
+        <span className="font-bold">{remaining > 0 ? "Add photos" : "Photo limit reached"}</span>
       </button>
       <p id="photos-hint" className="field-hint">
         Up to {PHOTO_LIMITS.maxFiles} photos, JPEG, PNG or WebP, 10 MB each. Location data is removed from photos when they are saved.
@@ -74,8 +76,8 @@ export function PhotoUploader({
       {photos.length > 0 && (
         <ul className="mt-4 grid gap-3 sm:grid-cols-2" aria-live="polite">
           {photos.map((p) => (
-            <li key={p.localId} className={`flex gap-3 rounded-lg border p-3 ${p.status === "error" ? "border-red-600 bg-red-50" : "border-slate-200"}`}>
-              <div className="size-20 shrink-0 overflow-hidden rounded-md bg-slate-100">
+            <li key={p.localId} className={`flex animate-fade-up gap-3 rounded-2xl border bg-white p-3 ${p.status === "error" ? "border-red-600 bg-red-50" : "border-slate-200 shadow-sm"}`}>
+              <div className="size-20 shrink-0 overflow-hidden rounded-xl bg-slate-100">
                 {p.previewUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element -- local object URL preview
                   <img src={p.previewUrl} alt={`Preview of ${p.name}`} className="size-full object-cover" />
@@ -91,7 +93,7 @@ export function PhotoUploader({
                     <Loader2 className="size-4 animate-spin" aria-hidden="true" /> Uploading…
                   </p>
                 )}
-                {p.status === "ready" && <p className="mt-1 text-sm font-medium text-green-700">Added</p>}
+                {p.status === "ready" && <p className="mt-1 inline-flex rounded-full bg-emerald-50 px-2 py-0.5 text-sm font-semibold text-emerald-700">Added</p>}
                 {p.status === "error" && (
                   <p className="mt-1 flex gap-1 text-sm font-medium text-red-700">
                     <TriangleAlert className="mt-0.5 size-4 shrink-0" aria-hidden="true" /> {p.error}
@@ -99,7 +101,7 @@ export function PhotoUploader({
                 )}
                 <div className="mt-2 flex gap-2">
                   {p.status === "error" && p.file && (
-                    <button type="button" onClick={() => onRetry(p)} className="inline-flex min-h-10 items-center gap-1 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium">
+                    <button type="button" onClick={() => onRetry(p)} className="inline-flex min-h-10 items-center gap-1 rounded-full border border-slate-300 bg-white px-3 text-sm font-medium transition-colors hover:border-brand-400">
                       <RotateCcw className="size-4" aria-hidden="true" /> Retry
                     </button>
                   )}
@@ -107,7 +109,7 @@ export function PhotoUploader({
                     type="button"
                     onClick={() => onRemove(p)}
                     disabled={p.status === "uploading"}
-                    className="inline-flex min-h-10 items-center gap-1 rounded-md border border-slate-300 bg-white px-3 text-sm font-medium disabled:opacity-50"
+                    className="inline-flex min-h-10 items-center gap-1 rounded-full border border-slate-300 bg-white px-3 text-sm font-medium transition-colors hover:border-brand-400 disabled:opacity-50"
                   >
                     <Trash2 className="size-4" aria-hidden="true" /> Remove<span className="sr-only"> {p.name}</span>
                   </button>

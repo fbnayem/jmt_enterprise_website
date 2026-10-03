@@ -23,7 +23,7 @@ export default function ServiceAreasPage() {
               <p className="text-lg text-muted">{business.serviceArea.summary}</p>
               <ul className="grid gap-2 sm:grid-cols-2">
                 {business.serviceArea.places.map((p) => (
-                  <li key={p} className="rounded-lg bg-brand-50 px-4 py-3 font-medium text-brand-900">
+                  <li key={p} className="rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 font-medium text-brand-900 transition-colors hover:border-brand-300">
                     {p}
                   </li>
                 ))}
@@ -35,7 +35,7 @@ export default function ServiceAreasPage() {
               <code className="mx-1">src/content/site.ts</code> under <code>business.serviceArea</code>.
             </Placeholder>
           )}
-          <div className="rounded-xl border border-slate-200 p-6">
+          <div data-reveal className="card p-6">
             <h2 className="text-xl font-bold text-brand-900">Not sure if we cover your location?</h2>
             <p className="mt-2 text-muted">
               Call{" "}
