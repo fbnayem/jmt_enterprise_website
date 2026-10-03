@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { business } from "@/content/site";
 import { track } from "@/lib/analytics";
+import { isProductionSite } from "@/lib/site-env";
 import {
   ACKNOWLEDGEMENT_TEXT,
   ACKNOWLEDGEMENT_VERSION,
@@ -583,6 +584,13 @@ export function QuoteForm() {
         <div role="alert" className="mt-4 animate-fade-up rounded-2xl border border-red-200 bg-red-50 p-4 font-medium text-red-900">
           {banner ?? `Please check ${errorCount === 1 ? "the highlighted field" : `the ${errorCount} highlighted fields`}.`}
         </div>
+      )}
+
+      {!isProductionSite && (
+        <p className="mt-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">
+          Preview only: requests sent from this page do not reach JMT Enterprise. To book a real pickup, please call or email
+          JMT directly.
+        </p>
       )}
 
       <form

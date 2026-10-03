@@ -1,3 +1,4 @@
+import { isProductionSite } from "@/lib/site-env";
 import { CheckCircle2 } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -22,6 +23,11 @@ export default async function RequestReceivedPage({ searchParams }: PageProps<"/
           <CheckCircle2 className="size-10" aria-hidden="true" />
         </span>
         <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-balance text-brand-900 sm:text-4xl">Thank you. Your quote request has been received.</h1>
+        {!isProductionSite && (
+          <p className="mt-4 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm font-semibold text-amber-950">
+            Preview only: this request was not sent to JMT Enterprise and no email was sent.
+          </p>
+        )}
         {reference ? (
           <p className="mt-4 text-lg text-muted">
             Your reference is <strong className="whitespace-nowrap rounded-lg bg-brand-50 px-2 py-1 font-mono text-brand-900">{reference}</strong>.
