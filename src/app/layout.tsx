@@ -4,7 +4,6 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { MobileActionBar } from "@/components/MobileActionBar";
 import { RevealObserver } from "@/components/RevealObserver";
-import { StagingBanner } from "@/components/StagingBanner";
 import { business } from "@/content/site";
 import { isProductionSite, siteUrl } from "@/lib/site-env";
 import "./globals.css";
@@ -42,7 +41,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
       <body className="flex min-h-full flex-col">
-        <StagingBanner />
         <Header />
         <main id="main" className="flex-1">
           {children}
