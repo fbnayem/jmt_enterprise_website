@@ -16,7 +16,7 @@ export type Photo = {
   file?: File;
 };
 
-const mb = (n: number) => `${(n / 1024 / 1024).toFixed(1)} MB`;
+const mb = (n: number) => (n < 100 * 1024 ? `${Math.max(1, Math.round(n / 1024))} KB` : `${(n / 1024 / 1024).toFixed(1)} MB`);
 
 export function clientCheck(file: File, existing: Photo[]): string | null {
   const isHeic = /\.(heic|heif)$/i.test(file.name) || /heic|heif/i.test(file.type);
