@@ -545,7 +545,7 @@ export function QuoteForm() {
   const errorCount = Object.keys(errors).length;
 
   return (
-    <div className="card mx-auto max-w-3xl p-5 shadow-[0_30px_80px_-30px_rgb(10_26_61/0.45)] sm:p-10">
+    <div className="card mx-auto max-w-3xl p-5 shadow-[0_30px_80px_-30px_rgb(7_23_51/0.45)] sm:p-10">
       {/* Progress */}
       <nav aria-label="Request progress" className="mb-8">
         <div className="relative">

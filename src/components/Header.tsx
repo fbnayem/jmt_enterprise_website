@@ -50,7 +50,7 @@ export function Header() {
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
-        scrolled || open ? "border-b border-slate-200/70 bg-white/85 shadow-[0_8px_30px_-12px_rgb(10_26_61/0.18)] backdrop-blur-xl" : "border-b border-transparent bg-white/70 backdrop-blur-md"
+        scrolled || open ? "border-b border-slate-200/70 bg-white/85 shadow-[0_8px_30px_-12px_rgb(7_23_51/0.18)] backdrop-blur-xl" : "border-b border-transparent bg-white/70 backdrop-blur-md"
       }`}
     >
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:p-2">
@@ -108,7 +108,7 @@ export function Header() {
       {open && (
         <>
           <div aria-hidden="true" className="absolute inset-x-0 top-full h-[100dvh] bg-brand-950/40 lg:hidden" onClick={() => close(false)} />
-        <nav ref={menuRef} id="mobile-nav" aria-label="Mobile" className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] animate-fade-up overflow-y-auto overscroll-contain border-t border-slate-200/70 bg-white shadow-[0_24px_48px_-16px_rgb(10_26_61/0.35)] lg:hidden">
+        <nav ref={menuRef} id="mobile-nav" aria-label="Mobile" className="absolute inset-x-0 top-full max-h-[calc(100dvh-4rem)] animate-fade-up overflow-y-auto overscroll-contain border-t border-slate-200/70 bg-white shadow-[0_24px_48px_-16px_rgb(7_23_51/0.35)] lg:hidden">
           <ul className="container-page flex flex-col gap-1 py-3">
             {nav.map((n, i) => (
               <li key={n.href} className="animate-fade-up" style={{ animationDelay: `${i * 40}ms` }}>
