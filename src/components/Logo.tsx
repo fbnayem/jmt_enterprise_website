@@ -1,12 +1,13 @@
 import Image from "next/image";
 import { business } from "@/content/site";
-import logoBlue from "../../public/brand/jmt-logo.png";
-import logoWhite from "../../public/brand/jmt-logo-white.png";
+import logo from "../../public/brand/jmt-logo.png";
 
 /**
- * The client's logo (royal blue, with a white version for dark backgrounds).
- * Assets are generated from brand-source/ by `node scripts/brand-assets.mjs`.
+ * JMT's own full-colour logo (navy, red and white). It needs a light
+ * background, so on dark sections it sits on a white card.
  */
-export function Logo({ onDark = false, alt = business.name, className = "h-11 w-auto lg:h-[52px]" }: { onDark?: boolean; alt?: string; className?: string }) {
-  return <Image src={onDark ? logoWhite : logoBlue} alt={alt} className={className} priority={!onDark} sizes="160px" />;
+export function Logo({ onDark = false, alt = business.name, className = "h-14 w-auto lg:h-16" }: { onDark?: boolean; alt?: string; className?: string }) {
+  const img = <Image src={logo} alt={alt} className={className} priority={!onDark} sizes="(min-width: 1024px) 200px, 160px" />;
+  if (!onDark) return img;
+  return <span className="inline-block rounded-2xl bg-white p-3 shadow-lg shadow-black/20">{img}</span>;
 }

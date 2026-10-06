@@ -61,7 +61,7 @@ function IconChip({ icon: Icon, tone = "brand" }: { icon: typeof Truck; tone?: "
   return (
     <span
       className={`grid size-10 place-items-center rounded-xl text-white shadow-lg sm:size-12 sm:rounded-2xl transition-transform duration-500 ease-out-expo group-hover:-rotate-6 group-hover:scale-110 ${
-        tone === "brand" ? "bg-gradient-to-br from-brand-400 to-brand-700 shadow-brand-500/30" : "bg-gradient-to-br from-accent-400 to-accent-600 shadow-accent-500/30"
+        tone === "brand" ? "bg-gradient-to-br from-brand-400 to-brand-700 shadow-brand-500/30" : "bg-gradient-to-br from-accent-500 to-accent-700 shadow-accent-600/30"
       }`}
       aria-hidden="true"
     >
@@ -174,7 +174,7 @@ export function HowItWorks() {
         <li key={s.title} data-reveal style={{ "--d": i } as React.CSSProperties} className="relative flex gap-5 md:block">
           <span
             className={`relative z-10 grid size-12 shrink-0 place-items-center rounded-full text-lg font-extrabold text-white shadow-lg ring-4 ring-white ${
-              i === howItWorks.length - 1 ? "animate-pulse-ring bg-gradient-to-br from-accent-400 to-accent-600" : "bg-gradient-to-br from-brand-500 to-brand-800"
+              i === howItWorks.length - 1 ? "animate-pulse-ring bg-gradient-to-br from-accent-500 to-accent-700" : "bg-gradient-to-br from-brand-500 to-brand-800"
             }`}
             aria-hidden="true"
           >
@@ -229,7 +229,7 @@ export function FaqList({ items = faqs }: { items?: Faq[] }) {
         <details key={f.q} data-reveal style={{ "--d": i % 4 } as React.CSSProperties} className="group card overflow-hidden px-6 py-5 transition-colors open:border-brand-200 open:bg-brand-50/40">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-lg font-bold text-brand-900 [&::-webkit-details-marker]:hidden">
             {f.q}
-            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand-50 text-xl text-brand-600 transition-all duration-300 group-open:rotate-45 group-open:bg-accent-400 group-open:text-brand-950" aria-hidden="true">
+            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-brand-50 text-xl text-brand-600 transition-all duration-300 group-open:rotate-45 group-open:bg-accent-600 group-open:text-white" aria-hidden="true">
               +
             </span>
           </summary>

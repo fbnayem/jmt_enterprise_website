@@ -11,7 +11,7 @@ export function Footer() {
       <div aria-hidden="true" className="absolute -top-40 left-1/2 -z-10 size-[36rem] -translate-x-1/2 rounded-full bg-brand-600/20 blur-3xl" />
       <div className="container-page grid gap-12 md:grid-cols-[1.3fr_1fr_1fr]">
         <div>
-          <Logo onDark className="h-14 w-auto" />
+          <Logo onDark className="h-24 w-auto" />
           <p className="mt-5 max-w-sm text-brand-100/80">Pickup and delivery for individuals and businesses. Every job is quoted and confirmed by JMT before service.</p>
           <Link href="/request-a-quote" className="btn-primary group mt-6">
             Request a Quote <ArrowUpRight className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden="true" />
@@ -34,13 +34,13 @@ export function Footer() {
           <ul className="mt-4 space-y-3 text-sm">
             <li>
               <TrackedLink kind="phone" location="footer" href={business.phoneHref} className="group inline-flex items-center gap-3 transition-colors hover:text-white">
-                <span className="grid size-9 place-items-center rounded-full bg-white/10 transition-colors group-hover:bg-accent-400 group-hover:text-brand-950"><Phone className="size-4" aria-hidden="true" /></span>
+                <span className="grid size-9 place-items-center rounded-full bg-white/10 transition-colors group-hover:bg-accent-600 group-hover:text-white"><Phone className="size-4" aria-hidden="true" /></span>
                 {business.phoneDisplay}
               </TrackedLink>
             </li>
             <li>
               <TrackedLink kind="email" location="footer" href={business.emailHref} className="group inline-flex items-center gap-3 transition-colors hover:text-white">
-                <span className="grid size-9 place-items-center rounded-full bg-white/10 transition-colors group-hover:bg-accent-400 group-hover:text-brand-950"><Mail className="size-4" aria-hidden="true" /></span>
+                <span className="grid size-9 place-items-center rounded-full bg-white/10 transition-colors group-hover:bg-accent-600 group-hover:text-white"><Mail className="size-4" aria-hidden="true" /></span>
                 {business.email}
               </TrackedLink>
             </li>

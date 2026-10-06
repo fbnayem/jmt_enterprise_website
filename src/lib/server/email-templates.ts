@@ -15,7 +15,7 @@ import type { StoredQuoteRequest } from "./types";
 
 /** Hosted logo for emails. Fixed width/height keep the layout when images are blocked. */
 const logoImg = () =>
-  `<img src="${serverConfig.siteUrl.replace(/\/$/, "")}/brand/jmt-logo-email.png" width="180" height="56" alt="${business.name}" style="display:block;border:0;margin:0 0 20px;height:56px;width:180px">`;
+  `<img src="${serverConfig.siteUrl.replace(/\/$/, "")}/brand/jmt-logo-email.png" width="180" height="122" alt="${business.name}" style="display:block;border:0;margin:0 0 20px;height:122px;width:180px">`;
 
 const esc = (s: unknown) =>
   String(s ?? "")

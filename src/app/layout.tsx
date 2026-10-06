@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   formatDetection: { telephone: false },
 };
 
-export const viewport: Viewport = { themeColor: "#165dd6", width: "device-width", initialScale: 1, viewportFit: "cover" };
+export const viewport: Viewport = { themeColor: "#0c2650", width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 const jsonLd = {
   "@context": "https://schema.org",

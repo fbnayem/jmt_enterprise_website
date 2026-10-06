@@ -12,7 +12,7 @@ Updated 3 October 2026.
 - **Operator access** is the Supabase dashboard plus `npm run ops`. No custom admin dashboard (later phase).
 - **Testimonials** section is omitted until genuine reviews are supplied.
 - **FAQ answers** are drafted from the brief and need JMT's approval.
-- **Brand:** the client's royal-blue logo (supplied 3 October 2026) is used in the header, footer, favicon, share image and emails; the palette is built around its blue (#165DD6) with amber kept for call-to-action buttons. Regenerate the assets with `node scripts/brand-assets.mjs`.
+- **Brand:** JMT's own full-colour logo (navy, red and white, supplied 4 October 2026, replacing the earlier royal-blue version) is used in the header, footer, favicon, share image and emails. The palette uses the logo's navy for the brand colour and its red for calls to action. Source: `brand-source/jmt-enterprise-logo-client.png`; regenerate assets with `node scripts/brand-assets.mjs`.
 
 ## Acceptance checks (brief §9)
 

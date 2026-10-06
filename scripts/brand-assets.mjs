@@ -1,69 +1,83 @@
 /**
- * Builds the web logo assets from the client's original logo
- * (brand-source/jmt-enterprise-logo-original.png). Re-run after replacing it:
+ * Builds the web logo assets from the client's own full-colour logo
+ * (brand-source/jmt-enterprise-logo-client.png: navy, red and white on a white
+ * background). Re-run after replacing it:
  *   node scripts/brand-assets.mjs
  */
 import sharp from "sharp";
 
-const SRC = "brand-source/jmt-enterprise-logo-original.png";
-const BLUE = [0x16, 0x5d, 0xd6]; // measured from the logo
-const PAD = 12;
+const SRC = "brand-source/jmt-enterprise-logo-client.png";
+const NAVY = "#0c2650"; // measured from the logo
+const PAD = 16;
 
-const { data, info } = await sharp(SRC).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+const { data, info } = await sharp(SRC).removeAlpha().raw().toBuffer({ resolveWithObject: true });
+const { width: W, height: H } = info;
+const px = (x, y) => (y * W + x) * 3;
+const isPaper = (i) => data[i] > 238 && data[i + 1] > 238 && data[i + 2] > 238;
 
-/** Recolours every pixel to one flat colour, keeping anti-aliased edges and dropping faint noise. */
-function tinted(rgb) {
-  const out = Buffer.alloc(data.length);
-  for (let i = 0; i < data.length; i += 4) {
-    const a = data[i + 3] < 48 ? 0 : data[i + 3];
-    out[i] = rgb[0];
-    out[i + 1] = rgb[1];
-    out[i + 2] = rgb[2];
-    out[i + 3] = a;
-  }
-  return sharp(out, { raw: { width: info.width, height: info.height, channels: 4 } });
+/**
+ * Makes only the outer white background transparent (flood fill from the
+ * edges), so the white trucks inside the logo stay white.
+ */
+const alpha = Buffer.alloc(W * H, 255);
+const stack = [];
+for (let x = 0; x < W; x++) stack.push([x, 0], [x, H - 1]);
+for (let y = 0; y < H; y++) stack.push([0, y], [W - 1, y]);
+while (stack.length) {
+  const [x, y] = stack.pop();
+  if (x < 0 || y < 0 || x >= W || y >= H) continue;
+  const k = y * W + x;
+  if (alpha[k] === 0 || !isPaper(px(x, y))) continue;
+  alpha[k] = 0;
+  stack.push([x + 1, y], [x - 1, y], [x, y + 1], [x, y - 1]);
 }
+const rgba = Buffer.alloc(W * H * 4);
+for (let k = 0; k < W * H; k++) {
+  rgba[k * 4] = data[k * 3];
+  rgba[k * 4 + 1] = data[k * 3 + 1];
+  rgba[k * 4 + 2] = data[k * 3 + 2];
+  rgba[k * 4 + 3] = alpha[k];
+}
+const transparent = () => sharp(rgba, { raw: { width: W, height: H, channels: 4 } });
+const onWhite = () => sharp(SRC).removeAlpha();
 
-function bbox(x0, x1) {
-  let minx = 1e9, maxx = 0, miny = 1e9, maxy = 0;
-  for (let y = 0; y < info.height; y++)
-    for (let x = x0; x < x1; x++)
-      if (data[(y * info.width + x) * 4 + 3] > 128) {
+/** Bounding box of the artwork inside a band of rows, with padding. */
+function bbox(y0 = 0, y1 = H, pad = PAD) {
+  let minx = W, maxx = 0, miny = H, maxy = 0;
+  for (let y = y0; y < y1; y++)
+    for (let x = 0; x < W; x++)
+      if (alpha[y * W + x] && !isPaper(px(x, y))) {
         minx = Math.min(minx, x); maxx = Math.max(maxx, x); miny = Math.min(miny, y); maxy = Math.max(maxy, y);
       }
-  return { left: Math.max(0, minx - PAD), top: Math.max(0, miny - PAD), width: Math.min(info.width, maxx + PAD + 1) - Math.max(0, minx - PAD), height: Math.min(info.height, maxy + PAD + 1) - Math.max(0, miny - PAD) };
+  const left = Math.max(0, minx - pad), top = Math.max(0, miny - pad);
+  return { left, top, width: Math.min(W, maxx + pad + 1) - left, height: Math.min(H, maxy + pad + 1) - top };
 }
 
-// The box mark ends at the first fully empty column before the "J".
-let split = 0;
-for (let x = 600; x < info.width && !split; x++) {
-  let any = false;
-  for (let y = 0; y < info.height && !any; y++) any = data[(y * info.width + x) * 4 + 3] > 128;
-  if (!any) split = x;
-}
-const full = bbox(0, info.width);
-const markBox = bbox(0, split);
-// Keep the padding from reaching into the "J".
-const mark = { ...markBox, width: Math.min(markBox.width, split - markBox.left) };
+const full = bbox();
+// The "JMT" letters sit between the trucks and "ENTERPRISE LLC", flanked by
+// speed stripes; the icon uses the letters alone (measured column range).
+const band = bbox(Math.round(H * 0.58), Math.round(H * 0.78), 6);
+const wordmark = { left: Math.round(W * 0.227), top: band.top, width: Math.round(W * 0.551), height: band.height };
 
 const save = async (img, region, width, file) => {
   const buf = await img.extract(region).png().toBuffer();
-  await sharp(buf).resize({ width }).png({ compressionLevel: 9, palette: true }).toFile(file);
+  await sharp(buf).resize({ width }).png({ compressionLevel: 9 }).toFile(file);
 };
-const white = [255, 255, 255];
-await save(tinted(BLUE), full, 720, "public/brand/jmt-logo.png");
-await save(tinted(white), full, 720, "public/brand/jmt-logo-white.png");
-await save(tinted(BLUE), full, 480, "public/brand/jmt-logo-email.png");
+await save(transparent(), full, 640, "public/brand/jmt-logo.png");
+await save(onWhite(), full, 480, "public/brand/jmt-logo-email.png");
 
-// Square icons: white mark on a royal-blue rounded tile.
-const markWhite = await tinted(white).extract(mark).png().toBuffer();
+// Square icons: the "JMT" wordmark on a white tile with a navy edge.
+const mark = await transparent().extract(wordmark).png().toBuffer();
 async function icon(size, file, radius) {
-  const inner = Math.round(size * 0.72);
-  const glyph = await sharp(markWhite).resize({ width: inner, height: inner, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
-  const tile = Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${radius}" fill="rgb(${BLUE.join(",")})"/></svg>`);
+  const inner = Math.round(size * 0.9);
+  const glyph = await sharp(mark).resize({ width: inner, height: inner, fit: "contain", background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+  const border = Math.round(size * 0.035);
+  const tile = Buffer.from(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect x="${border / 2}" y="${border / 2}" width="${size - border}" height="${size - border}" rx="${radius}" fill="#fff" stroke="${NAVY}" stroke-width="${border}"/></svg>`,
+  );
   await sharp(tile).composite([{ input: glyph, gravity: "center" }]).png().toFile(file);
 }
 await icon(512, "src/app/icon.png", 112);
 await icon(180, "src/app/apple-icon.png", 0); // iOS rounds the corners itself
 await icon(512, "public/brand/jmt-mark-tile.png", 112);
-console.log("logo", full, "mark", mark);
+console.log("logo", full, "wordmark", wordmark);

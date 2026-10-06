@@ -13,15 +13,15 @@ export function RouteIllustration() {
       <svg viewBox="0 0 500 400" className="absolute inset-0 size-full">
         <defs>
           <linearGradient id="route" x1="0" x2="1">
-            <stop offset="0" stopColor="#8db4f8" />
-            <stop offset="1" stopColor="#ffb340" />
+            <stop offset="0" stopColor="#8aa6dc" />
+            <stop offset="1" stopColor="#f66b6b" />
           </linearGradient>
         </defs>
         <path d={path} fill="none" stroke="rgb(255 255 255 / 0.08)" strokeWidth="18" strokeLinecap="round" />
         <path d={path} fill="none" stroke="url(#route)" strokeWidth="4" strokeDasharray="12 12" strokeLinecap="round" className="animate-dash" />
         <g className="animate-drive" style={{ offsetPath: `path("${path}")`, offsetRotate: "0deg" }}>
-          <rect x="-26" y="-26" width="52" height="52" rx="16" fill="#ffb340" />
-          <Truck x="-14" y="-14" width="28" height="28" color="#0a1a3d" />
+          <rect x="-26" y="-26" width="52" height="52" rx="16" fill="#c8161a" />
+          <Truck x="-14" y="-14" width="28" height="28" color="#ffffff" />
         </g>
       </svg>
       <div className="absolute left-[4%] top-[62%] animate-float rounded-2xl border border-white/15 bg-brand-900/80 p-3 pr-5 shadow-2xl backdrop-blur">

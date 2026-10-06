@@ -561,7 +561,7 @@ export function QuoteForm() {
                     i < step
                       ? "bg-brand-600 text-white"
                       : i === step
-                        ? "scale-110 bg-gradient-to-br from-accent-300 to-accent-500 text-brand-950 shadow-lg shadow-accent-500/40"
+                        ? "scale-110 bg-gradient-to-br from-accent-500 to-accent-700 text-white shadow-lg shadow-accent-600/40"
                         : "bg-slate-100 text-slate-400"
                   }`}
                 >

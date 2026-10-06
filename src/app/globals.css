@@ -2,27 +2,27 @@
 @import "@fontsource-variable/plus-jakarta-sans";
 
 /*
- * Brand palette built around the royal blue in JMT's logo (#165dd6 = brand-600).
- * The amber accent is a complementary call-to-action colour; the logo itself
- * is single-colour.
+ * Brand palette taken from JMT's own logo: navy (#0c2650 = brand-900) and
+ * red (#b00a0c = accent-700) on white. brand-600/700 are lighter navy shades
+ * for buttons and links; accent-600 is the call-to-action red (white text 5.9:1).
  */
 @theme {
-  --color-brand-50: #eef4ff;
-  --color-brand-100: #dbe6fe;
-  --color-brand-200: #bdd3fc;
-  --color-brand-300: #8db4f8;
-  --color-brand-400: #5089ef;
-  --color-brand-500: #2c6fe3;
-  --color-brand-600: #165dd6;
-  --color-brand-700: #134bb0;
-  --color-brand-800: #133d8a;
-  --color-brand-900: #0f2c63;
-  --color-brand-950: #0a1a3d;
-  --color-accent-300: #ffcf7a;
-  --color-accent-400: #ffb340;
-  --color-accent-500: #ff9a1a;
-  --color-accent-600: #ea7a00;
-  --color-accent-700: #a85200;
+  --color-brand-50: #eef3fb;
+  --color-brand-100: #dbe5f6;
+  --color-brand-200: #b9cbec;
+  --color-brand-300: #8aa6dc;
+  --color-brand-400: #5a7fc6;
+  --color-brand-500: #3760ad;
+  --color-brand-600: #1f4892;
+  --color-brand-700: #173a7a;
+  --color-brand-800: #112f66;
+  --color-brand-900: #0c2650;
+  --color-brand-950: #071733;
+  --color-accent-300: #ff9e9e;
+  --color-accent-400: #f66b6b;
+  --color-accent-500: #e23a3a;
+  --color-accent-600: #c8161a;
+  --color-accent-700: #b00a0c;
   --color-ink: #0b1226;
   --color-muted: #4a5571;
   --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -66,8 +66,8 @@
     to { opacity: 1; transform: none; }
   }
   @keyframes pulse-ring {
-    0% { box-shadow: 0 0 0 0 rgb(255 154 26 / 0.55); }
-    70%, 100% { box-shadow: 0 0 0 14px rgb(255 154 26 / 0); }
+    0% { box-shadow: 0 0 0 0 rgb(200 22 26 / 0.5); }
+    70%, 100% { box-shadow: 0 0 0 14px rgb(200 22 26 / 0); }
   }
 }
 
@@ -133,7 +133,7 @@ details[open]::details-content {
   @apply relative inline-flex min-h-12 items-center justify-center gap-2 overflow-hidden rounded-full px-6 py-3 text-base font-bold transition-all duration-300 ease-out-expo;
 }
 @utility btn-primary {
-  @apply btn bg-gradient-to-r from-accent-400 to-accent-500 text-brand-950 shadow-[0_8px_24px_-8px_rgb(255_154_26/0.7)] hover:-translate-y-0.5 hover:shadow-[0_14px_32px_-10px_rgb(255_154_26/0.85)] active:translate-y-0;
+  @apply btn bg-gradient-to-r from-accent-600 to-accent-700 text-white shadow-[0_8px_24px_-8px_rgb(200_22_26/0.6)] hover:-translate-y-0.5 hover:shadow-[0_14px_32px_-10px_rgb(200_22_26/0.75)] active:translate-y-0;
 }
 @utility btn-secondary {
   @apply btn border border-brand-200 bg-white text-brand-800 shadow-sm hover:-translate-y-0.5 hover:border-brand-400 hover:shadow-md active:translate-y-0;
@@ -151,7 +151,7 @@ details[open]::details-content {
   @apply rounded-3xl border border-slate-200/80 bg-white shadow-[0_1px_2px_rgb(15_23_42/0.04),0_8px_24px_-12px_rgb(15_23_42/0.12)];
 }
 @utility card-hover {
-  @apply transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-[0_24px_48px_-20px_rgb(19_75_176/0.35)];
+  @apply transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-[0_24px_48px_-20px_rgb(17_47_102/0.3)];
 }
 @utility text-gradient {
   @apply bg-gradient-to-r from-accent-300 via-accent-400 to-accent-500 bg-clip-text text-transparent;
@@ -188,7 +188,7 @@ details[open]::details-content {
 }
 
 .bg-dots {
-  background-image: radial-gradient(rgb(33 63 156 / 0.12) 1px, transparent 1px);
+  background-image: radial-gradient(rgb(12 38 80 / 0.12) 1px, transparent 1px);
   background-size: 22px 22px;
 }
 
