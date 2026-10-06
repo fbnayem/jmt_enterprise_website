@@ -22,7 +22,7 @@ export function Footer() {
           <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-2.5 text-sm">
             {links.map((n) => (
               <li key={n.href}>
-                <Link href={n.href} className="transition-colors hover:text-accent-300">
+                <Link href={n.href} className="transition-colors hover:text-accent-400">
                   {n.label}
                 </Link>
               </li>

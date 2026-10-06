@@ -154,7 +154,7 @@ details[open]::details-content {
   @apply transition-all duration-500 ease-out-expo hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-[0_24px_48px_-20px_rgb(17_47_102/0.3)];
 }
 @utility text-gradient {
-  @apply bg-gradient-to-r from-accent-300 via-accent-400 to-accent-500 bg-clip-text text-transparent;
+  @apply bg-gradient-to-r from-accent-400 to-accent-500 bg-clip-text text-transparent;
 }
 @utility field-label {
   @apply mb-1.5 block text-sm font-semibold text-ink;

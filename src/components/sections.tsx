@@ -22,7 +22,7 @@ export function PageHero({ eyebrow, title, children }: { eyebrow?: string; title
       <GlowBackdrop />
       <div className="container-page relative max-w-4xl">
         {eyebrow && (
-          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-accent-300 backdrop-blur">
+          <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
             <span className="size-1.5 rounded-full bg-accent-400" aria-hidden="true" />
             {eyebrow}
           </p>

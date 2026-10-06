@@ -25,7 +25,7 @@ export default function RequestQuotePage() {
           </p>
           <p className="mt-4 text-brand-200">
             Prefer to talk?{" "}
-            <TrackedLink kind="phone" location="quote_page" href={business.phoneHref} className="inline-flex items-center gap-1 font-semibold text-accent-300 underline underline-offset-4 hover:text-accent-400">
+            <TrackedLink kind="phone" location="quote_page" href={business.phoneHref} className="inline-flex items-center gap-1 font-semibold text-accent-400 underline underline-offset-4 hover:text-white">
               <Phone className="size-4" aria-hidden="true" /> Call {business.phoneDisplay}
             </TrackedLink>
           </p>

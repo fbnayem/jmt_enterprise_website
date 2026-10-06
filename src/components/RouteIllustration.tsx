@@ -38,11 +38,11 @@ export function RouteIllustration() {
 
       <div className="absolute right-[3%] top-[12%] animate-float rounded-2xl border border-white/15 bg-brand-900/80 p-3 pr-5 shadow-2xl backdrop-blur [animation-delay:-3.5s]">
         <div className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-xl bg-accent-400/25 text-accent-300">
+          <span className="grid size-10 place-items-center rounded-xl bg-accent-400/25 text-accent-400">
             <PackageCheck className="size-5" />
           </span>
           <div>
-            <p className="text-xs font-semibold uppercase tracking-wider text-accent-300">Drop-off</p>
+            <p className="text-xs font-semibold uppercase tracking-wider text-accent-400">Drop-off</p>
             <p className="text-sm font-bold text-white">Your door</p>
           </div>
         </div>

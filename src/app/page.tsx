@@ -19,7 +19,7 @@ export default function HomePage() {
         <GlowBackdrop />
         <div className="container-page grid gap-12 pb-20 pt-14 sm:pt-20 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:pb-28 lg:pt-24">
           <div>
-            <p className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-accent-300 backdrop-blur">
+            <p className="inline-flex animate-fade-up items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white backdrop-blur">
               <span className="relative flex size-2">
                 <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent-400 opacity-75" />
                 <span className="relative inline-flex size-2 rounded-full bg-accent-400" />
@@ -43,7 +43,7 @@ export default function HomePage() {
               </TrackedLink>
             </div>
             <p className="mt-6 flex animate-fade-up items-start gap-2 text-sm text-brand-200 [animation-delay:320ms]">
-              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-accent-300" aria-hidden="true" />
+              <ShieldCheck className="mt-0.5 size-4 shrink-0 text-accent-400" aria-hidden="true" />
               JMT reviews every request and confirms the price and service with you before anything is booked.
             </p>
           </div>
@@ -80,7 +80,7 @@ export default function HomePage() {
         <GlowBackdrop />
         <div className="container-page relative">
           <div className="max-w-2xl" data-reveal>
-            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-accent-300">Vehicle options</p>
+            <p className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-white">Vehicle options</p>
             <h2 id="vehicles-h" className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
               The right space for <span className="text-gradient">every job</span>
             </h2>
