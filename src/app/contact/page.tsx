@@ -1,6 +1,5 @@
 import { Clock, Mail, Phone } from "lucide-react";
 import type { Metadata } from "next";
-import { Placeholder } from "@/components/Placeholder";
 import { GlowBackdrop, PageHero } from "@/components/sections";
 import { TrackedLink } from "@/components/TrackedLink";
 import { business } from "@/content/site";
@@ -33,19 +32,15 @@ export default function ContactPage() {
               <span className="break-all text-xl font-bold text-brand-900">{business.email}</span>
             </span>
           </TrackedLink>
-          <div data-reveal className="card flex items-start gap-4 p-6 md:col-span-2">
-            <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-slate-100 text-brand-600"><Clock className="size-6" aria-hidden="true" /></span>
-            <div className="flex-1">
-              <h2 className="text-sm font-bold uppercase tracking-wide text-slate-500">Hours</h2>
-              {business.hours ? (
+          {business.hours && (
+            <div data-reveal className="card flex items-start gap-4 p-6 md:col-span-2">
+              <span className="grid size-12 shrink-0 place-items-center rounded-2xl bg-slate-100 text-brand-600"><Clock className="size-6" aria-hidden="true" /></span>
+              <div className="flex-1">
+                <h2 className="text-sm font-bold uppercase tracking-wide text-slate-500">Hours</h2>
                 <p className="text-lg text-brand-900">{business.hours}</p>
-              ) : (
-                <div className="mt-2">
-                  <Placeholder title="Confirmed hours of operation" />
-                </div>
-              )}
+              </div>
             </div>
-          </div>
+          )}
           <div data-reveal className="relative isolate overflow-hidden rounded-3xl bg-brand-950 p-8 text-white md:col-span-2">
             <GlowBackdrop />
             <h2 className="text-2xl font-extrabold">Need a price?</h2>

@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Placeholder } from "@/components/Placeholder";
 import { CtaBand, PageHero } from "@/components/sections";
 import { TrackedLink } from "@/components/TrackedLink";
 import { business } from "@/content/site";
@@ -30,10 +29,10 @@ export default function ServiceAreasPage() {
               </ul>
             </>
           ) : (
-            <Placeholder title="Confirmed cities, ZIP codes and regional coverage">
-              This page stays a staging draft (not indexed) until JMT confirms exactly where it operates. Add the list in
-              <code className="mx-1">src/content/site.ts</code> under <code>business.serviceArea</code>.
-            </Placeholder>
+            <p className="text-lg text-muted">
+              JMT provides pickup and delivery within its service area. Every request is checked against our service area, and we confirm whether
+              your pickup and drop-off locations are covered when we send your quote.
+            </p>
           )}
           <div data-reveal className="card p-6">
             <h2 className="text-xl font-bold text-brand-900">Not sure if we cover your location?</h2>

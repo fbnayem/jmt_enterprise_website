@@ -1,7 +1,6 @@
 import { ArrowRight, Check, Phone, ShieldCheck } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Placeholder } from "@/components/Placeholder";
 import { RouteIllustration } from "@/components/RouteIllustration";
 import { CtaBand, FaqList, GlowBackdrop, HowItWorks, ItemMarquee, SectionHeading, ServiceGrid, VehicleOptions, WhoWeHelp } from "@/components/sections";
 import { TrackedLink } from "@/components/TrackedLink";
@@ -95,13 +94,11 @@ export default function HomePage() {
           <div>
             <SectionHeading eyebrow="Service area" id="area-h" title="Where we work" />
             <div className="mt-6" data-reveal>
-              {business.serviceArea ? (
-                <p className="text-lg text-muted">{business.serviceArea.summary}</p>
-              ) : (
-                <Placeholder title="Confirmed service area">
-                  Add the cities, ZIP codes and region JMT confirms. Until then, visitors are invited to ask about their location.
-                </Placeholder>
-              )}
+              <p className="text-lg text-muted">
+                {business.serviceArea
+                  ? business.serviceArea.summary
+                  : "Tell us where the pickup and drop-off are. JMT checks every request against its service area and confirms coverage when it sends your quote."}
+              </p>
               <p className="mt-5 text-muted">
                 Not sure if we cover your location? Call{" "}
                 <TrackedLink kind="phone" location="area" href={business.phoneHref} className="font-semibold text-brand-600 underline decoration-brand-200 underline-offset-4 transition-colors hover:decoration-brand-600">

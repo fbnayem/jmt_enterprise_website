@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import { Placeholder } from "@/components/Placeholder";
 import { CtaBand, PageHero } from "@/components/sections";
-import { business, pendingContent } from "@/content/site";
+import { business } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -26,14 +25,6 @@ export default function AboutPage() {
           <p>
             We offer four vehicle types (car, pickup truck, cargo van and box truck) so each job can be matched to the space it needs.
           </p>
-          {pendingContent.aboutStory && (
-            <div className="mt-8">
-              <Placeholder title="Company story, team and operating approach">
-                Add JMT&apos;s approved story: who runs the business, how it started and how the team works. Do not add years in
-                business, licensing, insurance or fleet claims unless JMT confirms them.
-              </Placeholder>
-            </div>
-          )}
         </div>
       </section>
       <CtaBand location="about_bottom" />

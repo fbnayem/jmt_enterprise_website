@@ -3,7 +3,7 @@
  *
  * Everything confirmed by the client brief (3 Oct 2026) is a plain value.
  * Anything still awaiting the client is `null` or listed in `pendingContent`,
- * and pages render a visible staging placeholder instead of inventing details.
+ * and pages use neutral copy or hide that section instead of inventing details.
  * `npm run check:launch` fails while any pending item remains.
  */
 

@@ -210,3 +210,21 @@ details[open]::details-content {
     transform: none;
   }
 }
+
+@layer components {
+  .prose-page h2 {
+    margin: 2rem 0 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--color-brand-900);
+  }
+  .prose-page h2:first-child {
+    margin-top: 0;
+  }
+  .prose-page a {
+    font-weight: 600;
+    color: var(--color-brand-700);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+}
