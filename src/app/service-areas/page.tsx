@@ -5,28 +5,34 @@ import { business } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Service Areas",
-  description: "Where JMT Enterprise provides pickup and delivery, and how to ask about a location that is not listed.",
+  description:
+    "JMT Enterprise picks up and delivers across Denver Metro, Boulder and Northern Colorado, including Denver, Aurora, Lakewood, Boulder, Longmont, Fort Collins and Greeley.",
   alternates: { canonical: "/service-areas" },
-  // Kept out of search results until JMT confirms its service area.
-  robots: business.serviceArea ? undefined : { index: false, follow: true },
 };
 
 export default function ServiceAreasPage() {
   return (
     <>
-      <PageHero eyebrow="Service areas" title="Where we pick up and deliver" />
+      <PageHero eyebrow="Service areas" title="Where we pick up and deliver">
+        Denver Metro, Boulder and Northern Colorado.
+      </PageHero>
       <section className="py-14">
         <div className="container-page max-w-3xl space-y-8">
           {business.serviceArea ? (
             <>
               <p className="text-lg text-muted">{business.serviceArea.summary}</p>
-              <ul className="grid gap-2 sm:grid-cols-2">
-                {business.serviceArea.places.map((p) => (
-                  <li key={p} className="rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 font-medium text-brand-900 transition-colors hover:border-brand-300">
-                    {p}
-                  </li>
-                ))}
-              </ul>
+              {business.serviceArea.regions.map((region) => (
+                <div key={region.name} data-reveal>
+                  <h2 className="text-xl font-bold text-brand-900">{region.name}</h2>
+                  <ul className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">
+                    {region.places.map((p) => (
+                      <li key={p} className="rounded-xl border border-brand-100 bg-brand-50 px-4 py-3 font-medium text-brand-900 transition-colors hover:border-brand-300">
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
             </>
           ) : (
             <p className="text-lg text-muted">

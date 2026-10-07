@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: { default: `Pickup and Delivery Services | ${business.shortName}`, template: `%s | ${business.shortName}` },
   description:
-    "JMT Enterprise picks up and delivers Marketplace purchases, furniture, appliances, oversized and fragile items for individuals and businesses. Request a quote.",
+    "JMT Enterprise picks up and delivers Marketplace purchases, furniture, appliances, oversized and fragile items across Denver Metro, Boulder and Northern Colorado. Request a quote.",
   applicationName: business.name,
   openGraph: { type: "website", siteName: business.name, locale: "en_US" },
   // Staging previews must never be indexed.
@@ -31,6 +31,11 @@ const jsonLd = {
   email: business.email,
   logo: `${business.url}/brand/jmt-logo.png`,
   description: "Pickup and delivery of everyday and oversized items for individuals and businesses.",
+  ...(business.serviceArea && {
+    areaServed: business.serviceArea.regions.flatMap((r) =>
+      r.places.map((name) => ({ "@type": "City", name, containedInPlace: { "@type": "State", name: "Colorado" } })),
+    ),
+  }),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

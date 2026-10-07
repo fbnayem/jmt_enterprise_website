@@ -6,7 +6,8 @@ Updated 3 October 2026.
 
 - **Fresh build.** No existing repository, hosting or CMS was available to inspect, so this follows the brief's proposed stack: Next.js 16 + TypeScript + Tailwind, Supabase, Resend. If the current jmtenterprise.net runs on something worth keeping, revisit before launch.
 - **Development adapters** stand in for Supabase and Resend until client accounts exist. Simulated email is written to disk and labelled as such. Production refuses to use them.
-- **Timezone** defaults to America/Denver (Mountain Time), inferred only from the 720 area code. It is shown next to the date fields and stored with each request, and is not published as a service area. **Needs confirmation.**
+- **Service area** confirmed by Jorden Thompson on 8 Oct 2026: Denver Metro (23 cities) and Boulder & Northern Colorado (9 cities), in `src/content/site.ts`. Shown on the home page and /service-areas, and listed as `areaServed` in the LocalBusiness structured data.
+- **Timezone** is America/Denver (Mountain Time); every city in the confirmed service area is in Colorado.
 - **Time of day** is a requested window (Flexible, Morning, Afternoon, Evening) with no clock times, so no operating hours are implied.
 - **Photos**: JPEG/PNG/WebP, 5 files, 10 MB each, 50 MB total. HEIC is rejected with instructions (conversion not implemented). Stored copies are re-encoded JPEG without EXIF/GPS.
 - **Operator access** is the Supabase dashboard plus `npm run ops`. No custom admin dashboard (later phase).
@@ -41,7 +42,7 @@ Updated 3 October 2026.
 ## Client inputs still needed
 
 1. Approved vehicle/item photos (logo and colours received).
-2. Confirmed cities, ZIP codes and region; service timezone; hours; any same-day cutoff.
+2. Hours and any same-day cutoff. (Service area and timezone are done.)
 3. Domain/DNS access, the current site's hosting or CMS, and the hosting choice for the new site.
 4. Confirmation that support@jmtenterprise.net receives leads, an optional backup recipient, and who follows up.
 5. Vehicle capacities, item limits, prohibited items, loading/stairs and specialty-handling rules (for FAQs and terms).

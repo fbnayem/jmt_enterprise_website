@@ -99,6 +99,18 @@ export default function HomePage() {
                   ? business.serviceArea.summary
                   : "Tell us where the pickup and drop-off are. JMT checks every request against its service area and confirms coverage when it sends your quote."}
               </p>
+              {business.serviceArea?.regions.map((region) => (
+                <div key={region.name} className="mt-6">
+                  <h3 className="font-bold text-brand-900">{region.name}</h3>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {region.places.map((p) => (
+                      <li key={p} className="rounded-full border border-brand-100 bg-brand-50 px-3 py-1 text-sm font-medium text-brand-900">
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
               <p className="mt-5 text-muted">
                 Not sure if we cover your location? Call{" "}
                 <TrackedLink kind="phone" location="area" href={business.phoneHref} className="font-semibold text-brand-600 underline decoration-brand-200 underline-offset-4 transition-colors hover:decoration-brand-600">

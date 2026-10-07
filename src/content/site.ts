@@ -18,15 +18,29 @@ export const business = {
   emailHref: "mailto:support@jmtenterprise.net",
   /** Awaiting client: confirmed hours of operation. */
   hours: null as string | null,
-  /** Awaiting client: confirmed cities, ZIP codes and region. */
-  serviceArea: null as null | { summary: string; places: string[] },
-  /**
-   * STAGING DEFAULT, awaiting client confirmation. America/Denver is inferred
-   * from the 720 area code only; it is not published as a service area.
-   */
+  /** Confirmed by Jorden Thompson on 8 Oct 2026, grouped exactly as sent. */
+  serviceArea: {
+    summary:
+      "JMT Enterprise serves the Denver Metro area, Boulder and Northern Colorado. If your pickup or drop-off is nearby but not listed, ask and we will let you know.",
+    regions: [
+      {
+        name: "Denver Metro",
+        places: [
+          "Denver", "Wheat Ridge", "Lakewood", "Arvada", "Golden", "Aurora", "Westminster", "Thornton",
+          "Northglenn", "Commerce City", "Englewood", "Centennial", "Littleton", "Highlands Ranch", "Lone Tree",
+          "Parker", "Castle Rock", "Castle Pines", "Greenwood Village", "Broomfield", "Brighton", "Morrison", "Evergreen",
+        ],
+      },
+      {
+        name: "Boulder & Northern Colorado",
+        places: ["Boulder", "Louisville", "Lafayette", "Superior", "Longmont", "Erie", "Loveland", "Fort Collins", "Greeley"],
+      },
+    ],
+  } as null | { summary: string; regions: { name: string; places: string[] }[] },
+  /** Every city in the confirmed service area is in Colorado, which is entirely on Mountain Time. */
   timezone: "America/Denver",
   timezoneLabel: "Mountain Time",
-  timezoneConfirmed: false,
+  timezoneConfirmed: true,
 } as const;
 
 /** Content the client still has to supply or approve before public launch. */
@@ -34,9 +48,9 @@ export const pendingContent = {
   logo: false,
   brandColors: false,
   photos: true,
-  serviceArea: true,
+  serviceArea: false,
   hours: true,
-  timezone: true,
+  timezone: false,
   aboutStory: true,
   privacyPolicy: true,
   serviceTerms: true,
