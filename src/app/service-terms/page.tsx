@@ -22,6 +22,11 @@ export default function ServiceTermsPage() {
           </p>
           <h2>Requested dates</h2>
           <p>A date or time you choose in the form is a preference. JMT confirms the actual date and time when it confirms the service.</p>
+          <h2>Where we work</h2>
+          <p>
+            JMT provides pickup and delivery in the cities listed on our <a href="/service-areas">Service Areas</a> page. If a pickup
+            or drop-off is outside that area, JMT will tell you when it reviews your request.
+          </p>
           <h2>Item details</h2>
           <p>
             Please describe your items accurately, including size, weight, stairs and access. The quote is based on the details you

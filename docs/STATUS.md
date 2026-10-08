@@ -43,6 +43,9 @@ Updated 3 October 2026.
 
 1. Approved vehicle/item photos (logo and colours received).
 2. Hours and any same-day cutoff. (Service area and timezone are done.)
+3. Approval of the drafted About story, FAQ answers, privacy policy and service terms (8 Oct 2026 drafts). Photos are optional; the site uses the logo and illustrations.
+
+The Vercel demo (VERCEL set, NEXT_PUBLIC_SITE_ENV not production) uses the development adapters without extra env vars: requests go to temporary storage and no real email is sent.
 3. Domain/DNS access, the current site's hosting or CMS, and the hosting choice for the new site.
 4. Confirmation that support@jmtenterprise.net receives leads, an optional backup recipient, and who follows up.
 5. Vehicle capacities, item limits, prohibited items, loading/stairs and specialty-handling rules (for FAQs and terms).

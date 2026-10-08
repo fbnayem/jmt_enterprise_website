@@ -1,13 +1,19 @@
+import os from "node:os";
 import path from "node:path";
 
 /**
  * Server configuration. Real integrations are used when their credentials are
  * present. Without them the app falls back to clearly labelled DEVELOPMENT
  * adapters (local JSON store, local files, emails written to disk). Those
- * adapters refuse to run in production unless ALLOW_DEV_ADAPTERS=true, so a
- * deployment can never silently pretend to send email.
+ * adapters refuse to run in production unless ALLOW_DEV_ADAPTERS=true, or the
+ * build is a Vercel demo that is not the launched site, so the live site can
+ * never silently pretend to send email.
  */
 const env = process.env;
+
+/** A Vercel deployment that is not the approved live site (it shows "Preview only" notices). */
+const isVercelDemo = Boolean(env.VERCEL) && env.NEXT_PUBLIC_SITE_ENV !== "production";
+const vercelUrl = env.VERCEL_PROJECT_PRODUCTION_URL ?? env.VERCEL_URL;
 
 export const serverConfig = {
   supabaseUrl: env.SUPABASE_URL ?? "",
@@ -23,10 +29,11 @@ export const serverConfig = {
   customerReplyTo: env.CUSTOMER_REPLY_TO ?? "support@jmtenterprise.net",
   uploadTokenSecret: env.UPLOAD_TOKEN_SECRET ?? "",
   cronSecret: env.CRON_SECRET ?? "",
-  siteUrl: env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  siteUrl: env.NEXT_PUBLIC_SITE_URL ?? (vercelUrl ? `https://${vercelUrl}` : "http://localhost:3000"),
   /** Signed photo links in the internal email stay valid this long. */
   photoLinkTtlSeconds: Number(env.PHOTO_LINK_TTL_SECONDS ?? 7 * 24 * 3600),
-  devDataDir: env.DEV_DATA_DIR ?? path.join(process.cwd(), ".data"),
+  // Vercel functions can only write to the temp directory.
+  devDataDir: env.DEV_DATA_DIR ?? (env.VERCEL ? path.join(os.tmpdir(), "jmt-data") : path.join(process.cwd(), ".data")),
   /** Development only: force simulated email failures ("transient" | "permanent"). */
   devMailFailure: env.DEV_MAIL_FAILURE ?? "",
   /** Development only: make the dev store throw on submit to test the failure path. */
@@ -42,7 +49,7 @@ export const usingSupabase = () => Boolean(serverConfig.supabaseUrl && serverCon
 export const usingResend = () => Boolean(serverConfig.resendApiKey);
 
 export function assertDevAdaptersAllowed(what: string) {
-  if (process.env.NODE_ENV === "production" && process.env.ALLOW_DEV_ADAPTERS !== "true") {
+  if (process.env.NODE_ENV === "production" && process.env.ALLOW_DEV_ADAPTERS !== "true" && !isVercelDemo) {
     throw new Error(
       `${what} is not configured and development adapters are disabled in production. ` +
         `Set the required environment variables (see .env.example).`,

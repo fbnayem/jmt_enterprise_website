@@ -21,7 +21,7 @@ With no credentials the app uses **development adapters**, clearly labelled in c
 | Photo storage | `.data/uploads`, HMAC-signed expiring URLs | Supabase Storage (private bucket) |
 | Email | **Simulated**: written to `.data/outbox/*.html` and `.json`, never sent | Resend |
 
-Development adapters refuse to run when `NODE_ENV=production` unless `ALLOW_DEV_ADAPTERS=true`, so a deployment cannot silently pretend to send email.
+Development adapters refuse to run when `NODE_ENV=production` unless `ALLOW_DEV_ADAPTERS=true` or the build is a Vercel demo without `NEXT_PUBLIC_SITE_ENV=production`, so the live site cannot silently pretend to send email.
 
 ## Scripts
 

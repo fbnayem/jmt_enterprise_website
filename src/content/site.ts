@@ -47,7 +47,8 @@ export const business = {
 export const pendingContent = {
   logo: false,
   brandColors: false,
-  photos: true,
+  /** Not required: the site uses the logo and illustrations. Real job photos can be added later. */
+  photos: false,
   serviceArea: false,
   hours: true,
   timezone: false,
@@ -185,6 +186,10 @@ export const faqs: Faq[] = [
   {
     q: "Who do you work with?",
     a: "Both individuals and businesses. Choose Individual or Business on the request form so JMT has the right details.",
+  },
+  {
+    q: "Which areas do you serve?",
+    a: "Denver Metro, Boulder and Northern Colorado. The Service Areas page lists every city. If your pickup or drop-off is nearby but not listed, ask and JMT will let you know.",
   },
   {
     q: "Which vehicle should I choose?",
