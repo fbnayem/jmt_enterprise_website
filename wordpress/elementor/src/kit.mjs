@@ -1,7 +1,7 @@
 /** Elementor Site Settings (the active Kit): global colours, fonts, theme styles, layout, custom CSS. */
 import fs from "node:fs";
 import { box, em, px } from "./el.mjs";
-import { color, font, LOGO_URL, width } from "./tokens.mjs";
+import { color, font, width } from "./tokens.mjs";
 
 const typoSet = (prefix, { size, weight, lh, ls, transform }) => ({
   [`${prefix}_typography`]: "custom",
@@ -93,13 +93,14 @@ export function kitSettings() {
     form_field_border_color: color.slate300.toUpperCase(),
     form_field_border_radius: box(12),
     form_field_padding: box(10, 16),
+    form_field_focus_border_border: "solid",
+    form_field_focus_border_width: box(1),
     form_field_focus_border_color: color.brand500.toUpperCase(),
     image_border_radius: box(0),
 
     // Site identity
     site_name: "JMT Enterprise LLC",
     site_description: "Pickup and delivery for everyday and oversized items",
-    site_logo: { url: LOGO_URL, id: "" },
 
     // Layout: 1216px boxed content (max-w-7xl minus gutters), no default gaps
     container_width: px(width.page),
@@ -107,7 +108,8 @@ export function kitSettings() {
     space_between_widgets: { unit: "px", size: 0, column: "0", row: "0", isLinked: true },
     page_title_selector: "h1.entry-title",
     stretched_section_container: "",
-    default_page_template: "elementor_header_footer",
+    // Hello's default template: theme header/footer slots (filled by the Theme Builder header/footer) and <main id="content">
+    default_page_template: "default",
     viewport_mobile: 767,
     viewport_tablet: 1024,
     active_breakpoints: ["viewport_mobile", "viewport_tablet"],

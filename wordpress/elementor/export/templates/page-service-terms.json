@@ -1,0 +1,590 @@
+{
+  "content": [
+    {
+      "id": "c115c29",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 832,
+          "sizes": []
+        },
+        "html_tag": "section",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "80",
+          "right": "32",
+          "bottom": "80",
+          "left": "32",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "80",
+          "right": "24",
+          "bottom": "80",
+          "left": "24",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "56",
+          "right": "16",
+          "bottom": "64",
+          "left": "16",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#071733",
+        "css_classes": "jmt-glow"
+      },
+      "elements": [
+        {
+          "id": "d0b2fb5",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "Policy",
+            "header_size": "p",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 12,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.333,
+              "sizes": []
+            },
+            "typography_font_weight": "700",
+            "typography_letter_spacing": {
+              "unit": "em",
+              "size": 0.14,
+              "sizes": []
+            },
+            "typography_text_transform": "uppercase",
+            "_css_classes": "jmt-eyebrow-dark",
+            "_margin": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "16",
+              "left": "0",
+              "isLinked": false
+            },
+            "_element_width": "auto",
+            "_flex_align_self": "flex-start",
+            "_background_background": "classic",
+            "_background_color": "rgba(255,255,255,0.05)",
+            "_border_border": "solid",
+            "_border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": true
+            },
+            "_border_color": "rgba(255,255,255,0.15)",
+            "_border_radius": {
+              "unit": "px",
+              "top": "9999",
+              "right": "9999",
+              "bottom": "9999",
+              "left": "9999",
+              "isLinked": true
+            },
+            "_padding": {
+              "unit": "px",
+              "top": "4",
+              "right": "12",
+              "bottom": "4",
+              "left": "12",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "619e9fc",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "Service Terms",
+            "header_size": "h1",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 48,
+              "sizes": []
+            },
+            "typography_font_size_tablet": {
+              "unit": "px",
+              "size": 48,
+              "sizes": []
+            },
+            "typography_font_size_mobile": {
+              "unit": "px",
+              "size": 36,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1,
+              "sizes": []
+            },
+            "typography_line_height_tablet": {
+              "unit": "em",
+              "size": 1,
+              "sizes": []
+            },
+            "typography_line_height_mobile": {
+              "unit": "em",
+              "size": 1.111,
+              "sizes": []
+            },
+            "typography_font_weight": "800",
+            "typography_letter_spacing": {
+              "unit": "em",
+              "size": -0.025,
+              "sizes": []
+            },
+            "_css_classes": "jmt-balance"
+          },
+          "elements": [],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "23e9441",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 704,
+          "sizes": []
+        },
+        "html_tag": "section",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "56",
+          "right": "32",
+          "bottom": "56",
+          "left": "32",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "56",
+          "right": "24",
+          "bottom": "56",
+          "left": "24",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "56",
+          "right": "16",
+          "bottom": "56",
+          "left": "16",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "fef6654",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "container_type": "flex",
+            "flex_direction": "column",
+            "flex_gap": {
+              "unit": "px",
+              "size": 0,
+              "column": "0",
+              "row": "0",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "elements": [
+            {
+              "id": "968dc83",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Quotes and confirmation",
+                "header_size": "h2",
+                "title_color": "#0c2650",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "800",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "d9ad821",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Sending a request through this website asks JMT Enterprise LLC for a quote. It does not book a vehicle or reserve a time. JMT reviews each request, sets the price and contacts you. Your service is confirmed only when JMT confirms it with you.</p>",
+                "text_color": "#4a5571",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.75,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "_css_classes": "jmt-prose",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "16",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "700a350",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Requested dates",
+                "header_size": "h2",
+                "title_color": "#0c2650",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "800",
+                "_margin": {
+                  "unit": "px",
+                  "top": "16",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "5718c99",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>A date or time you choose in the form is a preference. JMT confirms the actual date and time when it confirms the service.</p>",
+                "text_color": "#4a5571",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.75,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "_css_classes": "jmt-prose",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "16",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "9c1e93c",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Where we work",
+                "header_size": "h2",
+                "title_color": "#0c2650",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "800",
+                "_margin": {
+                  "unit": "px",
+                  "top": "16",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "ac168c6",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>JMT provides pickup and delivery in the cities listed on our <a href=\"/service-areas\">Service Areas</a> page. If a pickup or drop-off is outside that area, JMT will tell you when it reviews your request.</p>",
+                "text_color": "#4a5571",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.75,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "_css_classes": "jmt-prose",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "16",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "9d834a0",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Item details",
+                "header_size": "h2",
+                "title_color": "#0c2650",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "800",
+                "_margin": {
+                  "unit": "px",
+                  "top": "16",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "0186efa",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Please describe your items accurately, including size, weight, stairs and access. The quote is based on the details you send, and JMT will contact you if anything needs to change.</p>",
+                "text_color": "#4a5571",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.75,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "_css_classes": "jmt-prose",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "16",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "68bbd0e",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "Questions",
+                "header_size": "h2",
+                "title_color": "#0c2650",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "800",
+                "_margin": {
+                  "unit": "px",
+                  "top": "16",
+                  "right": "0",
+                  "bottom": "12",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "59b3b1c",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>For questions about cancellations, rescheduling, items we can carry or anything else about your service, call <a href=\"tel:+17209834400\">720-983-4400</a> or email <a href=\"mailto:support@jmtenterprise.net\">support@jmtenterprise.net</a> before your service is confirmed.</p>",
+                "text_color": "#4a5571",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.75,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "_css_classes": "jmt-prose",
+                "_margin": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "16",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": false
+    }
+  ],
+  "page_settings": {
+    "template": "default",
+    "hide_title": "yes"
+  },
+  "version": "0.4",
+  "title": "JMT – Service Terms",
+  "type": "page"
+}

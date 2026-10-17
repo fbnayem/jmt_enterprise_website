@@ -40,7 +40,7 @@ export default {
             layout: "horizontal",
             align_items: "center",
             pointer: "underline",
-            animation_line: "slide",
+            animation_line: "none", // underline motion is site.css (grows from the left)
             submenu_icon: { value: "fas fa-caret-down", library: "fa-solid" },
             dropdown: "tablet",
             full_width: "stretch",
@@ -85,9 +85,8 @@ export default {
               textColor: color.brand800,
               textHover: color.brand600,
               iconColor: color.brand600,
-              iconSize: 14,
-              iconGap: 8,
-              cls: "jmt-phone",
+              iconSize: 16,
+              cls: "jmt-phone", // 8px gap is the badge's margin in site.css
               widthAuto: true,
             }),
             button("Request a Quote", "/request-a-quote", {
@@ -105,8 +104,8 @@ export default {
           shape: "circle",
           primary: color.brand50,
           secondary: color.brand700,
-          size: 18,
-          pad: 13,
+          size: 20,
+          pad: 12,
           link: { ...link(business.phoneHref), custom_attributes: `aria-label|Call ${business.phoneDisplay}` },
           hide: ["desktop"],
           widthAuto: true,

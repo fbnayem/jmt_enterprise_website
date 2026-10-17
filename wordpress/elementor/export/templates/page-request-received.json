@@ -1,0 +1,456 @@
+{
+  "content": [
+    {
+      "id": "ebe770e",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 608,
+          "sizes": []
+        },
+        "html_tag": "section",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "96",
+          "right": "32",
+          "bottom": "96",
+          "left": "32",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "96",
+          "right": "24",
+          "bottom": "96",
+          "left": "24",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "64",
+          "right": "16",
+          "bottom": "64",
+          "left": "16",
+          "isLinked": false
+        },
+        "css_classes": "jmt-dots"
+      },
+      "elements": [
+        {
+          "id": "0b7c752",
+          "elType": "widget",
+          "widgetType": "icon",
+          "settings": {
+            "selected_icon": {
+              "value": "fas fa-check-circle",
+              "library": "fa-solid"
+            },
+            "view": "stacked",
+            "shape": "circle",
+            "primary_color": "#059669",
+            "secondary_color": "#ffffff",
+            "size": {
+              "unit": "px",
+              "size": 40,
+              "sizes": []
+            },
+            "icon_padding": {
+              "unit": "px",
+              "size": 20,
+              "sizes": []
+            },
+            "align": "center",
+            "_css_classes": "jmt-success jmt-pulse"
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "e836e4b",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "Thank you. Your quote request has been received.",
+            "header_size": "h1",
+            "title_color": "#0c2650",
+            "align": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 36,
+              "sizes": []
+            },
+            "typography_font_size_tablet": {
+              "unit": "px",
+              "size": 36,
+              "sizes": []
+            },
+            "typography_font_size_mobile": {
+              "unit": "px",
+              "size": 30,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.111,
+              "sizes": []
+            },
+            "typography_line_height_tablet": {
+              "unit": "em",
+              "size": 1.111,
+              "sizes": []
+            },
+            "typography_line_height_mobile": {
+              "unit": "em",
+              "size": 1.2,
+              "sizes": []
+            },
+            "typography_font_weight": "800",
+            "typography_letter_spacing": {
+              "unit": "em",
+              "size": -0.025,
+              "sizes": []
+            },
+            "_css_classes": "jmt-balance",
+            "_margin": {
+              "unit": "px",
+              "top": "24",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "8f74a50",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "settings": {
+            "editor": "<p>We have emailed you a copy of your request.</p>",
+            "text_color": "#4a5571",
+            "align": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 18,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.556,
+              "sizes": []
+            },
+            "typography_font_weight": "400",
+            "_margin": {
+              "unit": "px",
+              "top": "16",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "eaace26",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "settings": {
+            "editor": "<p>JMT Enterprise will review your details and contact you with a quote and availability. Your pickup or delivery is confirmed only after JMT agrees the service with you.</p>",
+            "text_color": "#4a5571",
+            "align": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 18,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.556,
+              "sizes": []
+            },
+            "typography_font_weight": "400",
+            "_margin": {
+              "unit": "px",
+              "top": "16",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "c070df2",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "container_type": "flex",
+            "flex_direction": "column",
+            "flex_align_items": "stretch",
+            "flex_gap": {
+              "unit": "px",
+              "size": 0,
+              "column": "0",
+              "row": "0",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "32",
+              "right": "32",
+              "bottom": "32",
+              "left": "32",
+              "isLinked": true
+            },
+            "padding_tablet": {
+              "unit": "px",
+              "top": "32",
+              "right": "32",
+              "bottom": "32",
+              "left": "32",
+              "isLinked": true
+            },
+            "padding_mobile": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "margin": {
+              "unit": "px",
+              "top": "40",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            },
+            "background_background": "classic",
+            "background_color": "#ffffff",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": true
+            },
+            "border_color": "rgba(226,232,240,0.8)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "css_classes": "jmt-card"
+          },
+          "elements": [
+            {
+              "id": "0a3d2f5",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "What happens next",
+                "header_size": "h2",
+                "title_color": "#0c2650",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "700"
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "71c6e37",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<ol class=\"jmt-quote-steps\"><li>We email you a receipt of your request. Check your spam folder if it does not arrive.</li><li>JMT reviews your request and contacts you with a quote and availability.</li><li>Your pickup or delivery is booked only once you and JMT agree the details.</li></ol>",
+                "text_color": "#4a5571",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "_margin": {
+                  "unit": "px",
+                  "top": "16",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "2ac6081",
+              "elType": "widget",
+              "widgetType": "text-editor",
+              "settings": {
+                "editor": "<p>Need to change something? Call <a class=\"jmt-quote-link\" href=\"tel:+17209834400\">720-983-4400</a>.</p>",
+                "text_color": "#4a5571",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "_margin": {
+                  "unit": "px",
+                  "top": "16",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": false
+                }
+              },
+              "elements": [],
+              "isInner": false
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "ee6de0d",
+          "elType": "widget",
+          "widgetType": "button",
+          "settings": {
+            "text": "Back to home",
+            "link": {
+              "url": "/",
+              "is_external": "",
+              "nofollow": "",
+              "custom_attributes": ""
+            },
+            "size": "md",
+            "background_background": "classic",
+            "background_color": "#ffffff",
+            "button_text_color": "#112f66",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": true
+            },
+            "border_color": "#b9cbec",
+            "button_box_shadow_box_shadow_type": "yes",
+            "button_box_shadow_box_shadow": {
+              "horizontal": 0,
+              "vertical": 1,
+              "blur": 2,
+              "spread": 0,
+              "color": "rgba(0,0,0,0.05)"
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 16,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.5,
+              "sizes": []
+            },
+            "typography_font_weight": "700",
+            "border_radius": {
+              "unit": "px",
+              "top": "9999",
+              "right": "9999",
+              "bottom": "9999",
+              "left": "9999",
+              "isLinked": true
+            },
+            "text_padding": {
+              "unit": "px",
+              "top": "12",
+              "right": "24",
+              "bottom": "12",
+              "left": "24",
+              "isLinked": false
+            },
+            "align": "center",
+            "_css_classes": "jmt-btn jmt-btn--secondary",
+            "_margin": {
+              "unit": "px",
+              "top": "32",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    }
+  ],
+  "page_settings": {
+    "template": "default",
+    "hide_title": "yes",
+    "custom_css": ".jmt-mobile-bar{display:none !important}"
+  },
+  "version": "0.4",
+  "title": "JMT – Request Received",
+  "type": "page"
+}

@@ -47,7 +47,29 @@ const step = (custom_id, label) => ({
   next_button: "Continue",
   ...w(100),
 });
-const legend = (custom_id, title) => ({ custom_id, field_type: "html", field_label: "", field_html: `<h3>${title}</h3>`, ...w(100) });
+/*
+ * Live step heading (QuoteForm.tsx): "Step N of 4" eyebrow + H2 with the step title.
+ * Pro renders the step's own label only in the indicator, so each step opens with this
+ * HTML field; it keeps the group legends (H3) below an H2.
+ */
+const STEP_COUNT = 4;
+const stepHead = (n, title) => ({
+  custom_id: `step${n}_heading`,
+  field_type: "html",
+  field_label: "",
+  field_html: `<p class="jmt-step-kicker">Step ${n} of ${STEP_COUNT}</p><h2 class="jmt-step-title">${title}</h2>`,
+  css_classes: "jmt-quote-stephead",
+  ...w(100),
+});
+/** Group legend: the H3 sits on the panel's top border like the live <legend> (quote.css). */
+const legend = (custom_id, title) => ({
+  custom_id,
+  field_type: "html",
+  field_label: "",
+  field_html: `<h3>${title}</h3>`,
+  css_classes: "jmt-quote-legend",
+  ...w(100),
+});
 const hint = (custom_id, html, cls = "") => ({
   custom_id,
   field_type: "html",
@@ -110,6 +132,7 @@ const vehicleOptions = [...vehicles.map((v) => v.title), "Not sure"];
 const fields = [
   /* ---- Step 1 */
   step("step_pickup", "Pickup and delivery"),
+  stepHead(1, "Pickup and delivery"),
   choice("service_type", "select", "What do you need?", serviceOptions),
   choice("customer_type", "radio", "Is this for you or a business?", ["Individual", "Business"]),
   input("company_name", "Company name", { placeholder: "If this is for a business" }),
@@ -141,6 +164,7 @@ const fields = [
 
   /* ---- Step 2 */
   step("step_items", "Items and access"),
+  stepHead(2, "Items and access"),
   legend("item_legend", "Item 1"),
   input("item_description", "What is it?", {
     required: true,
@@ -185,6 +209,7 @@ const fields = [
 
   /* ---- Step 3 */
   step("step_photos", "Photos"),
+  stepHead(3, "Photos"),
   hint("photos_intro", "Photos are optional, but they help JMT understand your items and prepare an accurate quote.", "jmt-lead"),
   input("photos", "Item photos", {
     type: "upload",
@@ -200,8 +225,10 @@ const fields = [
 
   /* ---- Step 4 */
   step("step_contact", "Contact and review"),
+  stepHead(4, "Contact and review"),
   input("name", "Your name", { required: true }),
-  input("phone", "Phone", { type: "tel", required: true, width: [50] }),
+  // Text, not Tel: Pro's Tel pattern rejects spaces ("720 983 4400")
+  input("phone", "Phone", { required: true, width: [50] }),
   input("email", "Email", { type: "email", required: true, width: [50] }),
   choice("preferred_contact", "radio", "How should JMT contact you?", ["Either", "Phone", "Email"], { value: "Either" }),
   {
@@ -257,13 +284,14 @@ const form = rawWidget(
     input_size: "md",
     show_labels: "yes",
     mark_required: "yes",
-    label_position: "above",
     button_text: "Send quote request",
     button_size: "md",
     button_width: "100",
     step_next_label: "Continue",
     step_previous_label: "Back",
-    step_type: "progress_bar",
+    // Numbered circles with labels, like the live stepper (styled in quote.css)
+    step_type: "number_text",
+    step_icon_shape: "circle",
 
     submit_actions: ["save-to-database", "email", "email2", "redirect"],
     // Email to JMT
@@ -284,7 +312,8 @@ const form = rawWidget(
     email_reply_to_2: business.email,
     email_content_type_2: "plain",
     form_metadata_2: [],
-    redirect_to: "/request-received",
+    // Pro only redirects to an absolute URL (FILTER_VALIDATE_URL); change it if the site runs on another domain
+    redirect_to: "https://jmtenterprise.net/request-received/",
 
     custom_messages: "yes",
     success_message: "Thank you. Your quote request has been received.",
@@ -323,17 +352,16 @@ const form = rawWidget(
     previous_button_text_color: color.brand800,
     previous_button_background_color_hover: color.brand50,
     previous_button_text_color_hover: color.brand800,
-    // Progress bar
-    step_progress_bar_color: color.brand500,
-    step_progress_bar_background_color: color.slate200,
-    step_progress_bar_height: px(4),
   },
   { cls: "jmt-quote-form" },
 );
 
 /* -------------------------------------------------------------------- page */
 
-const call = `<a class="jmt-quote-call" href="${business.phoneHref}"><i class="fas fa-phone-alt" aria-hidden="true"></i> Call ${business.phoneDisplay}</a>`;
+/** Lucide "phone" (the live hero's size-4 icon), inherits the link colour. */
+const phoneSvg =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>';
+const call = `<a class="jmt-quote-call" href="${business.phoneHref}">${phoneSvg} Call ${business.phoneDisplay}</a>`;
 
 export default {
   title: "Request a Quote",

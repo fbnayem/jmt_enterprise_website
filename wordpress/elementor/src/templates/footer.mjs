@@ -5,7 +5,7 @@
  */
 import { business, nav } from "../../../../src/content/site.ts";
 import { gutterPad } from "../blocks.mjs";
-import { box, button, container, heading, html, iconList, image, shadow, text, tracking } from "../el.mjs";
+import { box, button, container, heading, html, iconList, image, link, shadow, text, tracking } from "../el.mjs";
 import { color, LOGO_URL, width } from "../tokens.mjs";
 
 const links = [
@@ -61,7 +61,7 @@ export default {
       },
       [
         container({ dir: { d: "row", t: "row", m: "column" }, gap: 48 }, [
-          container({ width: { d: 37, t: 37, m: 100 }, align: "flex-start" }, [
+          container({ width: { d: 36.27, t: 36.27, m: 100 }, align: "flex-start" }, [
             image(
               { url: LOGO_URL, alt: business.name },
               {
@@ -84,14 +84,14 @@ export default {
             ),
             button("Request a Quote", "/request-a-quote", { icon: "arrow-right", margin: [24, 0, 0, 0], cls: "jmt-btn--external", widthAuto: true }),
           ]),
-          container({ width: { d: 27, t: 27, m: 100 }, tag: "nav", raw: { _title: "Footer navigation" } }, [
+          container({ width: { d: 27.88, t: 27.88, m: 100 }, tag: "nav", attrs: { "aria-label": "Footer" }, raw: { _title: "Footer navigation" } }, [
             colHeading("Pages"),
             iconList(
               links.map((l) => ({ text: l.label, url: l.href })),
               { size: "sm", textColor: color.brand100, textHover: color.accent400, cls: "jmt-footer-links", margin: [16, 0, 0, 0] },
             ),
           ]),
-          container({ width: { d: 27, t: 27, m: 100 } }, [
+          container({ width: { d: 27.88, t: 27.88, m: 100 } }, [
             colHeading("Contact"),
             iconList(
               [
@@ -104,9 +104,8 @@ export default {
                 textColor: color.brand100,
                 textHover: color.white,
                 iconColor: color.brand100,
-                iconSize: 14,
-                iconGap: 12,
-                cls: "jmt-footer-contact",
+                iconSize: 16,
+                cls: "jmt-footer-contact", // 12px gap is the badge's margin in site.css
                 margin: [16, 0, 0, 0],
               },
             ),
@@ -137,10 +136,11 @@ export default {
         shadow: { x: 0, y: 12, blur: 40, spread: -12, color: "rgba(7,23,51,0.45)" },
         cls: "jmt-mobile-bar",
         hide: ["desktop"],
+        attrs: { "aria-label": "Quick actions" },
         raw: { _title: "Mobile quick actions" },
       },
       [
-        button("Call", business.phoneHref, {
+        button("Call", { ...link(business.phoneHref), custom_attributes: `aria-label|Call ${business.phoneDisplay}` }, {
           variant: "secondary",
           size: "sm",
           icon: "phone-alt",

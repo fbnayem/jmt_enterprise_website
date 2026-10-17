@@ -33,8 +33,12 @@ export function section(opts, children) {
 /** Navy section background with the animated glow + grid backdrop. */
 export const navy = { bg: color.brand950, cls: "jmt-glow" };
 
-/** Dark eyebrow pill (white text on glass), with the red dot unless `plain`. */
-export function eyebrowDark(label, { ping = false, plain = false, margin, reveal } = {}) {
+/**
+ * Dark eyebrow pill (white text on glass), with the red dot unless `plain`.
+ * `align` is its own align-self: a width-auto widget still stretches across a column
+ * container whose items stretch, so it defaults to flex-start (pass "center" in a centred column).
+ */
+export function eyebrowDark(label, { ping = false, plain = false, margin, reveal, align = "flex-start" } = {}) {
   return heading(label, {
     tag: "p",
     size: "xs",
@@ -44,6 +48,7 @@ export function eyebrowDark(label, { ping = false, plain = false, margin, reveal
     transform: "uppercase",
     color: color.white,
     widthAuto: true,
+    alignSelf: align,
     margin,
     reveal,
     cls: ["jmt-eyebrow-dark", ping && "jmt-eyebrow--ping", plain && "jmt-eyebrow--plain"].filter(Boolean).join(" "),
@@ -97,6 +102,7 @@ export function pageHero({ eyebrow, title, body }) {
       size: { d: "5xl", t: "5xl", m: "4xl" },
       ls: tracking.tight,
       color: color.white,
+      cls: "jmt-balance",
     }),
     body &&
       text(body.startsWith("<") ? body : `<p>${body}</p>`, {
@@ -127,6 +133,7 @@ export function sectionHeading({ eyebrow, title, intro, center = false, id }) {
         align: center ? "center" : undefined,
         margin: [12, 0, 0, 0],
         id,
+        cls: "jmt-balance",
       }),
       intro && text(`<p>${intro}</p>`, { size: "lg", color: color.muted, margin: [16, 0, 0, 0], align: center ? "center" : undefined }),
     ],
@@ -151,7 +158,7 @@ export function ctaBand({ title = "Tell us what you need moved" } = {}) {
         },
         [
           container({ width: { d: { unit: "px", size: 576 }, t: pct100(), m: pct100() } }, [
-            heading(title, { tag: "h2", size: { d: "4xl", t: "4xl", m: "3xl" }, ls: tracking.tight, color: color.white }),
+            heading(title, { tag: "h2", size: { d: "4xl", t: "4xl", m: "3xl" }, ls: tracking.tight, color: color.white, cls: "jmt-balance" }),
             text("<p>Send your details and JMT will contact you with a quote and availability. No account needed.</p>", {
               size: "lg",
               color: color.brand100_90,
@@ -207,6 +214,7 @@ export function howItWorksSteps() {
             color: color.white,
             cls: `jmt-step-num${i === howItWorks.length - 1 ? " jmt-step-num--last" : ""}`,
             widthAuto: true,
+            attrs: { "aria-hidden": "true" }, // the H3 carries "Step n:" for screen readers
             raw: { _flex_size: "none" },
           }),
           container({ gap: 8 }, [

@@ -1,0 +1,1271 @@
+{
+  "content": [
+    {
+      "id": "b419e58",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 704,
+          "sizes": []
+        },
+        "html_tag": "section",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "64",
+          "right": "32",
+          "bottom": "112",
+          "left": "32",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "64",
+          "right": "24",
+          "bottom": "112",
+          "left": "24",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "48",
+          "right": "16",
+          "bottom": "112",
+          "left": "16",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#071733",
+        "css_classes": "jmt-glow"
+      },
+      "elements": [
+        {
+          "id": "7bead97",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "Request a <span class=\"jmt-gradient\">quote</span>",
+            "header_size": "h1",
+            "title_color": "#ffffff",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 48,
+              "sizes": []
+            },
+            "typography_font_size_tablet": {
+              "unit": "px",
+              "size": 48,
+              "sizes": []
+            },
+            "typography_font_size_mobile": {
+              "unit": "px",
+              "size": 36,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1,
+              "sizes": []
+            },
+            "typography_line_height_tablet": {
+              "unit": "em",
+              "size": 1,
+              "sizes": []
+            },
+            "typography_line_height_mobile": {
+              "unit": "em",
+              "size": 1.111,
+              "sizes": []
+            },
+            "typography_font_weight": "800",
+            "typography_letter_spacing": {
+              "unit": "em",
+              "size": -0.025,
+              "sizes": []
+            }
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "4ce5fb3",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "settings": {
+            "editor": "<p>Four short steps, no account needed. JMT reviews your request and contacts you with a price and availability.</p>",
+            "text_color": "rgba(219, 229, 246, 0.9)",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 18,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.556,
+              "sizes": []
+            },
+            "typography_font_weight": "400",
+            "_margin": {
+              "unit": "px",
+              "top": "16",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "a646852",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "settings": {
+            "editor": "<p>Prefer to talk? <a class=\"jmt-quote-call\" href=\"tel:+17209834400\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384\"/></svg> Call 720-983-4400</a></p>",
+            "text_color": "#b9cbec",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 16,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.5,
+              "sizes": []
+            },
+            "typography_font_weight": "400",
+            "_margin": {
+              "unit": "px",
+              "top": "16",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "c90f453",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 768,
+          "sizes": []
+        },
+        "html_tag": "section",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "0",
+          "right": "32",
+          "bottom": "64",
+          "left": "32",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "0",
+          "right": "24",
+          "bottom": "64",
+          "left": "24",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "0",
+          "right": "16",
+          "bottom": "64",
+          "left": "16",
+          "isLinked": false
+        },
+        "margin": {
+          "unit": "px",
+          "top": "-80",
+          "right": "0",
+          "bottom": "0",
+          "left": "0",
+          "isLinked": false
+        },
+        "z_index": 1
+      },
+      "elements": [
+        {
+          "id": "4496862",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "container_type": "flex",
+            "flex_direction": "column",
+            "flex_gap": {
+              "unit": "px",
+              "size": 0,
+              "column": "0",
+              "row": "0",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "40",
+              "right": "40",
+              "bottom": "40",
+              "left": "40",
+              "isLinked": true
+            },
+            "padding_tablet": {
+              "unit": "px",
+              "top": "40",
+              "right": "40",
+              "bottom": "40",
+              "left": "40",
+              "isLinked": true
+            },
+            "padding_mobile": {
+              "unit": "px",
+              "top": "20",
+              "right": "20",
+              "bottom": "20",
+              "left": "20",
+              "isLinked": true
+            },
+            "background_background": "classic",
+            "background_color": "#ffffff",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": true
+            },
+            "border_color": "rgba(226,232,240,0.8)",
+            "border_radius": {
+              "unit": "px",
+              "top": "24",
+              "right": "24",
+              "bottom": "24",
+              "left": "24",
+              "isLinked": true
+            },
+            "box_shadow_box_shadow_type": "yes",
+            "box_shadow_box_shadow": {
+              "horizontal": 0,
+              "vertical": 30,
+              "blur": 80,
+              "spread": -30,
+              "color": "rgba(7,23,51,0.45)"
+            },
+            "css_classes": "jmt-card jmt-quote-card"
+          },
+          "elements": [
+            {
+              "id": "273b1b1",
+              "elType": "widget",
+              "widgetType": "form",
+              "settings": {
+                "form_name": "Quote request",
+                "form_id": "jmt-quote",
+                "form_fields": [
+                  {
+                    "custom_id": "step_pickup",
+                    "field_type": "step",
+                    "field_label": "Pickup and delivery",
+                    "previous_button": "Back",
+                    "next_button": "Continue",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "a194953"
+                  },
+                  {
+                    "custom_id": "step1_heading",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p class=\"jmt-step-kicker\">Step 1 of 4</p><h2 class=\"jmt-step-title\">Pickup and delivery</h2>",
+                    "css_classes": "jmt-quote-stephead",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "c78596a"
+                  },
+                  {
+                    "custom_id": "service_type",
+                    "field_type": "select",
+                    "field_label": "What do you need?",
+                    "field_options": "Choose a service|\nMarketplace and personal purchase pickups\nFurniture and appliance delivery\nHeavy and oversized items\nAntiques, fragile and specialty items\nHome-to-home item transportation\nSmall-business deliveries\nSame-day and scheduled deliveries\nNot sure / something else",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "704745e"
+                  },
+                  {
+                    "custom_id": "customer_type",
+                    "field_type": "radio",
+                    "field_label": "Is this for you or a business?",
+                    "field_options": "Individual\nBusiness",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "a1d886e"
+                  },
+                  {
+                    "custom_id": "company_name",
+                    "field_type": "text",
+                    "field_label": "Company name (optional)",
+                    "placeholder": "If this is for a business",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "147b11c"
+                  },
+                  {
+                    "custom_id": "pickup_legend",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<h3>Pickup address</h3>",
+                    "css_classes": "jmt-quote-legend",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "202ea35"
+                  },
+                  {
+                    "custom_id": "pickup_street",
+                    "field_type": "text",
+                    "field_label": "Street address",
+                    "required": "true",
+                    "width": "66",
+                    "width_tablet": "66",
+                    "width_mobile": "100",
+                    "_id": "fa566a1"
+                  },
+                  {
+                    "custom_id": "pickup_unit",
+                    "field_type": "text",
+                    "field_label": "Apt / unit (optional)",
+                    "width": "33",
+                    "width_tablet": "33",
+                    "width_mobile": "100",
+                    "_id": "eb74718"
+                  },
+                  {
+                    "custom_id": "pickup_city",
+                    "field_type": "text",
+                    "field_label": "City",
+                    "required": "true",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "cac760b"
+                  },
+                  {
+                    "custom_id": "pickup_state",
+                    "field_type": "select",
+                    "field_label": "State",
+                    "field_options": "–|\nAL\nAK\nAZ\nAR\nCA\nCO\nCT\nDE\nDC\nFL\nGA\nHI\nID\nIL\nIN\nIA\nKS\nKY\nLA\nME\nMD\nMA\nMI\nMN\nMS\nMO\nMT\nNE\nNV\nNH\nNJ\nNM\nNY\nNC\nND\nOH\nOK\nOR\nPA\nRI\nSC\nSD\nTN\nTX\nUT\nVT\nVA\nWA\nWV\nWI\nWY",
+                    "required": "true",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "40b2de4"
+                  },
+                  {
+                    "custom_id": "pickup_zip",
+                    "field_type": "text",
+                    "field_label": "ZIP code",
+                    "required": "true",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "3e79ca5"
+                  },
+                  {
+                    "custom_id": "extra_stops",
+                    "field_type": "textarea",
+                    "field_label": "Extra stops (optional)",
+                    "rows": 4,
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "b494e09"
+                  },
+                  {
+                    "custom_id": "extra_stops_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>Add up to 3 extra stops. For each stop, say whether it is a pickup or a drop-off, and give the address and any notes for that stop.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "4813cf7"
+                  },
+                  {
+                    "custom_id": "dropoff_legend",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<h3>Drop-off address</h3>",
+                    "css_classes": "jmt-quote-legend",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "b4288f7"
+                  },
+                  {
+                    "custom_id": "dropoff_street",
+                    "field_type": "text",
+                    "field_label": "Street address",
+                    "required": "true",
+                    "width": "66",
+                    "width_tablet": "66",
+                    "width_mobile": "100",
+                    "_id": "2805cfe"
+                  },
+                  {
+                    "custom_id": "dropoff_unit",
+                    "field_type": "text",
+                    "field_label": "Apt / unit (optional)",
+                    "width": "33",
+                    "width_tablet": "33",
+                    "width_mobile": "100",
+                    "_id": "9bbd6b0"
+                  },
+                  {
+                    "custom_id": "dropoff_city",
+                    "field_type": "text",
+                    "field_label": "City",
+                    "required": "true",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "6d01046"
+                  },
+                  {
+                    "custom_id": "dropoff_state",
+                    "field_type": "select",
+                    "field_label": "State",
+                    "field_options": "–|\nAL\nAK\nAZ\nAR\nCA\nCO\nCT\nDE\nDC\nFL\nGA\nHI\nID\nIL\nIN\nIA\nKS\nKY\nLA\nME\nMD\nMA\nMI\nMN\nMS\nMO\nMT\nNE\nNV\nNH\nNJ\nNM\nNY\nNC\nND\nOH\nOK\nOR\nPA\nRI\nSC\nSD\nTN\nTX\nUT\nVT\nVA\nWA\nWV\nWI\nWY",
+                    "required": "true",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "ce723b2"
+                  },
+                  {
+                    "custom_id": "dropoff_zip",
+                    "field_type": "text",
+                    "field_label": "ZIP code",
+                    "required": "true",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "a35b249"
+                  },
+                  {
+                    "custom_id": "timing_legend",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<h3>Requested timing</h3>",
+                    "css_classes": "jmt-quote-legend",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "b1a7c5a"
+                  },
+                  {
+                    "custom_id": "timing_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>This is your preference, not a reserved time slot. Times are in Mountain Time (America/Denver). JMT confirms availability with your quote.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "5cdeba0"
+                  },
+                  {
+                    "custom_id": "date_mode",
+                    "field_type": "radio",
+                    "field_label": "Preferred date",
+                    "field_options": "As soon as possible (Same-day depends on JMT's availability)|As soon as possible\nChoose a date",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "4b2e7f3"
+                  },
+                  {
+                    "custom_id": "requested_date",
+                    "field_type": "date",
+                    "field_label": "Requested date (optional)",
+                    "use_native_date": "yes",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "a524056"
+                  },
+                  {
+                    "custom_id": "requested_date_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>Only needed if you chose a date.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "a96329b"
+                  },
+                  {
+                    "custom_id": "time_window",
+                    "field_type": "radio",
+                    "field_label": "Requested time of day",
+                    "field_options": "Flexible\nMorning\nAfternoon\nEvening",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "ade2f90"
+                  },
+                  {
+                    "custom_id": "step_items",
+                    "field_type": "step",
+                    "field_label": "Items and access",
+                    "previous_button": "Back",
+                    "next_button": "Continue",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "f480480"
+                  },
+                  {
+                    "custom_id": "step2_heading",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p class=\"jmt-step-kicker\">Step 2 of 4</p><h2 class=\"jmt-step-title\">Items and access</h2>",
+                    "css_classes": "jmt-quote-stephead",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "faef838"
+                  },
+                  {
+                    "custom_id": "item_legend",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<h3>Item 1</h3>",
+                    "css_classes": "jmt-quote-legend",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "bd856ca"
+                  },
+                  {
+                    "custom_id": "item_description",
+                    "field_type": "text",
+                    "field_label": "What is it?",
+                    "required": "true",
+                    "placeholder": "For example: 3-seat sofa, washing machine, antique mirror.",
+                    "width": "75",
+                    "width_tablet": "75",
+                    "width_mobile": "100",
+                    "_id": "3e7e7d3"
+                  },
+                  {
+                    "custom_id": "item_quantity",
+                    "field_type": "number",
+                    "field_label": "Quantity",
+                    "required": "true",
+                    "field_value": "1",
+                    "field_min": 1,
+                    "field_max": 999,
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "2a9359d"
+                  },
+                  {
+                    "custom_id": "item_size_known",
+                    "field_type": "radio",
+                    "field_label": "Do you know the size or weight?",
+                    "field_options": "Not sure (That's fine. Photos or a description help.)|Not sure\nYes, I'll add what I know",
+                    "required": "true",
+                    "field_value": "Not sure",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "7448963"
+                  },
+                  {
+                    "custom_id": "item_length",
+                    "field_type": "text",
+                    "field_label": "Length (optional)",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "1e06429"
+                  },
+                  {
+                    "custom_id": "item_width",
+                    "field_type": "text",
+                    "field_label": "Width (optional)",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "1c00386"
+                  },
+                  {
+                    "custom_id": "item_height",
+                    "field_type": "text",
+                    "field_label": "Height (optional)",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "6335555"
+                  },
+                  {
+                    "custom_id": "item_dimension_unit",
+                    "field_type": "select",
+                    "field_label": "Units (optional)",
+                    "field_options": "inches\nfeet\ncm",
+                    "field_value": "inches",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "8afe38c"
+                  },
+                  {
+                    "custom_id": "item_weight",
+                    "field_type": "text",
+                    "field_label": "Estimated weight (optional)",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "1abc64c"
+                  },
+                  {
+                    "custom_id": "item_weight_unit",
+                    "field_type": "select",
+                    "field_label": "Units (optional)",
+                    "field_options": "lb\nkg",
+                    "field_value": "lb",
+                    "width": "25",
+                    "width_tablet": "25",
+                    "width_mobile": "100",
+                    "_id": "c20bdfe"
+                  },
+                  {
+                    "custom_id": "item_handling",
+                    "field_type": "checkbox",
+                    "field_label": "Item 1 handling",
+                    "field_options": "Fragile\nOversized or very heavy",
+                    "css_classes": "jmt-quote-nolabel",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "6c52072"
+                  },
+                  {
+                    "custom_id": "other_items",
+                    "field_type": "textarea",
+                    "field_label": "Other items (optional)",
+                    "rows": 4,
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "7f58e1a"
+                  },
+                  {
+                    "custom_id": "other_items_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>List any other items, one per line, with quantity and size if you know it.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "6f80e1a"
+                  },
+                  {
+                    "custom_id": "vehicle",
+                    "field_type": "radio",
+                    "field_label": "Vehicle preference",
+                    "field_options": "Car\nPickup truck\nCargo van\nBox truck\nNot sure",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "c2b1856"
+                  },
+                  {
+                    "custom_id": "vehicle_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>JMT reviews every request and confirms the vehicle with your quote.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "e732140"
+                  },
+                  {
+                    "custom_id": "loading_help",
+                    "field_type": "radio",
+                    "field_label": "Do you need help loading or unloading?",
+                    "field_options": "Yes\nNo\nNot sure",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "262b7c0"
+                  },
+                  {
+                    "custom_id": "loading_help_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>JMT confirms what help is available with your quote.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "ff968b7"
+                  },
+                  {
+                    "custom_id": "pickup_access_legend",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<h3>Access at pickup</h3>",
+                    "css_classes": "jmt-quote-legend",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "3cdc908"
+                  },
+                  {
+                    "custom_id": "pickup_access_stairs",
+                    "field_type": "radio",
+                    "field_label": "Are there stairs?",
+                    "field_options": "No stairs\nYes, stairs\nNot sure",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "8e7df2c"
+                  },
+                  {
+                    "custom_id": "pickup_access_floor",
+                    "field_type": "text",
+                    "field_label": "Floor number (optional)",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "a8762f0"
+                  },
+                  {
+                    "custom_id": "pickup_access_floor_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>Leave blank if not sure.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "7bb53de"
+                  },
+                  {
+                    "custom_id": "pickup_access_elevator",
+                    "field_type": "radio",
+                    "field_label": "Elevator access",
+                    "field_options": "Elevator available\nNo elevator\nNot needed (ground level)\nNot sure",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "e3700c9"
+                  },
+                  {
+                    "custom_id": "pickup_access_parking",
+                    "field_type": "textarea",
+                    "field_label": "Parking or access restrictions (optional)",
+                    "rows": 2,
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "9938d23"
+                  },
+                  {
+                    "custom_id": "pickup_access_parking_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>For example: narrow driveway, gate code needed, loading dock hours.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "7676946"
+                  },
+                  {
+                    "custom_id": "dropoff_access_legend",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<h3>Access at drop-off</h3>",
+                    "css_classes": "jmt-quote-legend",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "17b34b7"
+                  },
+                  {
+                    "custom_id": "dropoff_same_access",
+                    "field_type": "checkbox",
+                    "field_label": "Drop-off access",
+                    "field_options": "Same stairs and elevator access as pickup",
+                    "css_classes": "jmt-quote-nolabel",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "62bbd57"
+                  },
+                  {
+                    "custom_id": "dropoff_access_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>If you ticked this, you can skip the stairs, floor and elevator questions below.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "2d231c5"
+                  },
+                  {
+                    "custom_id": "dropoff_access_stairs",
+                    "field_type": "radio",
+                    "field_label": "Are there stairs? (optional)",
+                    "field_options": "No stairs\nYes, stairs\nNot sure",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "93fbeaf"
+                  },
+                  {
+                    "custom_id": "dropoff_access_floor",
+                    "field_type": "text",
+                    "field_label": "Floor number (optional)",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "50f1998"
+                  },
+                  {
+                    "custom_id": "dropoff_access_floor_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>Leave blank if not sure.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "15119c4"
+                  },
+                  {
+                    "custom_id": "dropoff_access_elevator",
+                    "field_type": "radio",
+                    "field_label": "Elevator access (optional)",
+                    "field_options": "Elevator available\nNo elevator\nNot needed (ground level)\nNot sure",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "850f3bb"
+                  },
+                  {
+                    "custom_id": "dropoff_access_parking",
+                    "field_type": "textarea",
+                    "field_label": "Parking or access restrictions (optional)",
+                    "rows": 2,
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "b803645"
+                  },
+                  {
+                    "custom_id": "dropoff_access_parking_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>For example: narrow driveway, gate code needed, loading dock hours.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "dcc3c53"
+                  },
+                  {
+                    "custom_id": "special_instructions",
+                    "field_type": "textarea",
+                    "field_label": "Special handling instructions (optional)",
+                    "rows": 3,
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "6722f5c"
+                  },
+                  {
+                    "custom_id": "step_photos",
+                    "field_type": "step",
+                    "field_label": "Photos",
+                    "previous_button": "Back",
+                    "next_button": "Continue",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "4a964a0"
+                  },
+                  {
+                    "custom_id": "step3_heading",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p class=\"jmt-step-kicker\">Step 3 of 4</p><h2 class=\"jmt-step-title\">Photos</h2>",
+                    "css_classes": "jmt-quote-stephead",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "9b75b26"
+                  },
+                  {
+                    "custom_id": "photos_intro",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p class=\"jmt-lead\">Photos are optional, but they help JMT understand your items and prepare an accurate quote.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "1c0daeb"
+                  },
+                  {
+                    "custom_id": "photos",
+                    "field_type": "upload",
+                    "field_label": "Item photos (optional)",
+                    "file_sizes": "10",
+                    "file_types": "jpg,jpeg,png,webp",
+                    "allow_multiple_upload": "yes",
+                    "max_files": 5,
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "54bf67e"
+                  },
+                  {
+                    "custom_id": "photos_hint",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>Up to 5 photos, JPEG, PNG or WebP, 10 MB each.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "13c085b"
+                  },
+                  {
+                    "custom_id": "photo_notes",
+                    "field_type": "textarea",
+                    "field_label": "Additional notes (optional)",
+                    "rows": 3,
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "f61bd2f"
+                  },
+                  {
+                    "custom_id": "step_contact",
+                    "field_type": "step",
+                    "field_label": "Contact and review",
+                    "previous_button": "Back",
+                    "next_button": "Continue",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "9ce8885"
+                  },
+                  {
+                    "custom_id": "step4_heading",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p class=\"jmt-step-kicker\">Step 4 of 4</p><h2 class=\"jmt-step-title\">Contact and review</h2>",
+                    "css_classes": "jmt-quote-stephead",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "aae62f3"
+                  },
+                  {
+                    "custom_id": "name",
+                    "field_type": "text",
+                    "field_label": "Your name",
+                    "required": "true",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "910d0ce"
+                  },
+                  {
+                    "custom_id": "phone",
+                    "field_type": "text",
+                    "field_label": "Phone",
+                    "required": "true",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "cbc6c36"
+                  },
+                  {
+                    "custom_id": "email",
+                    "field_type": "email",
+                    "field_label": "Email",
+                    "required": "true",
+                    "width": "50",
+                    "width_tablet": "50",
+                    "width_mobile": "100",
+                    "_id": "8872cda"
+                  },
+                  {
+                    "custom_id": "preferred_contact",
+                    "field_type": "radio",
+                    "field_label": "How should JMT contact you?",
+                    "field_options": "Either\nPhone\nEmail",
+                    "required": "true",
+                    "field_value": "Either",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "a5baa1a"
+                  },
+                  {
+                    "custom_id": "acknowledged",
+                    "field_type": "acceptance",
+                    "field_label": "Acknowledgement",
+                    "acceptance_text": "I understand this is a quote request. My pickup or delivery is confirmed only after JMT Enterprise reviews my request and agrees the service with me.",
+                    "required": "true",
+                    "css_classes": "jmt-quote-nolabel",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "7c56e93"
+                  },
+                  {
+                    "custom_id": "privacy_note",
+                    "field_type": "html",
+                    "field_label": "",
+                    "field_html": "<p>We use your details only to review and respond to this request. See our <a href=\"/privacy-policy\" target=\"_blank\">Privacy Policy</a>.</p>",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "cfcd903"
+                  },
+                  {
+                    "custom_id": "website",
+                    "field_type": "honeypot",
+                    "field_label": "Leave this field empty",
+                    "width": "100",
+                    "width_tablet": "100",
+                    "width_mobile": "100",
+                    "_id": "aafcfeb"
+                  }
+                ],
+                "input_size": "md",
+                "show_labels": "yes",
+                "mark_required": "yes",
+                "button_text": "Send quote request",
+                "button_size": "md",
+                "button_width": "100",
+                "step_next_label": "Continue",
+                "step_previous_label": "Back",
+                "step_type": "number_text",
+                "step_icon_shape": "circle",
+                "submit_actions": [
+                  "save-to-database",
+                  "email",
+                  "email2",
+                  "redirect"
+                ],
+                "email_to": "support@jmtenterprise.net",
+                "email_subject": "New quote request from [field id=\"name\"]",
+                "email_content": "[all-fields]",
+                "email_from": "noreply@jmtenterprise.net",
+                "email_from_name": "JMT Enterprise website",
+                "email_reply_to": "[field id=\"email\"]",
+                "email_content_type": "plain",
+                "form_metadata": [
+                  "date",
+                  "time",
+                  "page_url",
+                  "remote_ip"
+                ],
+                "email_to_2": "[field id=\"email\"]",
+                "email_subject_2": "We received your quote request – JMT Enterprise",
+                "email_content_2": "Hi [field id=\"name\"],\n\nThank you for your quote request. JMT Enterprise will review your details and contact you with a quote and availability.\n\nYour pickup or delivery is confirmed only after JMT agrees the service with you. Submitting the form or receiving this email does not reserve a vehicle.\n\nA copy of your answers:\n\n[all-fields]\n\nNeed to change something? Call 720-983-4400 or email support@jmtenterprise.net.\n\nJMT Enterprise\n720-983-4400 · support@jmtenterprise.net",
+                "email_from_2": "noreply@jmtenterprise.net",
+                "email_from_name_2": "JMT Enterprise",
+                "email_reply_to_2": "support@jmtenterprise.net",
+                "email_content_type_2": "plain",
+                "form_metadata_2": [],
+                "redirect_to": "https://jmtenterprise.net/request-received/",
+                "custom_messages": "yes",
+                "success_message": "Thank you. Your quote request has been received.",
+                "error_message": "Something went wrong. Please try again, or call 720-983-4400.",
+                "required_field_message": "This field is required.",
+                "invalid_message": "Please check the highlighted fields.",
+                "server_message": "We could not send your request. Please try again, or call 720-983-4400.",
+                "column_gap": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "row_gap": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "label_spacing": {
+                  "unit": "px",
+                  "size": 6,
+                  "sizes": []
+                },
+                "label_color": "#0b1226",
+                "mark_required_color": "#b91c1c",
+                "label_typography_typography": "custom",
+                "label_typography_font_family": "Plus Jakarta Sans",
+                "label_typography_font_size": {
+                  "unit": "px",
+                  "size": 14,
+                  "sizes": []
+                },
+                "label_typography_font_weight": "600",
+                "label_typography_line_height": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "html_color": "#4a5571",
+                "html_typography_typography": "custom",
+                "html_typography_font_family": "Plus Jakarta Sans",
+                "html_typography_font_size": {
+                  "unit": "px",
+                  "size": 14,
+                  "sizes": []
+                },
+                "html_typography_font_weight": "400",
+                "html_typography_line_height": {
+                  "unit": "px",
+                  "size": 20,
+                  "sizes": []
+                },
+                "field_text_color": "#0b1226",
+                "field_typography_typography": "custom",
+                "field_typography_font_family": "Plus Jakarta Sans",
+                "field_typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "field_typography_font_weight": "400",
+                "field_typography_line_height": {
+                  "unit": "px",
+                  "size": 24,
+                  "sizes": []
+                },
+                "field_background_color": "#ffffff",
+                "field_border_color": "#cbd5e1",
+                "field_border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "field_border_radius": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "12",
+                  "bottom": "12",
+                  "left": "12",
+                  "isLinked": true
+                },
+                "button_background_color": "#c8161a",
+                "button_background_hover_color": "#b00a0c",
+                "button_text_color": "#ffffff",
+                "button_hover_color": "#ffffff",
+                "button_border_radius": {
+                  "unit": "px",
+                  "top": "9999",
+                  "right": "9999",
+                  "bottom": "9999",
+                  "left": "9999",
+                  "isLinked": true
+                },
+                "button_text_padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "24",
+                  "bottom": "12",
+                  "left": "24",
+                  "isLinked": false
+                },
+                "button_typography_typography": "custom",
+                "button_typography_font_family": "Plus Jakarta Sans",
+                "button_typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "button_typography_font_weight": "700",
+                "button_typography_line_height": {
+                  "unit": "px",
+                  "size": 24,
+                  "sizes": []
+                },
+                "previous_button_background_color": "#ffffff",
+                "previous_button_text_color": "#112f66",
+                "previous_button_background_color_hover": "#eef3fb",
+                "previous_button_text_color_hover": "#112f66",
+                "_css_classes": "jmt-quote-form"
+              },
+              "elements": [],
+              "isInner": false
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": false
+    }
+  ],
+  "page_settings": {
+    "template": "default",
+    "hide_title": "yes",
+    "custom_css": ".jmt-mobile-bar{display:none !important}"
+  },
+  "version": "0.4",
+  "title": "JMT – Request a Quote",
+  "type": "page"
+}

@@ -134,6 +134,17 @@ export const fa = (name, library = "fa-solid") => ({
   library,
 });
 
+/**
+ * Pro Custom Attributes (`_attributes`): { "aria-hidden": "true" } → "aria-hidden|true",
+ * one "key|value" pair per line. A string passes through unchanged.
+ */
+export function attrs(a) {
+  if (typeof a === "string") return a;
+  return Object.entries(a)
+    .map(([k, v]) => `${k}|${v}`)
+    .join("\n");
+}
+
 export const link = (url, { external = false, nofollow = false } = {}) => ({
   url,
   is_external: external ? "on" : "",
@@ -171,6 +182,7 @@ export const link = (url, { external = false, nofollow = false } = {}) => ({
  *  hide       ["mobile", ...]
  *  sticky     "top" (Pro)
  *  grow       flex grow 1 for this child (responsive allowed: {d:true,m:false})
+ *  attrs      Pro Custom Attributes, e.g. { "aria-label": "Footer" } (see attrs())
  */
 export function container(opts = {}, children = []) {
   const s = {};
@@ -253,6 +265,7 @@ export function container(opts = {}, children = []) {
   const cls = [opts.cls, opts.grid && "jmt-grid-auto"].filter(Boolean).join(" ");
   if (cls) s.css_classes = cls;
   if (opts.id) s._element_id = opts.id;
+  if (opts.attrs) s._attributes = attrs(opts.attrs);
   if (opts.reveal !== undefined && opts.reveal !== false) Object.assign(s, reveal(true, opts.reveal));
   if (opts.hide) Object.assign(s, hide(opts.hide));
   if (opts.sticky) {
@@ -275,10 +288,16 @@ export function container(opts = {}, children = []) {
 
 /* ---------------------------------------------------------------- widgets */
 
+/**
+ * Shared Advanced-tab options for every widget builder:
+ *  cls, id, margin, pad (widget wrapper padding), reveal, hide, widthAuto, maxWidth, grow,
+ *  alignSelf, order, absolute, fixed, attrs (Pro Custom Attributes, e.g. { "aria-hidden": "true" }), raw
+ */
 function widget(widgetType, settings, opts = {}) {
   const s = { ...settings };
   if (opts.cls) s._css_classes = opts.cls;
   if (opts.id) s._element_id = opts.id;
+  if (opts.attrs) s._attributes = attrs(opts.attrs);
   if (opts.margin !== undefined) Object.assign(s, resp("_margin", opts.margin, toBox));
   if (opts.pad !== undefined) Object.assign(s, resp("_padding", opts.pad, toBox));
   if (opts.reveal !== undefined && opts.reveal !== false) Object.assign(s, reveal(false, opts.reveal));
@@ -404,23 +423,69 @@ export function button(label, url, opts = {}) {
   const fontSize = opts.size === "lg" ? 18 : opts.size === "sm" ? 14 : typeof opts.size === "number" ? opts.size : 16;
   const s = {
     text: label,
-    link: link(url, { external: opts.external }),
+    link: typeof url === "string" ? link(url, { external: opts.external }) : url, // or a link() object (custom_attributes)
     size: "md",
     ...BUTTON[variant],
-    ...typo("typography", { size: fontSize, weight: 700, lh: 1.5 }),
+    // Tailwind text-lg / text-sm / text-base line heights (28/18, 20/14, 24/16)
+    ...typo("typography", { size: fontSize, weight: 700, lh: fontSize === 18 ? 1.556 : fontSize === 14 ? 1.429 : 1.5 }),
     border_radius: box(9999),
   };
   if (variant === "link") s.text_padding = box(0);
   else s.text_padding = box(opts.padY ?? 12, opts.padX ?? 24);
   if (opts.icon) {
     s.selected_icon = typeof opts.icon === "string" ? fa(opts.icon) : opts.icon;
-    s.icon_align = opts.iconPos ?? "right";
+    s.icon_align = (opts.iconPos ?? "right") === "right" ? "row-reverse" : "row"; // 3.24+ values
     s.icon_indent = px(opts.iconGap ?? 8);
   }
   if (opts.align) Object.assign(s, resp("align", opts.align));
   if (opts.full) Object.assign(s, resp("align", opts.full === true ? "justify" : opts.full));
   const cls = [`jmt-btn`, `jmt-btn--${variant}`, opts.cls].filter(Boolean).join(" ");
   return widget("button", s, { ...opts, cls });
+}
+
+/* Icon / Icon Box `icon_padding` and `border_radius` are plain (non-responsive) controls, so
+   `_tablet` / `_mobile` keys would be ignored. The desktop value becomes the setting; a tablet or
+   mobile value that differs becomes element Custom CSS (Pro) under that breakpoint, !important so it
+   beats the generated `.elementor-element-<id> .elementor-icon` rule. */
+const ICON_MEDIA = { t: "(max-width: 1024px)", m: "(max-width: 767px)" };
+const cssLen = (v) => (typeof v === "number" ? `${v}px` : `${v.size}${v.unit}`);
+const cssBox = (v) => {
+  const b = toBox(v);
+  return [b.top, b.right, b.bottom, b.left].map((x) => `${x}${b.unit}`).join(" ");
+};
+function iconShape(s, { pad, radius, raw }, padKey) {
+  const rest = { ...(raw ?? {}) };
+  const take = (key, value) => {
+    const spec = isResp(value) ? { ...value } : value === undefined ? {} : { d: value };
+    for (const [bp, suffix] of [["t", "_tablet"], ["m", "_mobile"]]) {
+      if (rest[key + suffix] !== undefined) {
+        spec[bp] = rest[key + suffix];
+        delete rest[key + suffix];
+      }
+    }
+    if (rest[key] !== undefined) {
+      spec.d = rest[key];
+      delete rest[key];
+    }
+    return spec;
+  };
+  const padSpec = take(padKey, pad);
+  const radSpec = take("border_radius", radius);
+  const rules = { t: [], m: [] };
+  const same = (a, b, f) => a === undefined || (b !== undefined && f(a) === f(b));
+  const add = (spec, prop, f) => {
+    if (spec.d !== undefined) s[prop === "padding" ? padKey : "border_radius"] = prop === "padding" ? toPx(spec.d) : toBox(spec.d);
+    if (!same(spec.t, spec.d, f)) rules.t.push(`${prop}:${f(spec.t)} !important`);
+    const tEff = spec.t ?? spec.d;
+    if (!same(spec.m, tEff, f)) rules.m.push(`${prop}:${f(spec.m)} !important`);
+  };
+  add(padSpec, "padding", cssLen);
+  add(radSpec, "border-radius", cssBox);
+  const css = ["t", "m"]
+    .filter((bp) => rules[bp].length)
+    .map((bp) => `@media ${ICON_MEDIA[bp]}{selector .elementor-icon{${rules[bp].join(";")}}}`);
+  if (css.length) rest.custom_css = [rest.custom_css, ...css].filter(Boolean).join("\n");
+  return rest;
 }
 
 /**
@@ -433,12 +498,11 @@ export function icon(name, opts = {}) {
   if (opts.primary) s.primary_color = opts.primary;
   if (opts.secondary) s.secondary_color = opts.secondary;
   if (opts.size !== undefined) Object.assign(s, resp("size", opts.size, toPx));
-  if (opts.pad !== undefined) Object.assign(s, resp("icon_padding", opts.pad, toPx));
-  if (opts.radius !== undefined) s.border_radius = toBox(opts.radius);
+  const raw = iconShape(s, { pad: opts.pad, radius: opts.radius, raw: opts.raw }, "icon_padding");
   if (opts.link) s.link = typeof opts.link === "string" ? link(opts.link) : opts.link;
   if (opts.align) Object.assign(s, resp("align", opts.align));
   // `pad` is the icon's own padding here, not the widget wrapper's
-  return widget("icon", s, { ...opts, pad: undefined });
+  return widget("icon", s, { ...opts, pad: undefined, raw });
 }
 
 /**
@@ -461,8 +525,7 @@ export function iconBox(opts) {
   if (opts.primary) s.primary_color = opts.primary;
   if (opts.secondary) s.secondary_color = opts.secondary;
   if (opts.iconSize !== undefined) Object.assign(s, resp("icon_size", opts.iconSize, toPx));
-  if (opts.iconPad !== undefined) Object.assign(s, resp("icon_padding", opts.iconPad, toPx));
-  if (opts.iconRadius !== undefined) s.border_radius = toBox(opts.iconRadius);
+  const raw = iconShape(s, { pad: opts.iconPad, radius: opts.iconRadius, raw: opts.raw }, "icon_padding");
   if (opts.iconGap !== undefined) Object.assign(s, resp("icon_space", opts.iconGap, toPx));
   if (opts.titleGap !== undefined) Object.assign(s, resp("title_bottom_space", opts.titleGap, toPx));
   if (opts.titleColor) s.title_color = opts.titleColor;
@@ -470,7 +533,7 @@ export function iconBox(opts) {
   Object.assign(s, typo("title_typography", { size: opts.titleSize ?? "xl", weight: opts.titleWeight ?? 800, lh: opts.titleLh, ls: opts.titleLs }));
   Object.assign(s, typo("description_typography", { size: opts.descSize ?? "base", weight: 400 }));
   if (opts.link) s.link = typeof opts.link === "string" ? link(opts.link) : opts.link;
-  return widget("icon-box", s, opts);
+  return widget("icon-box", s, { ...opts, raw });
 }
 
 /**

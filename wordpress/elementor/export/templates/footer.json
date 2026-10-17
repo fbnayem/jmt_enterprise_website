@@ -1,0 +1,987 @@
+{
+  "content": [
+    {
+      "id": "6199c6d",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 1216,
+          "sizes": []
+        },
+        "html_tag": "footer",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "64",
+          "right": "32",
+          "bottom": "48",
+          "left": "32",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "64",
+          "right": "24",
+          "bottom": "112",
+          "left": "24",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "64",
+          "right": "16",
+          "bottom": "112",
+          "left": "16",
+          "isLinked": false
+        },
+        "background_background": "classic",
+        "background_color": "#071733",
+        "css_classes": "jmt-footer"
+      },
+      "elements": [
+        {
+          "id": "8d2bced",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "container_type": "flex",
+            "flex_direction": "row",
+            "flex_direction_tablet": "row",
+            "flex_direction_mobile": "column",
+            "flex_gap": {
+              "unit": "px",
+              "size": 48,
+              "column": "48",
+              "row": "48",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            }
+          },
+          "elements": [
+            {
+              "id": "a7cc126",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 36.27,
+                  "sizes": []
+                },
+                "width_tablet": {
+                  "unit": "%",
+                  "size": 36.27,
+                  "sizes": []
+                },
+                "width_mobile": {
+                  "unit": "%",
+                  "size": 100,
+                  "sizes": []
+                },
+                "container_type": "flex",
+                "flex_direction": "column",
+                "flex_align_items": "flex-start",
+                "flex_gap": {
+                  "unit": "px",
+                  "size": 0,
+                  "column": "0",
+                  "row": "0",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": true
+                }
+              },
+              "elements": [
+                {
+                  "id": "9297d2a",
+                  "elType": "widget",
+                  "widgetType": "image",
+                  "settings": {
+                    "image": {
+                      "url": "https://raw.githubusercontent.com/fbnayem/jmt_enterprise_website/7c74fde848004c56f1314c8267d13ca7eceba93b/public/brand/jmt-logo.png",
+                      "id": "",
+                      "size": "",
+                      "alt": "JMT Enterprise LLC",
+                      "source": "library"
+                    },
+                    "image_size": "full",
+                    "width": {
+                      "unit": "px",
+                      "size": 142,
+                      "sizes": []
+                    },
+                    "link_to": "custom",
+                    "link": {
+                      "url": "/",
+                      "is_external": "",
+                      "nofollow": "",
+                      "custom_attributes": ""
+                    },
+                    "_css_classes": "jmt-logo-card",
+                    "_element_width": "auto",
+                    "_background_background": "classic",
+                    "_background_color": "#ffffff",
+                    "_padding": {
+                      "unit": "px",
+                      "top": "12",
+                      "right": "12",
+                      "bottom": "12",
+                      "left": "12",
+                      "isLinked": true
+                    },
+                    "_border_radius": {
+                      "unit": "px",
+                      "top": "16",
+                      "right": "16",
+                      "bottom": "16",
+                      "left": "16",
+                      "isLinked": true
+                    },
+                    "_box_shadow_box_shadow_type": "yes",
+                    "_box_shadow_box_shadow": {
+                      "horizontal": 0,
+                      "vertical": 10,
+                      "blur": 15,
+                      "spread": -3,
+                      "color": "rgba(0,0,0,0.2)"
+                    }
+                  },
+                  "elements": [],
+                  "isInner": false
+                },
+                {
+                  "id": "afcc2b2",
+                  "elType": "widget",
+                  "widgetType": "text-editor",
+                  "settings": {
+                    "editor": "<p>Pickup and delivery for individuals and businesses. Every job is quoted and confirmed by JMT before service.</p>",
+                    "text_color": "rgba(219, 229, 246, 0.8)",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Plus Jakarta Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16,
+                      "sizes": []
+                    },
+                    "typography_line_height": {
+                      "unit": "em",
+                      "size": 1.5,
+                      "sizes": []
+                    },
+                    "typography_font_weight": "400",
+                    "_margin": {
+                      "unit": "px",
+                      "top": "20",
+                      "right": "0",
+                      "bottom": "0",
+                      "left": "0",
+                      "isLinked": false
+                    },
+                    "_element_width": "initial",
+                    "_element_custom_width": {
+                      "unit": "px",
+                      "size": 384,
+                      "sizes": []
+                    }
+                  },
+                  "elements": [],
+                  "isInner": false
+                },
+                {
+                  "id": "d958771",
+                  "elType": "widget",
+                  "widgetType": "button",
+                  "settings": {
+                    "text": "Request a Quote",
+                    "link": {
+                      "url": "/request-a-quote",
+                      "is_external": "",
+                      "nofollow": "",
+                      "custom_attributes": ""
+                    },
+                    "size": "md",
+                    "background_background": "gradient",
+                    "background_color": "#c8161a",
+                    "background_color_b": "#b00a0c",
+                    "background_gradient_type": "linear",
+                    "background_gradient_angle": {
+                      "unit": "deg",
+                      "size": 90,
+                      "sizes": []
+                    },
+                    "button_text_color": "#ffffff",
+                    "button_box_shadow_box_shadow_type": "yes",
+                    "button_box_shadow_box_shadow": {
+                      "horizontal": 0,
+                      "vertical": 8,
+                      "blur": 24,
+                      "spread": -8,
+                      "color": "rgba(200,22,26,0.6)"
+                    },
+                    "typography_typography": "custom",
+                    "typography_font_family": "Plus Jakarta Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 16,
+                      "sizes": []
+                    },
+                    "typography_line_height": {
+                      "unit": "em",
+                      "size": 1.5,
+                      "sizes": []
+                    },
+                    "typography_font_weight": "700",
+                    "border_radius": {
+                      "unit": "px",
+                      "top": "9999",
+                      "right": "9999",
+                      "bottom": "9999",
+                      "left": "9999",
+                      "isLinked": true
+                    },
+                    "text_padding": {
+                      "unit": "px",
+                      "top": "12",
+                      "right": "24",
+                      "bottom": "12",
+                      "left": "24",
+                      "isLinked": false
+                    },
+                    "selected_icon": {
+                      "value": "fas fa-arrow-right",
+                      "library": "fa-solid"
+                    },
+                    "icon_align": "row-reverse",
+                    "icon_indent": {
+                      "unit": "px",
+                      "size": 8,
+                      "sizes": []
+                    },
+                    "_css_classes": "jmt-btn jmt-btn--primary jmt-btn--external",
+                    "_margin": {
+                      "unit": "px",
+                      "top": "24",
+                      "right": "0",
+                      "bottom": "0",
+                      "left": "0",
+                      "isLinked": false
+                    },
+                    "_element_width": "auto"
+                  },
+                  "elements": [],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "2964dc4",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 27.88,
+                  "sizes": []
+                },
+                "width_tablet": {
+                  "unit": "%",
+                  "size": 27.88,
+                  "sizes": []
+                },
+                "width_mobile": {
+                  "unit": "%",
+                  "size": 100,
+                  "sizes": []
+                },
+                "html_tag": "nav",
+                "container_type": "flex",
+                "flex_direction": "column",
+                "flex_gap": {
+                  "unit": "px",
+                  "size": 0,
+                  "column": "0",
+                  "row": "0",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": true
+                },
+                "_attributes": "aria-label|Footer",
+                "_title": "Footer navigation"
+              },
+              "elements": [
+                {
+                  "id": "c4a0a82",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Pages",
+                    "header_size": "h2",
+                    "title_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Plus Jakarta Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12,
+                      "sizes": []
+                    },
+                    "typography_line_height": {
+                      "unit": "em",
+                      "size": 1.333,
+                      "sizes": []
+                    },
+                    "typography_font_weight": "700",
+                    "typography_letter_spacing": {
+                      "unit": "em",
+                      "size": 0.14,
+                      "sizes": []
+                    },
+                    "typography_text_transform": "uppercase"
+                  },
+                  "elements": [],
+                  "isInner": false
+                },
+                {
+                  "id": "60cd3d3",
+                  "elType": "widget",
+                  "widgetType": "icon-list",
+                  "settings": {
+                    "view": "traditional",
+                    "icon_list": [
+                      {
+                        "text": "Home",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "a0a0753"
+                      },
+                      {
+                        "text": "Services",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/services",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "a59b1c2"
+                      },
+                      {
+                        "text": "Service Areas",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/service-areas",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "2856402"
+                      },
+                      {
+                        "text": "About",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/about",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "745721d"
+                      },
+                      {
+                        "text": "FAQs",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/faqs",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "5574c2f"
+                      },
+                      {
+                        "text": "Contact",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/contact",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "c2fb7e7"
+                      },
+                      {
+                        "text": "Request a Quote",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/request-a-quote",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "bc0a6d3"
+                      },
+                      {
+                        "text": "Privacy Policy",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/privacy-policy",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "418793f"
+                      },
+                      {
+                        "text": "Service Terms",
+                        "selected_icon": {
+                          "value": "",
+                          "library": ""
+                        },
+                        "link": {
+                          "url": "/service-terms",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "c22f2f1"
+                      }
+                    ],
+                    "text_color": "#dbe5f6",
+                    "text_color_hover": "#f66b6b",
+                    "icon_typography_typography": "custom",
+                    "icon_typography_font_family": "Plus Jakarta Sans",
+                    "icon_typography_font_size": {
+                      "unit": "px",
+                      "size": 14,
+                      "sizes": []
+                    },
+                    "icon_typography_line_height": {
+                      "unit": "em",
+                      "size": 1.429,
+                      "sizes": []
+                    },
+                    "icon_typography_font_weight": "400",
+                    "_css_classes": "jmt-footer-links",
+                    "_margin": {
+                      "unit": "px",
+                      "top": "16",
+                      "right": "0",
+                      "bottom": "0",
+                      "left": "0",
+                      "isLinked": false
+                    }
+                  },
+                  "elements": [],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            },
+            {
+              "id": "ec99604",
+              "elType": "container",
+              "settings": {
+                "content_width": "full",
+                "width": {
+                  "unit": "%",
+                  "size": 27.88,
+                  "sizes": []
+                },
+                "width_tablet": {
+                  "unit": "%",
+                  "size": 27.88,
+                  "sizes": []
+                },
+                "width_mobile": {
+                  "unit": "%",
+                  "size": 100,
+                  "sizes": []
+                },
+                "container_type": "flex",
+                "flex_direction": "column",
+                "flex_gap": {
+                  "unit": "px",
+                  "size": 0,
+                  "column": "0",
+                  "row": "0",
+                  "isLinked": true
+                },
+                "padding": {
+                  "unit": "px",
+                  "top": "0",
+                  "right": "0",
+                  "bottom": "0",
+                  "left": "0",
+                  "isLinked": true
+                }
+              },
+              "elements": [
+                {
+                  "id": "67055f5",
+                  "elType": "widget",
+                  "widgetType": "heading",
+                  "settings": {
+                    "title": "Contact",
+                    "header_size": "h2",
+                    "title_color": "#ffffff",
+                    "typography_typography": "custom",
+                    "typography_font_family": "Plus Jakarta Sans",
+                    "typography_font_size": {
+                      "unit": "px",
+                      "size": 12,
+                      "sizes": []
+                    },
+                    "typography_line_height": {
+                      "unit": "em",
+                      "size": 1.333,
+                      "sizes": []
+                    },
+                    "typography_font_weight": "700",
+                    "typography_letter_spacing": {
+                      "unit": "em",
+                      "size": 0.14,
+                      "sizes": []
+                    },
+                    "typography_text_transform": "uppercase"
+                  },
+                  "elements": [],
+                  "isInner": false
+                },
+                {
+                  "id": "c07200f",
+                  "elType": "widget",
+                  "widgetType": "icon-list",
+                  "settings": {
+                    "view": "traditional",
+                    "icon_list": [
+                      {
+                        "text": "720-983-4400",
+                        "selected_icon": {
+                          "value": "fas fa-phone-alt",
+                          "library": "fa-solid"
+                        },
+                        "link": {
+                          "url": "tel:+17209834400",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "b8de509"
+                      },
+                      {
+                        "text": "support@jmtenterprise.net",
+                        "selected_icon": {
+                          "value": "fas fa-envelope",
+                          "library": "fa-solid"
+                        },
+                        "link": {
+                          "url": "mailto:support@jmtenterprise.net",
+                          "is_external": "",
+                          "nofollow": "",
+                          "custom_attributes": ""
+                        },
+                        "_id": "0a6920a"
+                      }
+                    ],
+                    "space_between": {
+                      "unit": "px",
+                      "size": 12,
+                      "sizes": []
+                    },
+                    "icon_color": "#dbe5f6",
+                    "icon_size": {
+                      "unit": "px",
+                      "size": 16,
+                      "sizes": []
+                    },
+                    "text_color": "#dbe5f6",
+                    "text_color_hover": "#ffffff",
+                    "icon_typography_typography": "custom",
+                    "icon_typography_font_family": "Plus Jakarta Sans",
+                    "icon_typography_font_size": {
+                      "unit": "px",
+                      "size": 14,
+                      "sizes": []
+                    },
+                    "icon_typography_line_height": {
+                      "unit": "em",
+                      "size": 1.429,
+                      "sizes": []
+                    },
+                    "icon_typography_font_weight": "400",
+                    "_css_classes": "jmt-footer-contact",
+                    "_margin": {
+                      "unit": "px",
+                      "top": "16",
+                      "right": "0",
+                      "bottom": "0",
+                      "left": "0",
+                      "isLinked": false
+                    }
+                  },
+                  "elements": [],
+                  "isInner": false
+                }
+              ],
+              "isInner": true
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "0bafc7c",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "container_type": "flex",
+            "flex_direction": "column",
+            "flex_gap": {
+              "unit": "px",
+              "size": 0,
+              "column": "0",
+              "row": "0",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "24",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            },
+            "margin": {
+              "unit": "px",
+              "top": "48",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            },
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            },
+            "border_color": "rgba(255,255,255,0.1)"
+          },
+          "elements": [
+            {
+              "id": "acc8187",
+              "elType": "widget",
+              "widgetType": "heading",
+              "settings": {
+                "title": "© 2026 JMT Enterprise LLC. All rights reserved.",
+                "header_size": "p",
+                "title_color": "#8aa6dc",
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 12,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.333,
+                  "sizes": []
+                },
+                "typography_font_weight": "400",
+                "__dynamic__": {
+                  "title": "[elementor-tag id=\"1a2b3c4\" name=\"current-date-time\" settings=\"%7B%22date_format%22%3A%22custom%22%2C%22time_format%22%3A%22%22%2C%22custom_format%22%3A%22Y%22%2C%22before%22%3A%22%C2%A9%20%22%2C%22after%22%3A%22%20JMT%20Enterprise%20LLC.%20All%20rights%20reserved.%22%7D\"]"
+                }
+              },
+              "elements": [],
+              "isInner": false
+            }
+          ],
+          "isInner": true
+        },
+        {
+          "id": "8cc49ae",
+          "elType": "widget",
+          "widgetType": "html",
+          "settings": {
+            "html": "<script type=\"application/ld+json\">{\"@context\":\"https://schema.org\",\"@type\":\"LocalBusiness\",\"name\":\"JMT Enterprise LLC\",\"url\":\"https://jmtenterprise.net\",\"telephone\":\"+17209834400\",\"email\":\"support@jmtenterprise.net\",\"logo\":\"https://raw.githubusercontent.com/fbnayem/jmt_enterprise_website/7c74fde848004c56f1314c8267d13ca7eceba93b/public/brand/jmt-logo.png\",\"description\":\"Pickup and delivery of everyday and oversized items for individuals and businesses.\",\"areaServed\":[{\"@type\":\"City\",\"name\":\"Denver\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Wheat Ridge\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Lakewood\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Arvada\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Golden\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Aurora\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Westminster\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Thornton\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Northglenn\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Commerce City\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Englewood\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Centennial\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Littleton\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Highlands Ranch\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Lone Tree\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Parker\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Castle Rock\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Castle Pines\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Greenwood Village\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Broomfield\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Brighton\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Morrison\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Evergreen\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Boulder\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Louisville\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Lafayette\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Superior\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Longmont\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Erie\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Loveland\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Fort Collins\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}},{\"@type\":\"City\",\"name\":\"Greeley\",\"containedInPlace\":{\"@type\":\"State\",\"name\":\"Colorado\"}}]}</script>",
+            "_title": "LocalBusiness schema"
+          },
+          "elements": [],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    },
+    {
+      "id": "de6ef46",
+      "elType": "container",
+      "settings": {
+        "content_width": "full",
+        "html_tag": "aside",
+        "container_type": "flex",
+        "flex_direction": "row",
+        "flex_gap": {
+          "unit": "px",
+          "size": 8,
+          "column": "8",
+          "row": "8",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "6",
+          "right": "6",
+          "bottom": "6",
+          "left": "6",
+          "isLinked": true
+        },
+        "background_background": "classic",
+        "background_color": "rgba(255,255,255,0.85)",
+        "border_border": "solid",
+        "border_width": {
+          "unit": "px",
+          "top": "1",
+          "right": "1",
+          "bottom": "1",
+          "left": "1",
+          "isLinked": true
+        },
+        "border_color": "rgba(255,255,255,0.6)",
+        "border_radius": {
+          "unit": "px",
+          "top": "9999",
+          "right": "9999",
+          "bottom": "9999",
+          "left": "9999",
+          "isLinked": true
+        },
+        "box_shadow_box_shadow_type": "yes",
+        "box_shadow_box_shadow": {
+          "horizontal": 0,
+          "vertical": 12,
+          "blur": 40,
+          "spread": -12,
+          "color": "rgba(7,23,51,0.45)"
+        },
+        "css_classes": "jmt-mobile-bar",
+        "_attributes": "aria-label|Quick actions",
+        "hide_desktop": "hidden-desktop",
+        "_title": "Mobile quick actions"
+      },
+      "elements": [
+        {
+          "id": "fcbc79e",
+          "elType": "widget",
+          "widgetType": "button",
+          "settings": {
+            "text": "Call",
+            "link": {
+              "url": "tel:+17209834400",
+              "is_external": "",
+              "nofollow": "",
+              "custom_attributes": "aria-label|Call 720-983-4400"
+            },
+            "size": "md",
+            "background_background": "classic",
+            "background_color": "#ffffff",
+            "button_text_color": "#112f66",
+            "border_border": "solid",
+            "border_width": {
+              "unit": "px",
+              "top": "1",
+              "right": "1",
+              "bottom": "1",
+              "left": "1",
+              "isLinked": true
+            },
+            "border_color": "#b9cbec",
+            "button_box_shadow_box_shadow_type": "",
+            "button_box_shadow_box_shadow": {
+              "horizontal": 0,
+              "vertical": 1,
+              "blur": 2,
+              "spread": 0,
+              "color": "rgba(0,0,0,0.05)"
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 14,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.429,
+              "sizes": []
+            },
+            "typography_font_weight": "700",
+            "border_radius": {
+              "unit": "px",
+              "top": "9999",
+              "right": "9999",
+              "bottom": "9999",
+              "left": "9999",
+              "isLinked": true
+            },
+            "text_padding": {
+              "unit": "px",
+              "top": "10",
+              "right": "16",
+              "bottom": "10",
+              "left": "16",
+              "isLinked": false
+            },
+            "selected_icon": {
+              "value": "fas fa-phone-alt",
+              "library": "fa-solid"
+            },
+            "icon_align": "row",
+            "icon_indent": {
+              "unit": "px",
+              "size": 8,
+              "sizes": []
+            },
+            "_css_classes": "jmt-btn jmt-btn--secondary jmt-btn--compact jmt-btn--noshift",
+            "_element_width": "auto"
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "3fc15b5",
+          "elType": "widget",
+          "widgetType": "button",
+          "settings": {
+            "text": "Request a Quote",
+            "link": {
+              "url": "/request-a-quote",
+              "is_external": "",
+              "nofollow": "",
+              "custom_attributes": ""
+            },
+            "size": "md",
+            "background_background": "gradient",
+            "background_color": "#c8161a",
+            "background_color_b": "#b00a0c",
+            "background_gradient_type": "linear",
+            "background_gradient_angle": {
+              "unit": "deg",
+              "size": 90,
+              "sizes": []
+            },
+            "button_text_color": "#ffffff",
+            "button_box_shadow_box_shadow_type": "yes",
+            "button_box_shadow_box_shadow": {
+              "horizontal": 0,
+              "vertical": 8,
+              "blur": 24,
+              "spread": -8,
+              "color": "rgba(200,22,26,0.6)"
+            },
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 14,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.429,
+              "sizes": []
+            },
+            "typography_font_weight": "700",
+            "border_radius": {
+              "unit": "px",
+              "top": "9999",
+              "right": "9999",
+              "bottom": "9999",
+              "left": "9999",
+              "isLinked": true
+            },
+            "text_padding": {
+              "unit": "px",
+              "top": "10",
+              "right": "24",
+              "bottom": "10",
+              "left": "24",
+              "isLinked": false
+            },
+            "align": "justify",
+            "_css_classes": "jmt-btn jmt-btn--primary jmt-btn--compact",
+            "_flex_size": "grow"
+          },
+          "elements": [],
+          "isInner": false
+        }
+      ],
+      "isInner": false
+    }
+  ],
+  "page_settings": {},
+  "version": "0.4",
+  "title": "JMT Footer",
+  "type": "footer"
+}

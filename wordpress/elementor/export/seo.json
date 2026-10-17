@@ -1,0 +1,64 @@
+[
+  {
+    "page": "Home",
+    "url": "/",
+    "title": "Pickup and Delivery for Everyday and Oversized Items | JMT Enterprise",
+    "description": "JMT Enterprise picks up and delivers Marketplace purchases, furniture, appliances, oversized and fragile items across Denver Metro, Boulder and Northern Colorado. Request a quote."
+  },
+  {
+    "page": "Services",
+    "url": "/services",
+    "title": "Pickup and Delivery Services | JMT Enterprise",
+    "description": "Marketplace pickups, furniture and appliance delivery, heavy and oversized items, fragile and antique pieces, home-to-home transport and small-business deliveries."
+  },
+  {
+    "page": "Service Areas",
+    "url": "/service-areas",
+    "title": "Service Areas | JMT Enterprise",
+    "description": "JMT Enterprise picks up and delivers across Denver Metro, Boulder and Northern Colorado, including Denver, Aurora, Lakewood, Boulder, Longmont, Fort Collins and Greeley."
+  },
+  {
+    "page": "About",
+    "url": "/about",
+    "title": "About Us | JMT Enterprise",
+    "description": "About JMT Enterprise LLC, a pickup and delivery service for individuals and businesses across Denver Metro, Boulder and Northern Colorado."
+  },
+  {
+    "page": "FAQs",
+    "url": "/faqs",
+    "title": "Frequently Asked Questions | JMT Enterprise",
+    "description": "What JMT transports, choosing a vehicle, photos, stairs and loading help, pricing, scheduling and how confirmation works."
+  },
+  {
+    "page": "Contact",
+    "url": "/contact",
+    "title": "Contact Us | JMT Enterprise",
+    "description": "Call 720-983-4400 or email support@jmtenterprise.net. For a price, send a quote request with your pickup and delivery details."
+  },
+  {
+    "page": "Request a Quote",
+    "url": "/request-a-quote",
+    "title": "Request a Quote | JMT Enterprise",
+    "description": "Tell JMT Enterprise what you need picked up and delivered. JMT reviews your request and contacts you with a quote."
+  },
+  {
+    "page": "Request Received",
+    "url": "/request-received",
+    "title": "Request Received | JMT Enterprise",
+    "noindex": true
+  },
+  {
+    "page": "Privacy Policy",
+    "url": "/privacy-policy",
+    "title": "Privacy Policy | JMT Enterprise",
+    "description": "How JMT Enterprise LLC collects and uses the information in quote requests.",
+    "noindex": true
+  },
+  {
+    "page": "Service Terms",
+    "url": "/service-terms",
+    "title": "Service Terms | JMT Enterprise",
+    "description": "Service, cancellation, item restriction and liability terms for JMT Enterprise LLC.",
+    "noindex": true
+  }
+]

@@ -105,6 +105,7 @@ function hero() {
           color: color.white,
           margin: [24, 0, 0, 0],
           reveal: 1,
+          cls: "jmt-balance",
         }),
         text(
           "<p>From Marketplace purchases and furniture to business deliveries, JMT Enterprise helps individuals and businesses move items with vehicle options to suit the job. Tell us what you need moved and request a quote.</p>",
@@ -261,10 +262,11 @@ function whoWeHelp() {
             icon(g.icon, {
               ...chip(g.tone),
               size: { d: 24, t: 24, m: 20 },
-              pad: { d: 12, t: 12, m: 10 },
+              // mobile padding (p-2.5) comes from .jmt-who-chip in site.css
+              pad: 12,
               radius: 16,
               align: "left",
-              cls: g.tone === "accent" ? "jmt-chip-accent" : "jmt-chip-brand",
+              cls: `${g.tone === "accent" ? "jmt-chip-accent" : "jmt-chip-brand"} jmt-who-chip`,
               raw: { border_radius_mobile: box(12) },
             }),
             heading(g.title, { tag: "h3", size: "2xl", ls: tracking.tight, color: color.brand900, margin: [20, 0, 0, 0] }),
@@ -274,7 +276,7 @@ function whoWeHelp() {
                 textColor: color.muted,
                 iconColor: color.brand600,
                 iconSize: 12,
-                iconGap: 10,
+                // icon-to-text gap comes from .jmt-check-badges in site.css
                 gap: 12,
                 iconSelfAlign: "flex-start",
                 cls: "jmt-list-2col jmt-check-badges",
@@ -442,7 +444,8 @@ function areaAndReasons() {
                   titleWeight: 700,
                   descColor: color.muted,
                   descSize: "base",
-                  cls: "jmt-chip-brand jmt-chip-grow jmt-chip-noturn",
+                  // live reason chips have no shadow
+                  cls: "jmt-chip-brand jmt-chip-flat jmt-chip-grow jmt-chip-noturn",
                 }),
               ],
             ),

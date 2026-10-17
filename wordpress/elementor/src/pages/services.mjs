@@ -24,7 +24,10 @@ const infoPanel = (title, items) =>
     heading(title, { tag: "h3", size: "base", weight: 700, color: color.brand900 }),
     iconList(
       items.map((t) => ({ text: t, icon: fa("check") })),
-      { iconColor: color.accent600, iconSize: 14, iconGap: 8, gap: 4, textColor: color.muted, margin: [8, 0, 0, 0], iconSelfAlign: "start" },
+      { iconColor: color.accent600, iconSize: 14, iconGap: 8, gap: 4, textColor: color.muted, margin: [8, 0, 0, 0], iconSelfAlign: "flex-start",
+        // live Check: mt-1 on a 16px icon puts the glyph's centre ~11.7px into the 24px line;
+        // the 14px FA glyph pinned to the top centres at 7px, so drop it 5px
+        raw: { icon_vertical_offset: px(5) } },
     ),
   ]);
 
@@ -49,6 +52,8 @@ const serviceCard = (s, i) =>
         color: color.slate100,
         cls: "jmt-bignum",
         absolute: { right: 24, top: 16 },
+        // decorative (live: aria-hidden span)
+        attrs: { "aria-hidden": "true" },
       }),
       container({ dir: { d: "row", t: "row", m: "column" }, align: "flex-start", gap: 20 }, [
         icon(serviceIcons[s.key], {

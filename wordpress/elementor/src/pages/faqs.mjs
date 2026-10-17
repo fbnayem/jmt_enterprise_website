@@ -12,7 +12,7 @@ export default {
   },
   content: () => [
     pageHero({ eyebrow: "FAQs", title: "Frequently asked questions" }),
-    section({ y: [56, 56], inner: width["3xl"] }, [faqAccordion(faqs, { faqSchema: true, margin: [0, 0, 0, 0] })]),
+    section({ y: [56, 56], inner: width["3xl"] }, [faqAccordion(faqs, { faqSchema: true })]),
     ctaBand({ title: "Still have a question?" }),
   ],
 };

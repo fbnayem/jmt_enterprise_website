@@ -41,8 +41,10 @@ const blocks = [
 ];
 
 /**
- * Prose body: Heading (H2, .prose-page h2: 20px/800 navy, 32px above / 12px below)
+ * Prose body: Heading (H2, .prose-page h2: 20px/800 navy, 30px line box inherited from body 1.5)
  * + Text Editor (muted, 1.75 line height, 16px paragraph gap).
+ * Live: the h2's 32px top margin collapses with the paragraph's 16px bottom margin (32px gap);
+ * Elementor's flex column adds margins, so the heading gets 16px on top of the text's 16px.
  */
 export function prose(items) {
   return items.flatMap(([h, p], i) => [
@@ -50,8 +52,9 @@ export function prose(items) {
       heading(h, {
         tag: "h2",
         size: "xl",
+        lh: 1.5,
         color: color.brand900,
-        margin: [i === 0 ? 0 : 32, 0, 12, 0],
+        margin: [i === 0 ? 0 : 16, 0, 12, 0],
       }),
     text(`<p>${p}</p>`, { color: color.muted, lh: 1.75, cls: "jmt-prose", margin: [0, 0, 16, 0] }),
   ]);

@@ -75,6 +75,7 @@ const WIDGET_COMMON = new Set([
   "hide_tablet",
   "hide_mobile",
   "custom_css",
+  "_attributes",
   "__dynamic__",
   "__globals__",
 ]);
@@ -135,6 +136,7 @@ const CONTAINER_KEYS = new Set([
   "_flex_order",
   "_flex_order_custom",
   "custom_css",
+  "_attributes",
   "__globals__",
   "__dynamic__",
 ]);
@@ -210,6 +212,7 @@ const WIDGET_KEYS = {
     "text_indent",
     "icon_self_align",
     "icon_self_vertical_align",
+    "icon_vertical_offset",
     "text_color",
     "text_color_hover",
     "link_click",
@@ -446,6 +449,7 @@ function walk(doc, el, depth, ids, ctx) {
     if (typeof v === "string" && /href="([^"]+)"/.test(v)) {
       for (const m of v.matchAll(/href="([^"]+)"/g)) checkLink(where, `${k} <a>`, { url: m[1], is_external: "", nofollow: "" });
     }
+    if (k === "_attributes" && (typeof v !== "string" || !v.split("\n").every((l) => /^[a-zA-Z_:][-a-zA-Z0-9_:.]*\|/.test(l)))) err(where, `_attributes must be "key|value" lines: ${v}`);
     if (typeof v === "string" && /\{\{|undefined|\[object Object\]|NaN/.test(v)) err(where, `${k} contains a template/undefined artefact: ${v.slice(0, 80)}`);
   }
   for (const c of el.elements ?? []) walk(doc, c, depth + 1, ids, Object.assign(Object.create(ctx), { parentGrid: s.container_type === "grid" }));
@@ -471,7 +475,7 @@ for (const f of fs.readdirSync(tplDir).sort()) {
   if (!["page", "header", "footer", "error-404", "container", "section"].includes(doc.type)) err(f, `type ${doc.type}`);
   const ctx = checkDoc(f, doc.content);
   if (doc.type === "page" && ctx && ctx.counts.h1 !== 1) err(f, `page has ${ctx.counts.h1} H1 headings (expected 1)`);
-  if (doc.type === "page" && doc.page_settings.template !== "elementor_header_footer") err(f, "page template should be elementor_header_footer");
+  if (doc.type === "page" && (doc.page_settings.template !== "default" || doc.page_settings.hide_title !== "yes")) err(f, "page should use the default template with hide_title yes");
 }
 
 // Kit

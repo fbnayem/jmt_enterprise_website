@@ -56,7 +56,8 @@ if (missing.length) {
 pages.splice(0, pages.length, ...pages.filter(Boolean));
 templates.splice(0, templates.length, ...templates.filter(Boolean));
 
-const PAGE_DEFAULTS = { template: "elementor_header_footer", hide_title: "yes" };
+// Default (theme) template so Hello wraps the content in <main id="content">; title hidden (each page has its own H1)
+const PAGE_DEFAULTS = { template: "default", hide_title: "yes" };
 
 fs.rmSync(out, { recursive: true, force: true });
 fs.mkdirSync(path.join(out, "templates"), { recursive: true });
@@ -114,15 +115,11 @@ const manifest = {
     themeStyleImages: true,
     themeStyleFormFields: true,
     generalSettings: true,
-    layoutSettings: true,
-    lightboxSettings: true,
-    pageTransitionsSettings: false,
-    customCss: true,
-    siteIdentity: true,
+    experiments: false,
   },
   templates: {},
   content: { page: {} },
-  "wp-content": { page: [] },
+  "custom-post-type-title": {},
   plugins: [
     { name: "Elementor", plugin: "elementor/elementor", pluginUri: "https://elementor.com/", version: ELEMENTOR_VERSION },
     { name: "Elementor Pro", plugin: "elementor-pro/elementor-pro", pluginUri: "https://elementor.com/pro/", version: PRO_VERSION },
@@ -150,7 +147,7 @@ for (const { def, content, settings } of built.templates) {
     title: def.title,
     doc_type: def.type,
     thumbnail: false,
-    ...(def.conditions ? { conditions: def.conditions, location: def.type } : {}),
+    ...(def.conditions ? { conditions: def.conditions, location: def.type === "error-404" ? "single" : def.type } : {}),
   };
   write(path.join(kitDir, "templates", `${id}.json`), { content, settings, metadata: [] });
 }

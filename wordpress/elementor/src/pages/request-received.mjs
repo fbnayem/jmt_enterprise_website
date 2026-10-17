@@ -34,6 +34,7 @@ export default {
         color: color.brand900,
         align: "center",
         margin: [24, 0, 0, 0],
+        cls: "jmt-balance",
       }),
       text("<p>We have emailed you a copy of your request.</p>", {
         size: "lg",

@@ -33,20 +33,30 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
 ::selection { background: var(--jmt-accent-300); color: var(--jmt-navy-950); }
 :focus-visible { outline: 3px solid var(--jmt-accent-500); outline-offset: 3px; }
 
-/* Elementor text widgets: no trailing paragraph gap, balanced headings */
+/* Elementor text widgets: no trailing paragraph gap; text-wrap: balance only where the source has text-balance */
 .elementor-widget-text-editor p:last-child,
 .elementor-widget-text-editor ol:last-child,
 .elementor-widget-text-editor ul:last-child { margin-bottom: 0; }
 .elementor-widget-text-editor p { margin-top: 0; }
-.elementor-widget-heading .elementor-heading-title { text-wrap: balance; }
+.jmt-balance .elementor-heading-title { text-wrap: balance; }
+/* Hello's reset gives h3 a top margin; Icon Box titles sit directly under the icon */
+.elementor-widget-icon-box .elementor-icon-box-title { margin-block-start: 0; }
 .elementor-widget-text-editor a { text-underline-offset: 4px; }
 
+/* Icon List: the gap between icon and text is only the widget's text_indent (padding-inline-end
+   on the icon box). Drop Elementor's extra 5px text padding and the inline-SVG icon margin. */
+.elementor-widget-icon-list { --e-icon-list-icon-margin: 0; }
+.elementor-widget.elementor-widget-icon-list .elementor-icon-list-icon + .elementor-icon-list-text { padding-inline-start: 0; }
+
+/* Section anchors (Services articles: scroll-mt-28 on top of html scroll-padding-top 5.5rem) */
+.e-con[id] { scroll-margin-top: 7rem; }
+
 /* ---------- Entrance animation (site's scroll reveal: 24px rise, 0.7s) ---------- */
-@keyframes fadeInUp {
+@keyframes jmt-fade-up {
   from { opacity: 0; transform: translate3d(0, 24px, 0); }
   to { opacity: 1; transform: none; }
 }
-.elementor-element.animated.fadeInUp { animation-duration: 0.7s; animation-timing-function: var(--jmt-ease); }
+.elementor-element.animated.fadeInUp { animation-name: jmt-fade-up; animation-duration: 0.7s; animation-timing-function: var(--jmt-ease); }
 
 /* ---------- Dark glow backdrop (GlowBackdrop component) ---------- */
 .e-con.jmt-glow { position: relative; isolation: isolate; overflow: hidden; }
@@ -69,14 +79,24 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
   inset: -12rem -10rem;
   z-index: -2;
   pointer-events: none;
+  /* Blob centres match GlowBackdrop (section coords): 28rem blob at (8rem, 8rem), 24rem blob at
+     (100% - 7rem, 14.5rem), 26rem blob at (33.333% + 13rem, 100% - 1rem). This box is outset
+     12rem top/bottom and 10rem left/right, hence the offsets below. */
   background:
-    radial-gradient(14rem 14rem at 14rem 14rem, rgb(55 96 173 / 0.35), transparent 70%),
-    radial-gradient(12rem 12rem at calc(100% - 12rem) 22rem, rgb(226 58 58 / 0.2), transparent 70%),
-    radial-gradient(13rem 13rem at 45% calc(100% - 4rem), rgb(99 102 241 / 0.25), transparent 70%);
+    radial-gradient(14rem 14rem at 18rem 20rem, rgb(55 96 173 / 0.35), transparent 70%),
+    radial-gradient(12rem 12rem at calc(100% - 17rem) 26.5rem, rgb(226 58 58 / 0.2), transparent 70%);
   filter: blur(24px);
 }
 @media (min-width: 768px) {
-  .e-con.jmt-glow::after { animation: jmt-blob 18s ease-in-out infinite; filter: blur(40px); }
+  .e-con.jmt-glow::after {
+    /* the indigo blob is hidden md:block in the source */
+    background:
+      radial-gradient(14rem 14rem at 18rem 20rem, rgb(55 96 173 / 0.35), transparent 70%),
+      radial-gradient(12rem 12rem at calc(100% - 17rem) 26.5rem, rgb(226 58 58 / 0.2), transparent 70%),
+      radial-gradient(13rem 13rem at calc(33.333% + 16.333rem) calc(100% - 13rem), rgb(99 102 241 / 0.25), transparent 70%);
+    animation: jmt-blob 18s ease-in-out infinite;
+    filter: blur(40px);
+  }
 }
 @keyframes jmt-blob {
   0%, 100% { transform: translate(0, 0) scale(1); }
@@ -120,6 +140,7 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
 /* Whole card clickable through its "Learn more" link */
 .e-con.jmt-stretch { position: relative; }
 .e-con.jmt-stretch .jmt-stretch-link a::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+.e-con.jmt-card:hover .jmt-stretch-link .elementor-button-icon { transform: translateX(4px); }
 /* Top accent bar (Who we help cards) */
 .e-con.jmt-topbar-brand, .e-con.jmt-topbar-accent { position: relative; overflow: hidden; }
 .e-con.jmt-topbar-brand::before, .e-con.jmt-topbar-accent::before {
@@ -187,14 +208,14 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
 .jmt-btn .elementor-button { transition: transform 0.3s var(--jmt-ease), box-shadow 0.3s var(--jmt-ease), background-color 0.3s, border-color 0.3s; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
 .jmt-btn .elementor-button .elementor-button-icon { transition: transform 0.3s var(--jmt-ease); }
 .jmt-btn .elementor-button:hover .elementor-button-icon { transform: translateX(4px); }
-.jmt-btn--primary .elementor-button:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -10px rgb(200 22 26 / 0.75) !important; color: #fff !important; }
-.jmt-btn--secondary .elementor-button:hover { transform: translateY(-2px); border-color: var(--jmt-brand-400) !important; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1) !important; color: var(--jmt-brand-800) !important; }
+.jmt-btn--primary .elementor-button:hover { transform: translateY(-2px); box-shadow: 0 14px 32px -10px rgb(200 22 26 / 0.75) !important; color: #fff !important; fill: #fff !important; }
+.jmt-btn--secondary .elementor-button:hover { transform: translateY(-2px); border-color: var(--jmt-brand-400) !important; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1) !important; color: var(--jmt-brand-800) !important; fill: var(--jmt-brand-800) !important; }
 .jmt-btn--onDark .elementor-button { -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
-.jmt-btn--onDark .elementor-button:hover { transform: translateY(-2px); background-color: rgb(255 255 255 / 0.2) !important; color: #fff !important; }
+.jmt-btn--onDark .elementor-button:hover { transform: translateY(-2px); background-color: rgb(255 255 255 / 0.2) !important; color: #fff !important; fill: #fff !important; }
 .jmt-btn--onDark .elementor-button:hover .elementor-button-icon,
 .jmt-btn--noshift .elementor-button:hover .elementor-button-icon { transform: none; }
 .jmt-btn--link .elementor-button { min-height: 0; box-shadow: none !important; }
-.jmt-btn--link .elementor-button:hover { color: var(--jmt-brand-700) !important; }
+.jmt-btn--link .elementor-button:hover { color: var(--jmt-brand-700) !important; fill: var(--jmt-brand-700) !important; }
 .jmt-btn--compact .elementor-button { min-height: 44px; }
 .jmt-btn--external .elementor-button:hover .elementor-button-icon { transform: translate(2px, -2px); }
 .jmt-btn .elementor-button:active { transform: none; }
@@ -218,17 +239,29 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
 .jmt-logo a { transition: opacity 0.3s; }
 .jmt-logo a:hover { opacity: 0.8; }
 /* Nav underline: brand → red gradient, grows from the left */
+/* (Nav Menu pointer "underline", animation "none": shown always, scaled to 0 at rest) */
 .jmt-nav .elementor-nav-menu--main .elementor-item::after {
   background: linear-gradient(to right, var(--jmt-brand-500), var(--jmt-accent-500)) !important;
   height: 2px !important;
   border-radius: 9999px;
   left: 14px !important;
   right: 14px !important;
+  bottom: -2px !important;
   width: auto !important;
+  opacity: 1 !important;
+  transform: scaleX(0);
   transform-origin: left;
+  transition: transform 0.3s var(--jmt-ease) !important;
 }
+.jmt-nav .elementor-nav-menu--main .elementor-item:hover::after,
+.jmt-nav .elementor-nav-menu--main .elementor-item:focus-visible::after,
+.jmt-nav .elementor-nav-menu--main .elementor-item.elementor-item-active::after { transform: scaleX(1); }
 .jmt-nav .elementor-nav-menu--dropdown { box-shadow: 0 24px 48px -16px rgb(7 23 51 / 0.35); border-top: 1px solid rgb(226 232 240 / 0.7); }
-.jmt-nav .elementor-nav-menu--dropdown a { border-radius: 16px; margin: 2px 12px; justify-content: space-between; }
+/* Mobile menu: list py-3, items inset like container-page (16px, 24px from 640px), gap-1 */
+.jmt-nav .elementor-nav-menu--dropdown ul { padding: 12px 0; }
+.jmt-nav .elementor-nav-menu--dropdown li + li { margin-top: 4px; }
+.jmt-nav .elementor-nav-menu--dropdown a { border-radius: 16px; margin: 0 16px; justify-content: space-between; }
+@media (min-width: 640px) { .jmt-nav .elementor-nav-menu--dropdown a { margin: 0 24px; } }
 .jmt-nav .elementor-nav-menu--dropdown a::after {
   content: "\2192";
   color: #94a3b8;
@@ -244,6 +277,7 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
   background: var(--jmt-brand-50);
   display: inline-grid;
   place-items: center;
+  margin-inline-end: 8px;
 }
 
 /* ---------- Mobile quick-action bar ---------- */
@@ -359,7 +393,7 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
 }
 .jmt-chips .elementor-icon-list-item::after { display: none !important; }
 .jmt-chips .elementor-icon-list-icon { display: none; }
-.jmt-examples .elementor-icon-list-item { border-color: transparent; background: #f1f5f9; }
+.jmt-examples .elementor-icon-list-item { border: 0; background: #f1f5f9; }
 .jmt-tiles .elementor-icon-list-items { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 @media (min-width: 768px) { .jmt-tiles .elementor-icon-list-items { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .jmt-tiles .elementor-icon-list-item {
@@ -387,6 +421,7 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
   place-items: center;
   flex: none;
   margin-top: 2px;
+  margin-inline-end: 10px;
 }
 /* Footer links */
 .jmt-footer-links .elementor-icon-list-items { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 16px; row-gap: 10px; }
@@ -399,10 +434,12 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
   background: rgb(255 255 255 / 0.1);
   display: inline-grid;
   place-items: center;
+  margin-inline-end: 12px;
   transition: background-color 0.3s;
 }
 .jmt-footer-contact .elementor-icon-list-item:hover .elementor-icon-list-icon { background: var(--jmt-accent-600); }
 .jmt-footer-contact .elementor-icon-list-item:hover .elementor-icon-list-icon i { color: #fff !important; }
+.jmt-footer-contact .elementor-icon-list-item:hover .elementor-icon-list-icon svg { fill: #fff !important; }
 
 /* ---------- Service card details ---------- */
 @media (max-width: 767px) { .jmt-hide-desc-m .elementor-icon-box-description { display: none; } }
@@ -422,6 +459,7 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
   top: 24px;
   bottom: 24px;
   width: 2px;
+  height: auto; /* Elementor's .e-con::before sets height: 100% */
   background: linear-gradient(to bottom, var(--jmt-brand-200), var(--jmt-accent-300), var(--jmt-brand-200));
 }
 @media (min-width: 768px) {
@@ -490,6 +528,7 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
 }
 .jmt-faq .e-n-accordion-item[open] .e-n-accordion-item-title-icon { background: var(--jmt-accent-600); }
 .jmt-faq .e-n-accordion-item[open] .e-n-accordion-item-title-icon i { color: #fff !important; }
+.jmt-faq .e-n-accordion-item[open] .e-n-accordion-item-title-icon svg { fill: #fff !important; }
 .jmt-faq .e-n-accordion-item > .e-con { padding: 0 64px 20px 24px !important; border: 0 !important; background: transparent !important; }
 
 /* ---------- Quote form (Elementor Pro Form) ---------- */
@@ -508,6 +547,9 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
 .jmt-quote-form .elementor-field-type-html p.jmt-lead { font-size: 16px; line-height: 24px; }
 .jmt-quote-form .elementor-field-type-html a { font-weight: 600; color: var(--jmt-brand-700); text-decoration: underline; text-underline-offset: 4px; }
 .jmt-quote-form .elementor-field-textual { min-height: 48px; transition: border-color 0.2s, box-shadow 0.2s; }
+/* field-input px-4 py-2.5 shadow-sm (beats Pro's .elementor-field-textual.elementor-size-md) */
+.jmt-quote-form .elementor-field-group .elementor-field-textual { padding: 10px 16px; box-shadow: 0 1px 2px rgb(0 0 0 / 0.05); }
+.jmt-quote-form .elementor-field-group .elementor-select-wrapper select.elementor-field-textual { padding-inline-end: 40px; }
 .jmt-quote-form .elementor-field-textual:hover { border-color: #94a3b8 !important; }
 .jmt-quote-form .elementor-field-textual:focus { border-color: var(--jmt-brand-500) !important; box-shadow: 0 0 0 4px rgb(31 72 146 / 0.15); outline: none; }
 /* Radio and checkbox choices as option cards (ChoiceGroup) */
@@ -587,6 +629,14 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
   pointer-events: none;
 }
 .jmt-logo-card img { display: block; }
+
+/* Home "Who we help" icon chips: 40px on phones (p-2.5). Icon padding is not a responsive control. */
+@media (max-width: 767px) {
+  .jmt-who-chip .elementor-icon { padding: 10px !important; border-radius: 12px !important; }
+}
+
+/* Hello Elementor: Elementor pages use the default template; keep its <main> full width */
+.elementor-page .site-main { max-width: none; padding: 0; margin: 0; }
 
 /* Grid containers: rows size to content (Elementor's row control is repeat(n, 1fr)) */
 .e-con.jmt-grid-auto,

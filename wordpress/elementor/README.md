@@ -7,7 +7,7 @@ All copy comes from `src/content/site.ts` and the page files, so the WordPress p
 
 | File | Use it for |
 |---|---|
-| `jmt-enterprise-elementor-kit.zip` | **Main route.** Elementor › Tools › Import/Export › Import a Template Kit. Creates all 10 pages, the header, footer and 404 (with display conditions), the CTA block, global colours, global fonts, theme styles, layout settings and the site CSS, and sets Home as the front page. |
+| `jmt-enterprise-elementor-kit.zip` | **Main route.** Elementor › Tools › Import/Export Kit › Import (newer versions call it "Website Templates"). Creates all 10 pages, the header, footer and 404 (with display conditions), the CTA block, global colours, global fonts, theme styles, layout settings and the site CSS, and sets Home as the front page. |
 | `templates/*.json` | **Backup route.** Templates › Saved Templates › Import Templates, one file at a time. Use these if the kit import is not available or you only want some pages. |
 | `jmt-site.css` | The site CSS. Already inside the kit; paste it into Site Settings › Custom CSS only if you used the backup route. |
 | `seo.json` | Page titles, meta descriptions and noindex flags for Rank Math or Yoast. |
@@ -21,19 +21,22 @@ All copy comes from `src/content/site.ts` and the page files, so the WordPress p
 ## Import, step by step (kit route)
 
 1. Install and activate Hello Elementor, Elementor and Elementor Pro (licence activated).
-2. Elementor › Tools › **Import/Export Kit** › Import. Upload `jmt-enterprise-elementor-kit.zip` and import everything (Content, Templates, Site Settings). Approve the media download so the logo is copied into your Media Library.
+2. Elementor › Tools › **Import/Export Kit** › Import. Upload `jmt-enterprise-elementor-kit.zip` and import everything (Content, Templates, Site Settings). The logo is copied into your Media Library automatically from the project's public GitHub repository, so the import needs internet access. If Elementor asks about unfiltered file uploads, you can decline.
 3. **Create the main menu.** Appearance › Menus › create a menu named **JMT Main Menu** (it must get the slug `jmt-main-menu`) with these pages in this order: Services, Service Areas, About, FAQs, Contact. Do not assign it to a theme location. The header's Nav Menu widget already points to it. If the menu was created with another name, edit the header and pick it in the Nav Menu widget.
 4. Settings › Permalinks › **Post name**. Then check the URLs are `/services`, `/service-areas`, `/about`, `/faqs`, `/contact`, `/request-a-quote`, `/request-received`, `/privacy-policy`, `/service-terms`. WordPress makes the URL from the page title; if a page already existed (WordPress ships a draft "Privacy Policy"), delete the old one and rename the slug to drop any `-2`.
-5. Settings › Reading: Home should already be the static front page; confirm it.
+5. Settings › Reading: Home should already be the static front page; confirm it. Appearance › Customize › Site Identity: set the site logo if your theme shows one (the header and footer already carry it).
 6. Open **Templates › Theme Builder** and confirm JMT Header and JMT Footer show "Entire Site" and JMT 404 shows "404 Page".
 7. **Quote form email.** Edit Request a Quote › the Form › Actions After Submit:
-   - Email: To `support@jmtenterprise.net`. Set **From Email** to an address on your own domain (e.g. `quotes@jmtenterprise.net`), otherwise mail is often rejected.
+   - Email: To `support@jmtenterprise.net`, From `noreply@jmtenterprise.net`. If the site runs on a different domain, change both From addresses to one on that domain, otherwise mail is often rejected.
    - Email 2 (customer confirmation): same From address.
+   - Redirect: `https://jmtenterprise.net/request-received/`. Elementor only accepts a full URL here, so change it if the site is on another domain (for example a staging copy).
+   - Photo uploads allow 5 files of 10 MB each. Your host's PHP limits must allow that: `upload_max_filesize` of at least 10M and `post_max_size` of at least 64M.
+   - Some fields carry CSS classes for styling (for example `jmt-quote-nolabel`). Elementor keeps them but does not show them in the editor, so keep them when duplicating fields.
    - Install an SMTP plugin (WP Mail SMTP, FluentSMTP or Elementor's Site Mailer) so WordPress mail is delivered reliably.
    - Submissions are kept under Elementor › Submissions even if an email fails.
    - Optional: Elementor › Settings › Integrations › reCAPTCHA v3 keys, then add a reCAPTCHA v3 field to the form.
 8. **SEO.** In Rank Math or Yoast, paste each page's title and description from the table below. Set Privacy Policy, Service Terms and Request Received to **noindex** (the first two stay noindex until JMT approves the wording, as on the live site).
-9. Clear Elementor's cache (Elementor › Tools › Regenerate CSS & Data) and any page cache, then check the pages on desktop and phone.
+9. Clear Elementor's cache (Elementor › Tools › Regenerate Files & Data) and any page cache, then check the pages on desktop and phone.
 
 ## Backup route (templates only)
 
@@ -41,7 +44,7 @@ All copy comes from `src/content/site.ts` and the page files, so the WordPress p
 2. Site Settings › Global Colors / Global Fonts: add the colours and Plus Jakarta Sans as listed in `PLAN.md`; Site Settings › Layout › Content Width 1216px, Widgets Space 0; Site Settings › Custom CSS: paste `jmt-site.css`.
 3. Templates › Saved Templates › Import each `templates/*.json`.
 4. Theme Builder: publish `header.json` and `footer.json` with condition Entire Site, `error-404.json` with condition 404 Page.
-5. For each page: Pages › Add New with the exact title (Home, Services, Service Areas, About, FAQs, Contact, Request a Quote, Request Received, Privacy Policy, Service Terms) › Edit with Elementor › set Page Layout to **Elementor Full Width** › insert the matching `page-*.json` template from My Templates › Publish. For Request a Quote and Request Received also copy the Page Settings › Custom CSS line `.jmt-mobile-bar{display:none !important}` (the template carries it, but check it after inserting).
+5. For each page: Pages › Add New with the exact title (Home, Services, Service Areas, About, FAQs, Contact, Request a Quote, Request Received, Privacy Policy, Service Terms) › Edit with Elementor › set Page Layout to **Default** and switch on **Hide Title** (Hello then wraps the page in a `<main>` landmark that the Skip to content link targets) › insert the matching `page-*.json` template from My Templates › Publish. For Request a Quote and Request Received also copy the Page Settings › Custom CSS line `.jmt-mobile-bar{display:none !important}` (the template carries it, but check it after inserting).
 
 ## SEO titles and descriptions
 
@@ -58,7 +61,7 @@ All copy comes from `src/content/site.ts` and the page files, so the WordPress p
 | Privacy Policy | /privacy-policy | Privacy Policy \| JMT Enterprise | How JMT Enterprise LLC collects and uses the information in quote requests. | **no** (until approved) |
 | Service Terms | /service-terms | Service Terms \| JMT Enterprise | Service, cancellation, item restriction and liability terms for JMT Enterprise LLC. | **no** (until approved) |
 
-The footer template carries the same LocalBusiness structured data as the live site, and the FAQs accordion outputs FAQPage structured data (Elementor's FAQ Schema switch).
+The footer template carries the same LocalBusiness structured data as the live site (on multisite, import as a super admin, because WordPress strips the script tag for other roles), and the FAQs accordion outputs FAQPage structured data (Elementor's FAQ Schema switch).
 
 ## Where WordPress differs from the Next.js build
 

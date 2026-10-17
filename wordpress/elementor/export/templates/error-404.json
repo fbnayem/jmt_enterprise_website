@@ -1,0 +1,300 @@
+{
+  "content": [
+    {
+      "id": "537a8bb",
+      "elType": "container",
+      "settings": {
+        "content_width": "boxed",
+        "boxed_width": {
+          "unit": "px",
+          "size": 512,
+          "sizes": []
+        },
+        "html_tag": "section",
+        "container_type": "flex",
+        "flex_direction": "column",
+        "flex_gap": {
+          "unit": "px",
+          "size": 0,
+          "column": "0",
+          "row": "0",
+          "isLinked": true
+        },
+        "padding": {
+          "unit": "px",
+          "top": "96",
+          "right": "32",
+          "bottom": "96",
+          "left": "32",
+          "isLinked": false
+        },
+        "padding_tablet": {
+          "unit": "px",
+          "top": "96",
+          "right": "24",
+          "bottom": "96",
+          "left": "24",
+          "isLinked": false
+        },
+        "padding_mobile": {
+          "unit": "px",
+          "top": "96",
+          "right": "16",
+          "bottom": "96",
+          "left": "16",
+          "isLinked": false
+        }
+      },
+      "elements": [
+        {
+          "id": "a8ad679",
+          "elType": "widget",
+          "widgetType": "heading",
+          "settings": {
+            "title": "Page not found",
+            "header_size": "h1",
+            "title_color": "#0c2650",
+            "align": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 30,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.2,
+              "sizes": []
+            },
+            "typography_font_weight": "800"
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "eef5175",
+          "elType": "widget",
+          "widgetType": "text-editor",
+          "settings": {
+            "editor": "<p>The page you are looking for does not exist or has moved.</p>",
+            "text_color": "#4a5571",
+            "align": "center",
+            "typography_typography": "custom",
+            "typography_font_family": "Plus Jakarta Sans",
+            "typography_font_size": {
+              "unit": "px",
+              "size": 16,
+              "sizes": []
+            },
+            "typography_line_height": {
+              "unit": "em",
+              "size": 1.5,
+              "sizes": []
+            },
+            "typography_font_weight": "400",
+            "_margin": {
+              "unit": "px",
+              "top": "16",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [],
+          "isInner": false
+        },
+        {
+          "id": "d537181",
+          "elType": "container",
+          "settings": {
+            "content_width": "full",
+            "width": {
+              "unit": "%",
+              "size": 100
+            },
+            "container_type": "flex",
+            "flex_direction": "row",
+            "flex_direction_tablet": "row",
+            "flex_direction_mobile": "column",
+            "flex_justify_content": "center",
+            "flex_align_items": "center",
+            "flex_align_items_tablet": "center",
+            "flex_align_items_mobile": "stretch",
+            "flex_gap": {
+              "unit": "px",
+              "size": 12,
+              "column": "12",
+              "row": "12",
+              "isLinked": true
+            },
+            "padding": {
+              "unit": "px",
+              "top": "0",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": true
+            },
+            "margin": {
+              "unit": "px",
+              "top": "32",
+              "right": "0",
+              "bottom": "0",
+              "left": "0",
+              "isLinked": false
+            }
+          },
+          "elements": [
+            {
+              "id": "1713449",
+              "elType": "widget",
+              "widgetType": "button",
+              "settings": {
+                "text": "Home",
+                "link": {
+                  "url": "/",
+                  "is_external": "",
+                  "nofollow": "",
+                  "custom_attributes": ""
+                },
+                "size": "md",
+                "background_background": "classic",
+                "background_color": "#ffffff",
+                "button_text_color": "#112f66",
+                "border_border": "solid",
+                "border_width": {
+                  "unit": "px",
+                  "top": "1",
+                  "right": "1",
+                  "bottom": "1",
+                  "left": "1",
+                  "isLinked": true
+                },
+                "border_color": "#b9cbec",
+                "button_box_shadow_box_shadow_type": "yes",
+                "button_box_shadow_box_shadow": {
+                  "horizontal": 0,
+                  "vertical": 1,
+                  "blur": 2,
+                  "spread": 0,
+                  "color": "rgba(0,0,0,0.05)"
+                },
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "700",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "9999",
+                  "right": "9999",
+                  "bottom": "9999",
+                  "left": "9999",
+                  "isLinked": true
+                },
+                "text_padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "24",
+                  "bottom": "12",
+                  "left": "24",
+                  "isLinked": false
+                },
+                "align_mobile": "justify",
+                "_css_classes": "jmt-btn jmt-btn--secondary",
+                "_element_width": "auto",
+                "_element_width_mobile": "inherit"
+              },
+              "elements": [],
+              "isInner": false
+            },
+            {
+              "id": "79b6da5",
+              "elType": "widget",
+              "widgetType": "button",
+              "settings": {
+                "text": "Request a Quote",
+                "link": {
+                  "url": "/request-a-quote",
+                  "is_external": "",
+                  "nofollow": "",
+                  "custom_attributes": ""
+                },
+                "size": "md",
+                "background_background": "gradient",
+                "background_color": "#c8161a",
+                "background_color_b": "#b00a0c",
+                "background_gradient_type": "linear",
+                "background_gradient_angle": {
+                  "unit": "deg",
+                  "size": 90,
+                  "sizes": []
+                },
+                "button_text_color": "#ffffff",
+                "button_box_shadow_box_shadow_type": "yes",
+                "button_box_shadow_box_shadow": {
+                  "horizontal": 0,
+                  "vertical": 8,
+                  "blur": 24,
+                  "spread": -8,
+                  "color": "rgba(200,22,26,0.6)"
+                },
+                "typography_typography": "custom",
+                "typography_font_family": "Plus Jakarta Sans",
+                "typography_font_size": {
+                  "unit": "px",
+                  "size": 16,
+                  "sizes": []
+                },
+                "typography_line_height": {
+                  "unit": "em",
+                  "size": 1.5,
+                  "sizes": []
+                },
+                "typography_font_weight": "700",
+                "border_radius": {
+                  "unit": "px",
+                  "top": "9999",
+                  "right": "9999",
+                  "bottom": "9999",
+                  "left": "9999",
+                  "isLinked": true
+                },
+                "text_padding": {
+                  "unit": "px",
+                  "top": "12",
+                  "right": "24",
+                  "bottom": "12",
+                  "left": "24",
+                  "isLinked": false
+                },
+                "align_mobile": "justify",
+                "_css_classes": "jmt-btn jmt-btn--primary",
+                "_element_width": "auto",
+                "_element_width_mobile": "inherit"
+              },
+              "elements": [],
+              "isInner": false
+            }
+          ],
+          "isInner": true
+        }
+      ],
+      "isInner": false
+    }
+  ],
+  "page_settings": {},
+  "version": "0.4",
+  "title": "JMT 404",
+  "type": "error-404"
+}
