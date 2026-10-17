@@ -249,13 +249,19 @@ export function container(opts = {}, children = []) {
   if (opts.radius !== undefined) Object.assign(s, resp("border_radius", opts.radius, toBox));
   if (opts.shadow) Object.assign(s, shadow("box_shadow", opts.shadow));
   if (opts.overflow) s.overflow = opts.overflow;
-  if (opts.cls) s.css_classes = opts.cls;
+  // Grid rows size to their content like CSS grid (Elementor's row control only offers equal 1fr rows)
+  const cls = [opts.cls, opts.grid && "jmt-grid-auto"].filter(Boolean).join(" ");
+  if (cls) s.css_classes = cls;
   if (opts.id) s._element_id = opts.id;
   if (opts.reveal !== undefined && opts.reveal !== false) Object.assign(s, reveal(true, opts.reveal));
   if (opts.hide) Object.assign(s, hide(opts.hide));
   if (opts.sticky) {
-    s.sticky = opts.sticky;
-    s.sticky_on = ["desktop", "tablet", "mobile"];
+    // "top" or { at: "top", on: ["desktop"], offset: 112, parent: true }
+    const st = typeof opts.sticky === "string" ? { at: opts.sticky } : opts.sticky;
+    s.sticky = st.at ?? "top";
+    s.sticky_on = st.on ?? ["desktop", "tablet", "mobile"];
+    if (st.offset !== undefined) s.sticky_offset = st.offset;
+    if (st.parent) s.sticky_parent = "yes";
   }
   if (opts.grow !== undefined) {
     const g = isResp(opts.grow) ? opts.grow : { d: opts.grow };
@@ -431,7 +437,8 @@ export function icon(name, opts = {}) {
   if (opts.radius !== undefined) s.border_radius = toBox(opts.radius);
   if (opts.link) s.link = typeof opts.link === "string" ? link(opts.link) : opts.link;
   if (opts.align) Object.assign(s, resp("align", opts.align));
-  return widget("icon", s, opts);
+  // `pad` is the icon's own padding here, not the widget wrapper's
+  return widget("icon", s, { ...opts, pad: undefined });
 }
 
 /**

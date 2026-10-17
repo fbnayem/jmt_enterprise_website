@@ -1,0 +1,62 @@
+
+/* ---------- Request a quote / Request received (src/css/quote.css) ---------- */
+/* Hero "Call 720-983-4400" link */
+.elementor-widget-text-editor a.jmt-quote-call {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
+  color: var(--jmt-accent-400);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+.elementor-widget-text-editor a.jmt-quote-call:hover { color: #fff; }
+.elementor-widget-text-editor a.jmt-quote-call i { font-size: 14px; text-decoration: none; }
+
+/* Form card: the larger overlap shadow wins over .jmt-card */
+.e-con.jmt-quote-card { box-shadow: 0 30px 80px -30px rgb(7 23 51 / 0.45); }
+
+/* Fields whose group label is only for the email ([all-fields]): hide it visually */
+.jmt-quote-form .jmt-quote-nolabel > .elementor-field-label {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+/* Acceptance box text is the acknowledgement itself */
+.jmt-quote-form .elementor-field-type-acceptance .elementor-field-subgroup label { line-height: 24px; }
+/* Hints sit right under the field they explain (.field-hint mt-1.5) */
+.jmt-quote-form .elementor-field-group.elementor-field-type-html:has(p) { margin-top: -14px; }
+.jmt-quote-form .elementor-field-group.elementor-field-type-html:has(p.jmt-lead) { margin-top: 0; }
+/* Upload field as a dashed drop zone (PhotoUploader) */
+.jmt-quote-form .elementor-field-type-upload .elementor-upload-field {
+  width: 100%;
+  padding: 32px 16px;
+  border: 2px dashed var(--jmt-brand-200) !important;
+  border-radius: 16px !important;
+  background: linear-gradient(to bottom, var(--jmt-brand-50), #fff) !important;
+  color: var(--jmt-brand-800);
+  cursor: pointer;
+}
+.jmt-quote-form .elementor-field-type-upload .elementor-upload-field:hover { border-color: var(--jmt-brand-500) !important; }
+/* Back on the left, Continue / Send on the right (sm:justify-between); stacked on mobile */
+@media (min-width: 768px) {
+  .jmt-quote-form .e-form__buttons { display: flex; flex-wrap: nowrap; justify-content: space-between; }
+  .jmt-quote-form .e-form__buttons__wrapper { flex: 0 0 auto; width: auto; }
+  .jmt-quote-form .e-form__buttons__wrapper:only-child,
+  .jmt-quote-form .e-form__buttons__wrapper.elementor-field-type-next:first-child { margin-left: auto; }
+}
+@media (max-width: 767px) {
+  .jmt-quote-form .e-form__buttons { flex-direction: column-reverse; }
+  .jmt-quote-form .e-form__buttons__wrapper,
+  .jmt-quote-form .e-form__buttons__wrapper__button { width: 100%; }
+}
+
+/* Request received: numbered list and phone link */
+.elementor-widget-text-editor ol.jmt-quote-steps { margin: 0; padding-left: 20px; list-style: decimal; }
+.elementor-widget-text-editor ol.jmt-quote-steps li + li { margin-top: 12px; }
+.elementor-widget-text-editor ol.jmt-quote-steps li::marker { font-weight: 700; color: var(--jmt-brand-600); }
+.elementor-widget-text-editor a.jmt-quote-link { font-weight: 600; color: var(--jmt-brand-600); text-decoration: underline; text-underline-offset: 4px; }

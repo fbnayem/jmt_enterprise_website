@@ -1,0 +1,7 @@
+/* ---------- Inner pages (Services, About, Service Areas, Contact, FAQs, Service Terms) ---------- */
+/* Contact: Scheduling and "Need a price?" cards span both columns from tablet up (md:col-span-2) */
+@media (min-width: 768px) { .e-con.jmt-contact-span { grid-column: span 2; } }
+/* Contact: long email address wraps anywhere (break-all) */
+.jmt-contact-break .elementor-heading-title { word-break: break-all; }
+/* Contact: card links keep their own text colours */
+a.e-con.jmt-card { color: inherit; text-decoration: none; }

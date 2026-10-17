@@ -587,3 +587,7 @@ body { background: #ffffff; color: var(--jmt-ink); -webkit-font-smoothing: antia
   pointer-events: none;
 }
 .jmt-logo-card img { display: block; }
+
+/* Grid containers: rows size to content (Elementor's row control is repeat(n, 1fr)) */
+.e-con.jmt-grid-auto,
+.e-con.jmt-grid-auto > .e-con-inner { grid-template-rows: none !important; grid-auto-rows: auto !important; }

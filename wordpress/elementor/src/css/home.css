@@ -1,0 +1,25 @@
+/* ---------- Home page (src/pages/home.mjs) ---------- */
+/* "Not sure if we cover your location? Call ..." link: semibold, brand-200 underline that darkens on hover */
+.jmt-home-area-note a {
+  font-weight: 600;
+  color: var(--jmt-brand-600);
+  text-decoration: underline;
+  text-decoration-color: var(--jmt-brand-200);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s;
+}
+.jmt-home-area-note a:hover { text-decoration-color: var(--jmt-brand-600); }
+
+/* Service card footer: as in ServiceGrid, the "Learn more" link's ::after (site.css .jmt-stretch-link)
+   covers the card's footer row (the source's `relative` wrapper), not just the button widget,
+   so the widget wrappers between the link and the footer container must not be positioned. */
+.e-con.jmt-home-card-foot .jmt-stretch-link,
+.e-con.jmt-home-card-foot .jmt-stretch-link .elementor-widget-container,
+.e-con.jmt-home-card-foot .jmt-stretch-link .elementor-button-wrapper,
+.e-con.jmt-home-card-foot .jmt-stretch-link .elementor-button { position: static; }
+
+/* Hero columns lg:grid-cols-[1.15fr_1fr] (Elementor's column control only offers equal fr columns) */
+@media (min-width: 1025px) {
+  .e-con.jmt-home-hero > .e-con-inner,
+  .e-con-full.jmt-home-hero { grid-template-columns: 1.15fr 1fr !important; }
+}
